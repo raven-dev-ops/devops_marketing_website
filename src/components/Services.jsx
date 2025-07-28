@@ -4,16 +4,8 @@ import { useQuizModal } from '../components/QuizModalContext';
 import veteranBadge from '../assets/american_veteran_badge.png';
 
 const servicesList = [
-  { 
-    name: "Project Management: Code Overhaul", 
-    desc: "Step-by-step simulation of a code overhaul project—from initial audit through deployment. See how a professional project is executed.",
-    demoLink: "code-overhaul"
-  },
-  {
-    name: "Code Auditing & Testing",
-    desc: "Automated auditing, test generation, and coverage reporting to boost code quality. Watch the audit and test coverage process in action.",
-    demoLink: "code-audit"
-  },
+  { name: "Project Management: Code Overhaul", desc: "Step-by-step simulation of a code overhaul project—from initial audit through deployment. See how a professional project is executed.", demoLink: "code-overhaul" },
+  { name: "Code Auditing & Testing", desc: "Automated auditing, test generation, and coverage reporting to boost code quality. Watch the audit and test coverage process in action.", demoLink: "code-audit" },
   { name: "Application Development", desc: "Custom mobile and web apps to digitize workflows and engage customers.", demoLink: "ai-chatbot" },
   { name: "Custom Software Development", desc: "Tailor-made software built from scratch to solve unique business challenges.", demoLink: "workflow-automation" },
   { name: "SaaS Development", desc: "Scalable, cloud-based software-as-a-service platforms for your business idea.", demoLink: "saas-dashboard" },
@@ -47,16 +39,16 @@ const Services = ({ id }) => {
   return (
     <section id={id} className="py-16 px-6 lg:py-24 bg-raven-light">
       <div className="max-w-6xl mx-auto">
-        {/* Header with badge left of text */}
-        <div className="flex items-center justify-center mb-8 gap-5">
+        {/* Responsive Header with badge */}
+        <div className="flex flex-col sm:flex-row items-center justify-center mb-10 gap-4 sm:gap-6">
           <img
             src={veteranBadge}
-            alt="Proudly American Veteran-Owned Business"
-            className="h-14 md:h-16 drop-shadow-lg flex-shrink-0"
+            alt="American Veteran-Owned Business"
+            className="h-16 w-auto drop-shadow-lg"
+            style={{ minWidth: 60, maxWidth: 90 }}
             loading="lazy"
-            style={{ maxWidth: 90 }}
           />
-          <div>
+          <div className="text-center sm:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-raven-dark mb-1">Our Services</h2>
             <p className="text-gray-600 max-w-2xl">
               End-to-end solutions designed to meet your specific business needs. Explore our capabilities and see live demos.
