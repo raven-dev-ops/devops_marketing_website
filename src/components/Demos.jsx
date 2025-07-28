@@ -1,5 +1,8 @@
+// components/Demos.jsx
+
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useQuizModal } from '../quiz/QuizModalContext';
 
 // Import your demo components from the demos directory
 import CodeOverhaulDemo from '../demos/CodeOverhaulDemo';
@@ -39,6 +42,8 @@ const demoSections = [
 ];
 
 const Demos = ({ id }) => {
+    const { openQuiz } = useQuizModal();
+
     // Handler for "Back to Top"
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -67,16 +72,22 @@ const Demos = ({ id }) => {
                                     <demo.Component />
                                 </div>
                                 {/* BUTTONS ROW */}
-                                <div className="flex justify-center gap-4 mt-6">
+                                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
                                     <a
                                         href={`/pages/${demo.id}`}
-                                        className="bg-raven-blue hover:bg-raven-red text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200"
+                                        className="bg-raven-blue hover:bg-raven-red text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
                                     >
                                         LEARN MORE
                                     </a>
                                     <button
+                                        onClick={() => openQuiz(demo.id)}
+                                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
+                                    >
+                                        Take Questionnaire
+                                    </button>
+                                    <button
                                         onClick={scrollToTop}
-                                        className="bg-gray-200 hover:bg-gray-300 text-raven-dark font-semibold py-2 px-6 rounded-lg shadow transition duration-200"
+                                        className="bg-gray-200 hover:bg-gray-300 text-raven-dark font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
                                     >
                                         Back to Top ↑
                                     </button>

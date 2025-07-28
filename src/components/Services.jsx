@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useQuizModal } from '../quiz/QuizModalContext';
 
 const servicesList = [
   { 
@@ -47,6 +48,8 @@ const itemVariants = {
 };
 
 const Services = ({ id }) => {
+  const { openQuiz } = useQuizModal();
+
   // Function to handle smooth scroll to demo sections
   const scrollToDemo = (demoId) => {
     const element = document.getElementById(`demo-${demoId}`);
@@ -78,12 +81,20 @@ const Services = ({ id }) => {
             >
               <h3 className="text-xl font-semibold text-raven-dark mb-2">{service.name}</h3>
               <p className="text-gray-600 mb-4 flex-grow">{service.desc}</p>
-              <button
-                onClick={() => scrollToDemo(service.demoLink)}
-                className="mt-auto text-left text-raven-blue hover:text-raven-red font-medium text-sm transition duration-200 self-start"
-              >
-                See Demo ↓
-              </button>
+              <div className="flex flex-col sm:flex-row gap-2 mt-auto">
+                <button
+                  onClick={() => scrollToDemo(service.demoLink)}
+                  className="text-left text-raven-blue hover:text-raven-red font-medium text-sm transition duration-200 self-start"
+                >
+                  See Demo ↓
+                </button>
+                <button
+                  onClick={() => openQuiz(service.demoLink)}
+                  className="text-left text-green-600 hover:text-green-700 font-medium text-sm transition duration-200 self-start"
+                >
+                  Take Questionnaire
+                </button>
+              </div>
             </motion.div>
           ))}
         </motion.div>
