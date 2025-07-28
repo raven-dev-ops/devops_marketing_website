@@ -1,8 +1,9 @@
+// components/Pricing.jsx
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
 const Pricing = ({ id }) => {
-  // Function to handle smooth scroll to contact section
   const scrollToContact = () => {
     const element = document.getElementById('contact');
     if (element) {

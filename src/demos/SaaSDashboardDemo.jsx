@@ -1,6 +1,7 @@
+// components/SaaSDashboardDemo.jsx
+
 import React, { useState } from 'react';
 
-// Placeholder data
 const initialData = { users: 125, revenue: 4500, growth: 15 };
 const newData = { users: 138, revenue: 4950, growth: 18 };
 

@@ -1,3 +1,5 @@
+// components/TechWritingDemo.jsx
+
 import React, { useState } from 'react';
 
 const sections = [

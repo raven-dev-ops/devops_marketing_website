@@ -1,6 +1,8 @@
+// components/Contact.jsx
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import useSound from '../hooks/useSound'; // Check this import path is correct relative to Contact.jsx
+import useSound from '../hooks/useSound';
 
 const Contact = ({ id }) => {
   // Correct state initialization

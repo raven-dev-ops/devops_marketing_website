@@ -1,6 +1,8 @@
+// components/Solutions.jsx
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircleIcon } from '@heroicons/react/24/solid'; // Ensure installed: npm install @heroicons/react
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 const solutionsList = [
   "Manual, repetitive tasks consuming your time? We automate them with custom apps, freeing up your team.",

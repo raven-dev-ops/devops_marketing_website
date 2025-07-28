@@ -1,8 +1,8 @@
+// components/TrainingToolDemo.jsx
+
 import React, { useState } from 'react';
 
 const initialSteps = [
-  // Keep welcome separate if needed, or include in checklist
-  // { id: 'welcome', title: 'Welcome Aboard!', content: 'Complete these steps for successful onboarding.' },
   { id: 'hr', title: 'HR Paperwork', content: 'Fill out W-4 and I-9 forms (link placeholder).', done: false },
   { id: 'policy', title: 'Company Policies', content: 'Review the Employee Handbook (link placeholder).', done: false },
   { id: 'safety', title: 'Safety Training Video', content: 'Watch the mandatory safety video (placeholder).', done: false },

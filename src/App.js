@@ -3,12 +3,11 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Demos from './components/Demos';
 import Solutions from './components/Solutions';
-import Process from './components/Process'; // Ensure this file exists and is exported correctly
+import Process from './components/Process';
 import WhyRaven from './components/WhyRaven';
 import Pricing from './components/Pricing';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-// import VeteranBadge from './components/VeteranBadge'; // Optional: Uncomment if using and file exists
 
 function App() {
   // Basic smooth scroll handler for internal links/buttons

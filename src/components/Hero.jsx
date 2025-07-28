@@ -1,12 +1,12 @@
+// components/Hero.jsx
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import useSound from '../hooks/useSound';
-// --- IMPORT THE IMAGE ---
-// Make sure this path is correct relative to Hero.jsx
-import flagOverlayImage from '../flag-overlay.png'; // Or '../assets/flag-overlay.png' if you moved it
+import flagOverlayImage from '../assets/american_flag_background.png';
 
 const Hero = ({ id, scrollToContact }) => {
-  const playRavenSound = useSound('/audio/raven-caw.mp3'); // Audio still loaded from public
+  const playRavenSound = useSound('/audio/raven-caw.mp3');
 
   const handleCTAClick = () => {
     playRavenSound();
