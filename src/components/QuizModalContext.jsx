@@ -11,7 +11,7 @@ import React, {
   lazy,
 } from "react";
 
-// Map of quiz keys to dynamic import functions (MUST match quiz folder structure!)
+// Dynamic quiz imports — make sure these paths and filenames are correct and committed!
 const quizImportMap = {
   "code-overhaul": () => import("../quiz/CodeOverhaulDemoQuiz"),
   "code-audit": () => import("../quiz/CodeTestingDemoQuiz"),
@@ -24,20 +24,20 @@ const quizImportMap = {
   "it-assessment": () => import("../quiz/ITConsultingDemoQuiz"),
   "project-timeline": () => import("../quiz/ProjectMgmtDemoQuiz"),
   "onboarding-app": () => import("../quiz/TrainingToolDemoQuiz"),
-  // ...add more keys as you add quizzes
+  // Add new quiz keys/paths as needed
 };
 
 const QuizModalContext = createContext();
 
 /**
- * QuizModalProvider – wraps your App for global quiz modals
+ * QuizModalProvider — wrap your App with this in App.js
  */
 export function QuizModalProvider({ children }) {
   const [quizKey, setQuizKey] = useState(null);
   const [error, setError] = useState(null);
   const lastActiveElement = useRef(null);
 
-  // Open quiz modal
+  // Open quiz modal by quiz key
   const openQuiz = useCallback((key) => {
     if (quizImportMap[key]) {
       lastActiveElement.current = document.activeElement;
@@ -48,7 +48,7 @@ export function QuizModalProvider({ children }) {
     }
   }, []);
 
-  // Close and restore focus
+  // Close modal and restore focus
   const closeQuiz = useCallback(() => {
     setQuizKey(null);
     setError(null);
@@ -56,15 +56,15 @@ export function QuizModalProvider({ children }) {
       if (lastActiveElement.current && typeof lastActiveElement.current.focus === "function") {
         lastActiveElement.current.focus();
       }
-    }, 10);
+    }, 0);
   }, []);
 
-  // Trap focus and handle Escape for modal
+  // Accessibility: trap focus & escape to close
   const modalRef = useRef(null);
   useEffect(() => {
     if (!quizKey) return;
 
-    function handleKeydown(e) {
+    const handleKeydown = (e) => {
       if (e.key === "Escape") {
         closeQuiz();
         return;
@@ -77,24 +77,21 @@ export function QuizModalProvider({ children }) {
       const firstEl = focusableEls[0];
       const lastEl = focusableEls[focusableEls.length - 1];
       if (e.key === "Tab") {
-        if (e.shiftKey) {
-          if (document.activeElement === firstEl) {
-            e.preventDefault();
-            lastEl.focus();
-          }
-        } else {
-          if (document.activeElement === lastEl) {
-            e.preventDefault();
-            firstEl.focus();
-          }
+        if (e.shiftKey && document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        } else if (!e.shiftKey && document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
         }
       }
-    }
+    };
+
     document.addEventListener("keydown", handleKeydown);
     return () => document.removeEventListener("keydown", handleKeydown);
   }, [quizKey, closeQuiz]);
 
-  // Dynamically lazy-load the quiz component
+  // Dynamically lazy-load the selected quiz component
   let LazyQuizComponent = null;
   if (quizKey && quizImportMap[quizKey]) {
     LazyQuizComponent = lazy(async () => {
@@ -107,13 +104,20 @@ export function QuizModalProvider({ children }) {
     });
   }
 
-  // Prevent background scrolling when modal is open
+  // Prevent background scroll while modal is open
   useEffect(() => {
     if (quizKey) {
       document.body.style.overflow = "hidden";
       return () => { document.body.style.overflow = ""; };
     }
   }, [quizKey]);
+
+  // Optional: Handle click on backdrop to close modal
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeQuiz();
+    }
+  };
 
   return (
     <QuizModalContext.Provider value={{ openQuiz, closeQuiz }}>
@@ -124,9 +128,10 @@ export function QuizModalProvider({ children }) {
           aria-modal="true"
           role="dialog"
           tabIndex={-1}
+          onClick={handleBackdropClick}
         >
           <div
-            className="bg-white rounded-lg shadow-lg max-w-lg w-full mx-4 relative animate-fadeIn"
+            className="bg-white rounded-lg shadow-lg max-w-lg w-full mx-4 relative animate-fadeIn outline-none"
             ref={modalRef}
             aria-label="Quiz modal"
             tabIndex={0}
@@ -160,7 +165,7 @@ export function QuizModalProvider({ children }) {
 }
 
 /**
- * useQuizModal – Hook for opening/closing the quiz modal
+ * useQuizModal – React hook for opening/closing the quiz modal
  */
 export function useQuizModal() {
   return useContext(QuizModalContext);
