@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useQuizModal } from '../components/QuizModalContext';
+import { useQuizModal } from '../quiz/QuizModalContext';
 
 const servicesList = [
   { 
@@ -26,22 +26,37 @@ const servicesList = [
   { name: "Training Tools", desc: "Interactive training and onboarding tools to educate your team effectively.", demoLink: "onboarding-app" },
 ];
 
+// Animation variants for stagger effect
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.09 } }
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
 };
+
 const itemVariants = {
-  hidden: { y: 25, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 80 } }
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100
+    }
+  }
 };
 
 const Services = ({ id }) => {
   const { openQuiz } = useQuizModal();
 
+  // Function to handle smooth scroll to demo sections
   const scrollToDemo = (demoId) => {
     const element = document.getElementById(`demo-${demoId}`);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Center demo vertically
     }
   };
 
@@ -50,7 +65,7 @@ const Services = ({ id }) => {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-raven-dark mb-4">Our Services</h2>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          End-to-end solutions designed to meet your specific business needs. Explore our capabilities and see live demos.
+          End-to-end development solutions designed to meet your specific business needs. Explore our capabilities below and see demos in action.
         </p>
 
         <motion.div
@@ -60,32 +75,26 @@ const Services = ({ id }) => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {servicesList.map((service, idx) => (
+          {servicesList.map((service, index) => (
             <motion.div
-              key={service.name}
-              className="flex flex-col bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 focus-within:ring-2 focus-within:ring-raven-blue min-h-[340px]"
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col"
               variants={itemVariants}
-              tabIndex={0}
-              aria-label={service.name}
             >
               <h3 className="text-xl font-semibold text-raven-dark mb-2">{service.name}</h3>
-              <p className="text-gray-600 mb-6 flex-grow">{service.desc}</p>
-              <div className="flex justify-center gap-2 mt-auto w-full">
+              <p className="text-gray-600 mb-4 flex-grow">{service.desc}</p>
+              <div className="flex flex-col sm:flex-row gap-2 mt-auto">
                 <button
                   onClick={() => scrollToDemo(service.demoLink)}
-                  className="px-4 py-2 bg-raven-blue hover:bg-raven-red text-white font-semibold rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-raven-blue transition"
-                  aria-label={`See Demo for ${service.name}`}
-                  type="button"
+                  className="text-left text-raven-blue hover:text-raven-red font-medium text-sm transition duration-200 self-start"
                 >
-                  See Demo
+                  See Demo ↓
                 </button>
                 <button
                   onClick={() => openQuiz(service.demoLink)}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition"
-                  aria-label={`Take Service Questionnaire for ${service.name}`}
-                  type="button"
+                  className="text-left text-green-600 hover:text-green-700 font-medium text-sm transition duration-200 self-start"
                 >
-                  Take Quiz
+                  Take Questionnaire
                 </button>
               </div>
             </motion.div>
