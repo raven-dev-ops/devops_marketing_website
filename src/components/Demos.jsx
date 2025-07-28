@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useQuizModal } from '../components/QuizModalContext';
 
-// Import your demo components from the demos directory
+// Import your demo components
 import CodeOverhaulDemo from '../demos/CodeOverhaulDemo';
 import CodeTestingDemo from '../demos/CodeTestingDemo';
 import ChatbotDemo from '../demos/ChatbotDemo';
@@ -71,26 +71,28 @@ const Demos = ({ id }) => {
                                 <div className="bg-gray-50 p-4 rounded-md border border-gray-100 min-h-[200px] flex items-center justify-center overflow-hidden">
                                     <demo.Component />
                                 </div>
-                                {/* BUTTONS ROW */}
-                                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                                    <a
-                                        href={`/pages/${demo.id}`}
-                                        className="bg-raven-blue hover:bg-raven-red text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
-                                    >
-                                        LEARN MORE
-                                    </a>
-                                    <button
-                                        onClick={() => openQuiz(demo.id)}
-                                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
-                                    >
-                                        Take Questionnaire
-                                    </button>
-                                    <button
-                                        onClick={scrollToTop}
-                                        className="bg-gray-200 hover:bg-gray-300 text-raven-dark font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center"
-                                    >
-                                        Back to Top ↑
-                                    </button>
+                                {/* BUTTONS ROW - centered and not full width */}
+                                <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6 w-full">
+                                    <div className="flex gap-3 w-full sm:w-auto justify-center">
+                                        <a
+                                            href={`/pages/${demo.id}`}
+                                            className="bg-raven-blue hover:bg-raven-red text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center w-full sm:w-auto"
+                                        >
+                                            Learn
+                                        </a>
+                                        <button
+                                            onClick={() => openQuiz(demo.id)}
+                                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center w-full sm:w-auto"
+                                        >
+                                            Quiz
+                                        </button>
+                                        <button
+                                            onClick={scrollToTop}
+                                            className="bg-gray-200 hover:bg-gray-300 text-raven-dark font-semibold py-2 px-6 rounded-lg shadow transition duration-200 text-center w-full sm:w-auto"
+                                        >
+                                            Top ↑
+                                        </button>
+                                    </div>
                                 </div>
                             </motion.div>
                         ) : (
