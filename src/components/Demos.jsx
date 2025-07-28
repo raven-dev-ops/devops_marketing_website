@@ -1,5 +1,3 @@
-// components/Demos.jsx
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -41,6 +39,11 @@ const demoSections = [
 ];
 
 const Demos = ({ id }) => {
+    // Handler for "Back to Top"
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <section id={id} className="py-16 px-6 lg:py-24 bg-white">
             <div className="max-w-6xl mx-auto">
@@ -63,14 +66,20 @@ const Demos = ({ id }) => {
                                 <div className="bg-gray-50 p-4 rounded-md border border-gray-100 min-h-[200px] flex items-center justify-center overflow-hidden">
                                     <demo.Component />
                                 </div>
-                                {/* LEARN MORE BUTTON */}
-                                <div className="flex justify-center mt-6">
+                                {/* BUTTONS ROW */}
+                                <div className="flex justify-center gap-4 mt-6">
                                     <a
                                         href={`/pages/${demo.id}`}
                                         className="bg-raven-blue hover:bg-raven-red text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-200"
                                     >
                                         LEARN MORE
                                     </a>
+                                    <button
+                                        onClick={scrollToTop}
+                                        className="bg-gray-200 hover:bg-gray-300 text-raven-dark font-semibold py-2 px-6 rounded-lg shadow transition duration-200"
+                                    >
+                                        Back to Top ↑
+                                    </button>
                                 </div>
                             </motion.div>
                         ) : (
