@@ -4,8 +4,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const testimonials = [
   {
-    quote: `"Raven Development transformed our operations. Their custom app cut our processing time by nearly 40% – a fantastic investment!"`,
-    author: "J. Davis, Operations Manager, Local Logistics Co.",
+    quote: `“They developed the website and profiles for our artists and then trained our staff to operate and maintain the website! We are appointment only and love our SEO boost! Get it done by the professionals!”`,
+    author: "Skull 'N' Bones Tattoo",
     colorFrom: "from-blue-50",
     colorTo: "to-indigo-50",
   },
