@@ -30,7 +30,7 @@ const Pricing = ({ id }) => {
   };
 
   return (
-    <section id={id} className="py-16 px-6 lg:py-24 bg-white">
+    <section id={id} className="py-16 px-4 sm:px-6 lg:py-24 bg-white">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-raven-dark mb-4">
           How We Price & What You Get
@@ -39,7 +39,7 @@ const Pricing = ({ id }) => {
           We believe in clear, transparent pricing. Every project is custom—here’s what you can expect:
         </p>
 
-        {/* General process/expectations */}
+        {/* Process block */}
         <motion.div
           className="bg-gray-50 border border-gray-200 rounded-lg p-8 shadow-sm space-y-6 mb-12"
           initial={{ opacity: 0 }}
@@ -67,8 +67,24 @@ const Pricing = ({ id }) => {
           </div>
         </motion.div>
 
-        {/* Deliverables table */}
-        <div className="overflow-x-auto mt-4 mb-8">
+        {/* MOBILE: Stack of cards */}
+        <div className="space-y-6 md:hidden">
+          {deliverables.map((item, i) => (
+            <dl
+              key={i}
+              className="bg-gray-50 border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col"
+            >
+              <div className="flex justify-between items-center mb-2">
+                <dt className="text-base font-bold text-raven-dark">{item.name}</dt>
+                <dd className="text-green-700 font-bold text-base ml-2 flex-shrink-0">{item.price}</dd>
+              </div>
+              <dd className="text-gray-600 text-sm">{item.desc}</dd>
+            </dl>
+          ))}
+        </div>
+
+        {/* DESKTOP: Table */}
+        <div className="hidden md:block overflow-x-auto mt-4 mb-8">
           <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
             <thead>
               <tr>
