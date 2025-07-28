@@ -5,20 +5,24 @@ import { motion } from 'framer-motion';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 const solutionsList = [
-  "Manual, repetitive tasks consuming your time? We automate them with custom apps, freeing up your team.",
-  "Data scattered across spreadsheets causing confusion? We integrate and centralize it for clear insights.",
-  "Onboarding new employees taking too long and inconsistent? Our training tools get new hires up to speed faster.",
-  "Off-the-shelf software not quite fitting your unique workflow? We build solutions tailored precisely to how you operate.",
-  "Worried about software quality or reliability? Our rigorous testing ensures your tools work flawlessly.",
+  "Manual, repetitive tasks wasting time? We automate busywork with custom apps so your people can focus on what matters.",
+  "Too many spreadsheets, not enough clarity? We connect and centralize your business data for instant, actionable insights.",
+  "Onboarding new hires is slow or inconsistent? Our interactive training tools get employees productive from day one.",
+  "Off-the-shelf software doesn't fit how you actually work? We build solutions tailored to your unique workflows—no more forcing your business into someone else's box.",
+  "Unsure if your code is reliable, secure, or up to par? Our rigorous audits and testing catch bugs, boost quality, and ensure peace of mind.",
+  "Inherited a messy codebase, or stuck with 'AI slop'? We specialize in code rescue, AI code cleanup, and helping teams recover projects that other firms—or AI tools—couldn’t finish.",
+  "Need government-grade compliance or reporting? We deliver solutions for local, state, and federal agencies—with documentation and support for procurement, security, and Apex Accelerator partners.",
 ];
 
 const Solutions = ({ id }) => {
   return (
     <section id={id} className="py-16 px-6 lg:py-24 bg-raven-light">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-raven-dark mb-4">Solutions for Your Business Challenges</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-raven-dark mb-4">
+          Solutions for Your Real-World Challenges
+        </h2>
         <p className="text-center text-gray-600 mb-10">
-          We focus on delivering tangible results by solving the real-world problems that slow small businesses down.
+          Our specialty is solving the everyday tech headaches that slow down small businesses, nonprofits, and government teams. We deliver practical results—quickly and transparently.
         </p>
 
         <div className="space-y-4">
@@ -29,7 +33,7 @@ const Solutions = ({ id }) => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
             >
               <CheckCircleIcon className="h-6 w-6 text-green-500 flex-shrink-0 mt-1" />
               <p className="text-gray-700">{solution}</p>
@@ -37,21 +41,24 @@ const Solutions = ({ id }) => {
           ))}
         </div>
 
-         {/* Optional Testimonial */}
-         <motion.div
-            className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow text-center italic border-l-4 border-raven-blue"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-         >
-            <p className="text-gray-700 text-lg">"Raven Development transformed our operations. Their custom app cut our processing time by nearly 40% - a fantastic investment!"</p>
-            <p className="mt-2 text-sm font-semibold text-gray-600">- J. Davis, Operations Manager, Local Logistics Co.</p>
-         </motion.div>
-
+        {/* Optional Testimonial */}
+        <motion.div
+          className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow text-center italic border-l-4 border-raven-blue"
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-gray-700 text-lg">
+            “Raven Development cleaned up our AI-generated code and saved a six-figure project from failure. Their automation tools now save us hours every week. If you want it done right, call Raven first.”
+          </p>
+          <p className="mt-2 text-sm font-semibold text-gray-600">
+            — K. Montoya, CIO, Midwest Public Sector Partner
+          </p>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-export default Solutions; // Default export
+export default Solutions;
