@@ -18,11 +18,9 @@ const Hero = ({ id, scrollToContact }) => {
       id={id}
       className="relative bg-gradient-to-r from-gray-100 to-gray-200 text-center py-24 px-6 lg:py-32 overflow-hidden"
     >
-      {/* --- USE INLINE STYLE FOR BACKGROUND IMAGE --- */}
+      {/* Subtle flag background */}
       <div
-        // Keep utility classes for positioning, cover, opacity etc.
         className="absolute inset-0 bg-cover bg-center opacity-10 z-0"
-        // Apply the background image using the imported variable via inline style
         style={{ backgroundImage: `url(${flagOverlayImage})` }}
         aria-hidden="true"
       ></div>
@@ -33,40 +31,49 @@ const Hero = ({ id, scrollToContact }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-block bg-blue-100 text-raven-blue text-sm font-semibold px-3 py-1 rounded-full mb-4"
+          className="inline-block bg-blue-100 text-raven-blue text-sm font-semibold px-3 py-1 rounded-full mb-4 shadow-sm"
         >
-          🇺🇸 Veteran-Owned Business
+          🇺🇸 Veteran-Owned & Operated
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.08 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-raven-dark mb-4 leading-tight"
         >
-          American-Made Tech Solutions to <span className="text-raven-blue">Eliminate</span> Business Inefficiencies.
+          American-Made Tech to <span className="text-raven-blue">Eliminate</span> Inefficiency.
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto"
         >
-          Raven Development builds custom software, applications, and training tools that streamline your operations and drive growth for your small business. Let's make technology work *for* you.
+          Don’t get caught in the <span className="font-semibold text-raven-red">AI slop train</span>.
+          Trust real developers who deliver—Raven Development builds robust, custom software, automation, and training systems for businesses and agencies that demand reliability. We rescue, refactor, and finish projects that AI or others couldn’t.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.24 }}
         >
           <button
             onClick={handleCTAClick}
-            className="bg-raven-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+            className="bg-raven-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-raven-blue"
           >
-            Get a Free Consultation
+            Get Your Free Consultation
           </button>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.36 }}
+          className="mt-6 text-gray-500 text-sm"
+        >
+          Serving small business, contractors, and public agencies nationwide. When you’re ready for real results, partner with Raven Development.
         </motion.div>
       </div>
     </section>
