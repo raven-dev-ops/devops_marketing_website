@@ -56,21 +56,24 @@ const TestimonialCarousel = () => {
 
   return (
     <div className="relative w-full max-w-2xl mx-auto mt-10">
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={page}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ type: "spring", stiffness: 400, damping: 40 }}
-          className={`p-6 rounded-lg shadow bg-gradient-to-r ${testimonial.colorFrom} ${testimonial.colorTo} border-l-4 border-raven-blue text-center`}
-        >
-          <p className="text-gray-700 text-lg italic">{testimonial.quote}</p>
-          <p className="mt-2 text-sm font-semibold text-gray-600">{testimonial.author}</p>
-        </motion.div>
-      </AnimatePresence>
+      <div className="h-[220px] flex items-center justify-center"> {/* Set a fixed/tall-enough height! */}
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "spring", stiffness: 400, damping: 40 }}
+            className={`w-full p-6 rounded-lg shadow bg-gradient-to-r ${testimonial.colorFrom} ${testimonial.colorTo} border-l-4 border-raven-blue text-center flex flex-col justify-center items-center`}
+            style={{ minHeight: 170, maxHeight: 220 }}
+          >
+            <p className="text-gray-700 text-lg italic">{testimonial.quote}</p>
+            <p className="mt-2 text-sm font-semibold text-gray-600">{testimonial.author}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
       <div className="flex justify-center gap-4 mt-4">
         <button
           aria-label="Previous testimonial"
