@@ -1,7 +1,7 @@
 // components/Footer.jsx
 
 import React from 'react';
-import veteranBadge from '../assets/american_veteran_badge.png'; // Update path if needed
+import veteranBadge from '../assets/american_veteran_badge.png';
 
 const socials = [
   {
@@ -13,19 +13,6 @@ const socials = [
       </svg>
     ),
   },
-  {
-    name: "Veteran-Owned Business",
-    url: null, // No link
-    icon: (
-      <img
-        src={veteranBadge}
-        alt="American Veteran-Owned Business"
-        className="h-8 w-auto mx-1 drop-shadow border border-gray-200 rounded bg-white"
-        style={{ display: 'inline-block', verticalAlign: 'middle' }}
-        loading="lazy"
-      />
-    ),
-  },
 ];
 
 const Footer = () => {
@@ -33,47 +20,52 @@ const Footer = () => {
 
   return (
     <footer className="bg-raven-dark text-gray-300 py-10 px-6">
-      <div className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-4">
-
-        {/* Info */}
-        <div>
-          <p className="font-semibold text-lg text-white">
-            © {currentYear} Raven Development
-          </p>
-          <p>Kansas City, MO <span className="hidden sm:inline">·</span> <span className="block sm:inline">Serving clients nationwide</span></p>
-        </div>
-
+      <div className="max-w-3xl mx-auto flex flex-col items-center text-center gap-5">
         {/* Tagline */}
         <div>
           <p className="text-sm text-raven-blue font-bold mb-2">
             🇺🇸 Proudly Veteran-Owned Small Business
           </p>
         </div>
-
+        
         {/* Social + Badge */}
-        <div className="flex justify-center items-center space-x-4">
-          {socials.map((social, idx) =>
-            social.url ? (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center"
-                aria-label={social.name}
-              >
-                {social.icon}
-                <span className="sr-only">{social.name}</span>
-              </a>
-            ) : (
-              <span key={social.name} className="inline-flex items-center" aria-label={social.name}>
-                {social.icon}
-              </span>
-            )
-          )}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-2">
+          {/* Social Links */}
+          {socials.map((social) => (
+            <a
+              key={social.name}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center"
+              aria-label={social.name}
+            >
+              {social.icon}
+              <span className="sr-only">{social.name}</span>
+            </a>
+          ))}
+          {/* Veteran badge */}
+          <img
+            src={veteranBadge}
+            alt="Veteran-Owned Business"
+            className="h-9 w-auto rounded bg-white border border-gray-200 shadow ml-0 sm:ml-3"
+            style={{ maxWidth: 48 }}
+            loading="lazy"
+          />
+        </div>
+
+        {/* Info */}
+        <div>
+          <p className="font-semibold text-lg text-white">
+            © {currentYear} Raven Development
+          </p>
+          <p>
+            Kansas City, MO <span className="hidden sm:inline">·</span>
+            <span className="block sm:inline">Serving clients nationwide</span>
+          </p>
         </div>
       </div>
-      {/* Divider and extra info */}
+      {/* Divider */}
       <div className="mt-6 border-t border-gray-800 pt-4 text-center text-xs text-gray-500">
         Veteran contracting and Apex Accelerator support available for local, state, and federal clients.
       </div>
