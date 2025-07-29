@@ -1,19 +1,20 @@
 // components/Footer.jsx
 
 import React from 'react';
-// If using Heroicons or other SVGs for social, you can import here
+import { LinkedinIcon } from '@heroicons/react/24/solid'; // If you have Heroicons package installed
+import veteranBadge from '../assets/american_veteran_badge.png'; // Update path as needed
 
 const socials = [
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/ravdevops",
     icon: (
-      <svg className="h-5 w-5 inline" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M19.998 3A2.003 2.003 0 0 1 22 5.006V19a2 2 0 0 1-2.002 2H4a2 2 0 0 1-2-2V5.006A2.002 2.002 0 0 1 4.002 3h15.996zm-11.11 16V9.529H5.085V19H8.89zm-1.903-11.032c-1.045 0-1.732-.694-1.732-1.56.001-.879.7-1.56 1.76-1.56s1.733.681 1.733 1.56c0 .866-.688 1.56-1.761 1.56zm12.014 11.032v-5.09c0-1.191-.427-2.004-1.493-2.004-.814 0-1.298.546-1.511 1.075-.078.191-.098.457-.098.725V19h-3.804s.049-8.864 0-9.471h3.804v1.343c.506-.782 1.41-1.899 3.428-1.899 2.504 0 4.384 1.638 4.384 5.154V19h-3.81z"/>
+      // Heroicons LinkedIn SVG (for better consistency and accessibility)
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6" aria-hidden="true">
+        <path d="M19 0h-14c-2.8 0-5 2.2-5 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5v-14c0-2.8-2.2-5-5-5zm-11.5 19h-3v-9h3v9zm-1.5-10.3c-1 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.7 1.7-1.7 1.7zm13.5 10.3h-3v-4.5c0-1.1 0-2.5-1.5-2.5s-1.7 1.2-1.7 2.4v4.6h-3v-9h2.8v1.2h.1c.4-.8 1.3-1.7 2.7-1.7 2.9 0 3.5 1.9 3.5 4.3v5.2z"/>
       </svg>
     ),
   },
-  // Add more socials as needed
 ];
 
 const Footer = () => {
@@ -21,24 +22,32 @@ const Footer = () => {
 
   return (
     <footer className="bg-raven-dark text-gray-300 py-10 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
-        {/* Left */}
-        <div className="text-center md:text-left">
+      <div className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-4">
+        {/* Veteran Badge */}
+        <img
+          src={veteranBadge}
+          alt="Proudly American Veteran-Owned Business"
+          className="h-12 md:h-16 mb-2 drop-shadow"
+          style={{ maxWidth: 88 }}
+        />
+
+        {/* Info */}
+        <div>
           <p className="font-semibold text-lg text-white">
             © {currentYear} Raven Development
           </p>
           <p>Kansas City, MO <span className="hidden sm:inline">·</span> <span className="block sm:inline">Serving clients nationwide</span></p>
         </div>
 
-        {/* Center (optional tagline) */}
-        <div className="text-center">
-          <p className="text-sm text-raven-blue font-bold">
+        {/* Tagline */}
+        <div>
+          <p className="text-sm text-raven-blue font-bold mb-2">
             🇺🇸 Proudly Veteran-Owned Small Business
           </p>
         </div>
 
-        {/* Right: Social Links */}
-        <div className="flex justify-center md:justify-end space-x-4">
+        {/* Social Links */}
+        <div className="flex justify-center space-x-4">
           {socials.map((social, idx) => (
             <a
               key={social.name}
@@ -54,11 +63,9 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      {/* Divider */}
+      {/* Divider and extra info */}
       <div className="mt-6 border-t border-gray-800 pt-4 text-center text-xs text-gray-500">
-        <span>
-          Veteran contracting and Apex Accelerator support available for local, state, and federal clients.
-        </span>
+        Available for local, state, and federal clients.
       </div>
     </footer>
   );
