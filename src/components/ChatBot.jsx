@@ -205,6 +205,8 @@ const ChatBot = ({
                         key={r}
                         onClick={() => {
                           setReason(r);
+                          appendMessage('user', r);
+                          appendMessage('bot', 'Which services are you interested in? You can pick multiple.');
                           setStep(2);
                         }}
                         className="text-left border border-gray-200 hover:border-raven-blue hover:bg-blue-50 rounded-lg px-3 py-2 text-sm"
@@ -244,7 +246,15 @@ const ChatBot = ({
                       Back
                     </button>
                     <button
-                      onClick={() => setStep(3)}
+                      onClick={() => {
+                        if (selectedServices.length) {
+                          appendMessage('user', `Interested services: ${selectedServices.join(', ')}`);
+                        } else {
+                          appendMessage('user', 'Interested services: (none selected)');
+                        }
+                        appendMessage('bot', 'Got it. Please share your contact details.');
+                        setStep(3);
+                      }}
                       className="bg-raven-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-800"
                     >
                       Continue
@@ -275,7 +285,14 @@ const ChatBot = ({
                   <div className="flex items-center justify-between">
                     <button onClick={() => setStep(2)} className="text-xs text-gray-500 hover:text-gray-700">Back</button>
                     <button
-                      onClick={() => setStep(4)}
+                      onClick={() => {
+                        setStep(4);
+                        const parts = [];
+                        if (name) parts.push(`Name: ${name}`);
+                        if (email) parts.push(`Email: ${email}`);
+                        appendMessage('user', parts.join(' · '));
+                        appendMessage('bot', 'Choose your preferred consultation type.');
+                      }}
                       disabled={email && email.includes('@') ? false : true}
                       className={`text-white text-sm font-medium px-4 py-2 rounded-lg ${email && email.includes('@') ? 'bg-raven-blue hover:bg-blue-800' : 'bg-gray-300 cursor-not-allowed'}`}
                     >
