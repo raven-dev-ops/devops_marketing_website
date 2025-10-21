@@ -1,0 +1,338 @@
+// components/ChatBot.jsx
+
+import React, { useEffect, useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChatBubbleOvalLeftEllipsisIcon, XMarkIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
+
+const DEFAULT_SERVICES = [
+  'DevOps & Cloud Infrastructure',
+  'Analytics Dashboards',
+  'Custom Software Development',
+  'CI/CD Packages & Retainers',
+];
+
+const ChatBot = ({
+  calendlyUrl = 'https://calendly.com/YOUR-CALENDLY-SLUG/consultation',
+  onOpenContact,
+  servicesList,
+  defaultOpen = false,
+}) => {
+  const [open, setOpen] = useState(defaultOpen);
+  const [step, setStep] = useState(1);
+  const [reason, setReason] = useState('');
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [selectedMeetingType, setSelectedMeetingType] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const options = useMemo(
+    () => (servicesList && servicesList.length ? servicesList : DEFAULT_SERVICES),
+    [servicesList]
+  );
+
+  useEffect(() => {
+    if (!document.getElementById('calendly-script')) {
+      const s = document.createElement('script');
+      s.id = 'calendly-script';
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+    if (!document.getElementById('calendly-style')) {
+      const l = document.createElement('link');
+      l.id = 'calendly-style';
+      l.rel = 'stylesheet';
+      l.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(l);
+    }
+  }, []);
+
+  // Auto-open once per session after 8 seconds
+  useEffect(() => {
+    if (defaultOpen) return;
+    try {
+      const key = 'chatbot_autolaunched';
+      if (!sessionStorage.getItem(key)) {
+        const t = setTimeout(() => {
+          setOpen(true);
+          try { sessionStorage.setItem(key, '1'); } catch {}
+        }, 8000);
+        return () => clearTimeout(t);
+      }
+    } catch {}
+  }, [defaultOpen]);
+
+  // Restore saved chat state (session)
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('chatbot_state') || 'null');
+      if (saved) {
+        if (saved.reason) setReason(saved.reason);
+        if (Array.isArray(saved.selectedServices)) setSelectedServices(saved.selectedServices);
+        if (saved.name) setName(saved.name);
+        if (saved.email) setEmail(saved.email);
+        if (saved.selectedMeetingType) setSelectedMeetingType(saved.selectedMeetingType);
+      }
+    } catch {}
+  }, []);
+
+  // Persist chat state during session
+  useEffect(() => {
+    const snapshot = { reason, selectedServices, name, email, selectedMeetingType };
+    try { sessionStorage.setItem('chatbot_state', JSON.stringify(snapshot)); } catch {}
+  }, [reason, selectedServices, name, email, selectedMeetingType]);
+
+  const toggleService = (svc) => {
+    setSelectedServices((prev) =>
+      prev.includes(svc) ? prev.filter((s) => s !== svc) : [...prev, svc]
+    );
+  };
+
+  const openCalendlyUrl = (url, prefill) => {
+    const opts = prefill ? { url, prefill } : { url };
+    if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+      window.Calendly.initPopupWidget(opts);
+    } else {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const scheduleViaFunction = async (meetingType) => {
+    setLoading(true);
+    setSelectedMeetingType(meetingType);
+    try {
+      const res = await fetch('/.netlify/functions/create-calendly-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ meetingType }),
+      });
+      const data = await res.json();
+      const url = data && data.url ? data.url : calendlyUrl;
+      const prefill = {
+        name: name || undefined,
+        email: email || undefined,
+        customAnswers: {
+          a1: meetingType,
+          a2: selectedServices.join(', '),
+          a3: reason,
+        },
+      };
+      openCalendlyUrl(url, prefill);
+      setStep(5);
+    } catch (e) {
+      openCalendlyUrl(calendlyUrl);
+      setStep(5);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="chat"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.18 }}
+            className="w-80 max-w-[90vw] bg-white border border-gray-200 shadow-2xl rounded-xl overflow-hidden mb-3"
+          >
+            <div className="flex items-center justify-between bg-raven-blue text-white px-4 py-3">
+              <div className="font-semibold">Chat with us</div>
+              <button aria-label="Close chat" onClick={() => setOpen(false)} className="p-1 hover:opacity-90">
+                <XMarkIcon className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-4">
+              {step === 1 && (
+                <div>
+                  <div className="text-sm text-gray-800 font-medium mb-2">
+                    What brings you to the website today?
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      'Learn about our services',
+                      'Request a demo',
+                      'Request a trial',
+                      'Product walkthrough',
+                      'Feature showcase',
+                      'I need help on a project',
+                      'Evaluate a retainer option',
+                      'Other',
+                    ].map((r) => (
+                      <button
+                        key={r}
+                        onClick={() => {
+                          setReason(r);
+                          setStep(2);
+                        }}
+                        className="text-left border border-gray-200 hover:border-raven-blue hover:bg-blue-50 rounded-lg px-3 py-2 text-sm"
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div>
+                  <div className="text-sm text-gray-800 font-medium mb-2">
+                    Which services are you interested in?
+                  </div>
+                  <div className="flex flex-col gap-2 mb-3 max-h-40 overflow-auto pr-1">
+                    {options.map((svc) => (
+                      <button
+                        key={svc}
+                        onClick={() => toggleService(svc)}
+                        className={`flex items-center justify-between border rounded-lg px-3 py-2 text-sm transition ${
+                          selectedServices.includes(svc)
+                            ? 'border-raven-blue bg-blue-50'
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <span className="text-left mr-2">{svc}</span>
+                        {selectedServices.includes(svc) && (
+                          <CheckCircleIcon className="w-5 h-5 text-raven-blue" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <button onClick={() => setStep(1)} className="text-xs text-gray-500 hover:text-gray-700">
+                      Back
+                    </button>
+                    <button
+                      onClick={() => setStep(3)}
+                      className="bg-raven-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-800"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div>
+                  <div className="text-sm text-gray-800 font-medium mb-2">Your contact details</div>
+                  <div className="space-y-2 mb-3">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your name"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-raven-blue"
+                    />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Your email"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-raven-blue"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <button onClick={() => setStep(2)} className="text-xs text-gray-500 hover:text-gray-700">Back</button>
+                    <button
+                      onClick={() => setStep(4)}
+                      disabled={email && email.includes('@') ? false : true}
+                      className={`text-white text-sm font-medium px-4 py-2 rounded-lg ${email && email.includes('@') ? 'bg-raven-blue hover:bg-blue-800' : 'bg-gray-300 cursor-not-allowed'}`}
+                    >
+                      Continue
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div>
+                  <div className="text-sm text-gray-800 font-medium mb-2">Choose your preferred consultation type</div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      { k: 'zoom', label: 'Zoom' },
+                      { k: 'teams', label: 'Microsoft Teams' },
+                      { k: 'google', label: 'Google Meet' },
+                      { k: 'phone', label: 'Phone Call' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.k}
+                        disabled={loading}
+                        onClick={() => scheduleViaFunction(opt.k)}
+                        className={`text-left border rounded-lg px-3 py-2 text-sm transition ${
+                          loading ? 'opacity-70 cursor-not-allowed' : 'border-gray-200 hover:border-raven-blue hover:bg-blue-50'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="mt-3">
+                    <button onClick={() => setStep(3)} className="text-xs text-gray-500 hover:text-gray-700">
+                      Back
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {step === 5 && (
+                <div className="text-sm text-gray-700 space-y-2">
+                  <div className="font-medium text-gray-800">Thanks! We’ve got your interests.</div>
+                  <div>Feel free to browse, or reach out if you have questions.</div>
+                  {typeof onOpenContact === 'function' && (
+                    <button
+                      onClick={() => {
+                        const r = (reason || '').toLowerCase();
+                        let interest = 'Consultation';
+                        if (r.includes('retainer')) interest = 'CI Retainer Program';
+                        else if (r.includes('learn')) interest = 'Consultation';
+                        else if (r.includes('project')) interest = 'Consultation';
+                        else if (r.includes('demo') || r.includes('trial') || r.includes('walkthrough') || r.includes('showcase')) interest = 'Demo Request';
+                        else if (r.includes('other')) interest = 'General Inquiry';
+
+                        const msgParts = [];
+                        if (reason) msgParts.push(`Reason: ${reason}`);
+                        if (selectedServices.length) msgParts.push(`Interested services: ${selectedServices.join(', ')}`);
+                        if (selectedMeetingType) {
+                          const labelMap = { zoom: 'Zoom', teams: 'Microsoft Teams', google: 'Google Meet', phone: 'Phone Call' };
+                          msgParts.push(`Preferred meeting: ${labelMap[selectedMeetingType] || selectedMeetingType}`);
+                        }
+                        const message = msgParts.join('\n');
+
+                        onOpenContact({
+                          interest,
+                          name,
+                          email,
+                          message,
+                        });
+                        setOpen(false);
+                      }}
+                      className="mt-1 underline text-raven-blue hover:text-blue-800"
+                    >
+                      Prefer email? Open the contact form
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <button
+        className="flex items-center gap-2 bg-raven-blue text-white px-4 py-3 rounded-full shadow-lg hover:bg-blue-800"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label="Open chat bot"
+      >
+        <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" />
+        <span className="text-sm font-semibold">Chat</span>
+      </button>
+    </div>
+  );
+};
+
+export default ChatBot;

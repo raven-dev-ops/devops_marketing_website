@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import useSound from '../hooks/useSound';
 
-const Contact = ({ id, initialInterest = 'Consultation' }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', interest: initialInterest, message: '' });
+const Contact = ({ id, initialInterest = 'Consultation', initialName = '', initialEmail = '', initialMessage = '' }) => {
+  const [formData, setFormData] = useState({ name: initialName, email: initialEmail, interest: initialInterest, message: initialMessage });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
   const playRavenSound = useSound('/audio/raven-caw.mp3');
@@ -15,25 +15,53 @@ const Contact = ({ id, initialInterest = 'Consultation' }) => {
     setFormData((prev) => ({ ...prev, interest: initialInterest }));
   }, [initialInterest]);
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, name: initialName }));
+  }, [initialName]);
+
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, email: initialEmail }));
+  }, [initialEmail]);
+
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, message: initialMessage }));
+  }, [initialMessage]);
+
+const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const encode = (data) =>
+    Object.keys(data)
+      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key] ?? ''))
+      .join('&');
+
+const handleSubmit = async (e) => {
     e.preventDefault();
     playRavenSound();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Placeholder logic, swap with actual submission!
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      if (Math.random() > 0.18) { // simulate 82% success
+      const payload = {
+        'form-name': 'contact',
+        'bot-field': '',
+        name: formData.name,
+        email: formData.email,
+        interest: formData.interest,
+        message: formData.message,
+      };
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(payload),
+      });
+      if (res.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', interest: initialInterest, message: '' });
       } else {
-        throw new Error('Simulated error');
+        throw new Error('Network response was not ok');
       }
     } catch (err) {
       setSubmitStatus('error');
@@ -65,6 +93,10 @@ const Contact = ({ id, initialInterest = 'Consultation' }) => {
         </motion.p>
 
         <motion.form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           className="bg-white p-8 rounded-lg shadow-xl text-left max-w-lg mx-auto text-raven-dark"
           initial={{ opacity: 0, scale: 0.94 }}
@@ -73,6 +105,10 @@ const Contact = ({ id, initialInterest = 'Consultation' }) => {
           transition={{ duration: 0.6, delay: 0.18 }}
           aria-live="polite"
         >
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+          </p>
           {/* Status */}
           {submitStatus === 'success' && (
             <div className="mb-4 p-3 bg-green-100 border border-green-300 text-green-800 rounded text-center" role="status">
@@ -192,3 +228,5 @@ const Contact = ({ id, initialInterest = 'Consultation' }) => {
 };
 
 export default Contact;
+
+

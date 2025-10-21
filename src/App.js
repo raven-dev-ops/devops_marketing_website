@@ -12,6 +12,7 @@ import Industries from './components/Industries';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ChatBot from './components/ChatBot';
 
 // Error fallback component for ErrorBoundary
 function ErrorFallback({ error, resetErrorBoundary }) {
@@ -31,6 +32,9 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
 function App() {
   const [contactInterest, setContactInterest] = useState('Consultation');
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
 
   // Scroll to top on mount
   useEffect(() => {
@@ -45,8 +49,19 @@ function App() {
     }
   };
 
-  const goToContactWith = useCallback((interest) => {
-    setContactInterest(interest);
+  const goToContactWith = useCallback((payload) => {
+    if (typeof payload === 'string') {
+      setContactInterest(payload);
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+    } else if (payload && typeof payload === 'object') {
+      const { interest = 'Consultation', name = '', email = '', message = '' } = payload;
+      setContactInterest(interest);
+      setContactName(name);
+      setContactEmail(email);
+      setContactMessage(message);
+    }
     scrollToSection('contact');
   }, []);
 
@@ -78,9 +93,13 @@ function App() {
             <Services id="services" />
             <Industries id="industries" />
             <About id="about" />
-            <Contact id="contact" initialInterest={contactInterest} />
+            <Contact id="contact" initialInterest={contactInterest} initialName={contactName} initialEmail={contactEmail} initialMessage={contactMessage} />
           </main>
           <Footer />
+          <ChatBot
+            calendlyUrl="https://calendly.com/gptfleet/consult"
+            onOpenContact={(prefill) => goToContactWith(prefill)}
+          />
         </div>
       </ErrorBoundary>
     </HelmetProvider>
