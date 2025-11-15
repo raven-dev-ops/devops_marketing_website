@@ -1,17 +1,19 @@
 // App.js
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from 'react-error-boundary';
 
 // Site Sections (in homepage order)
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Industries from './components/Industries';
-import About from './components/About';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import HeroSection from './components/HeroSection';
+import ServicesSection from './components/ServicesSection';
+import AboutSection from './components/AboutSection';
+import ToolsSection from './components/ToolsSection';
+import WhyWorkSection from './components/WhyWorkSection';
+import CaseStudiesSection from './components/CaseStudiesSection';
+import ContactSection from './components/ContactSection';
+import SiteFooter from './components/SiteFooter';
 import ChatBot from './components/ChatBot';
 
 // Error fallback component for ErrorBoundary
@@ -31,11 +33,6 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  const [contactInterest, setContactInterest] = useState('Consultation');
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
-
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,56 +46,37 @@ function App() {
     }
   };
 
-  const goToContactWith = useCallback((payload) => {
-    if (typeof payload === 'string') {
-      setContactInterest(payload);
-      setContactName('');
-      setContactEmail('');
-      setContactMessage('');
-    } else if (payload && typeof payload === 'object') {
-      const { interest = 'Consultation', name = '', email = '', message = '' } = payload;
-      setContactInterest(interest);
-      setContactName(name);
-      setContactEmail(email);
-      setContactMessage(message);
-    }
-    scrollToSection('contact');
-  }, []);
-
   return (
     <HelmetProvider>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <div className="App bg-gray-50 min-h-screen flex flex-col">
           <Helmet>
-            <title>RAV DevOps — US-Based Tech Solutions</title>
+            <title>Raven Development Operations | Software & Automation</title>
             <meta
               name="description"
-              content="Veteran-owned, US-based DevOps, cloud, analytics, and custom software to eliminate inefficiencies and drive growth."
+              content="Veteran-led Raven Development Operations builds custom software, automation, DevOps, and cloud systems that cut manual work and keep teams reliable."
             />
-            <meta property="og:title" content="RAV DevOps" />
-            <meta property="og:description" content="DevOps, cloud, analytics dashboards, and custom software." />
+            <meta property="og:title" content="Raven Development Operations" />
+            <meta
+              property="og:description"
+              content="Custom software, workflow automation, DevOps, and cloud infrastructure for small businesses and government-ready teams."
+            />
             <meta property="og:type" content="website" />
           </Helmet>
-          <Navbar
-            onNavigate={scrollToSection}
-            onBookConsultation={() => goToContactWith('Consultation')}
-            onRequestDemo={() => goToContactWith('Demo Request')}
-            onJoinRetainer={() => goToContactWith('CI Retainer Program')}
-          />
-          <main role="main" className="flex-grow max-w-7xl mx-auto w-full px-2 sm:px-6 lg:px-8">
-            <Hero
-              id="hero"
-              scrollToSection={scrollToSection}
-            />
-            <Services id="services" />
-            <Industries id="industries" />
-            <About id="about" />
-            <Contact id="contact" initialInterest={contactInterest} initialName={contactName} initialEmail={contactEmail} initialMessage={contactMessage} />
+          <Navbar onNavigate={scrollToSection} />
+          <main role="main" className="flex-grow w-full">
+            <HeroSection scrollToSection={scrollToSection} />
+            <ServicesSection />
+            <AboutSection />
+            <ToolsSection />
+            <WhyWorkSection />
+            <CaseStudiesSection />
+            <ContactSection />
           </main>
-          <Footer />
+          <SiteFooter scrollToSection={scrollToSection} />
           <ChatBot
             calendlyUrl="https://calendly.com/gptfleet/consult"
-            onOpenContact={(prefill) => goToContactWith(prefill)}
+            onOpenContact={() => scrollToSection('contact')}
           />
         </div>
       </ErrorBoundary>
