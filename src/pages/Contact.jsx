@@ -147,12 +147,6 @@ export default function Contact() {
         </div>
 
         <div className="space-y-6 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
-          <div>
-            <h2 className="text-2xl font-semibold text-white">Schedule with Calendly</h2>
-            <p className="mt-2 text-sm text-slate-300">
-              Book a DevOps discovery call at a time that works for you, via video or phone.
-            </p>
-          </div>
           <div className="space-y-4 rounded-xl border border-raven-border/60 bg-raven-surface/60 p-4">
             <iframe
               title="Calendly discovery video call"
@@ -160,13 +154,6 @@ export default function Contact() {
               className="h-[520px] w-full rounded-lg border-0"
             />
           </div>
-          <p className="text-sm text-slate-400">
-            Prefer email? Reach out via{' '}
-            <a href="mailto:business@ravdevops.com" className="text-raven-cyan hover:text-white">
-              business@ravdevops.com
-            </a>
-            .
-          </p>
         </div>
       </div>
     </div>

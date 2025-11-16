@@ -70,5 +70,6 @@ export const serviceAreas = [
     ],
     format: 'Fixed-scope build or ongoing product support',
     image: service1Banner,
+    flipImage: true,
   },
 ];

@@ -63,24 +63,33 @@ export default function Services() {
 
       <section className="grid gap-6 md:grid-cols-2">
         {serviceAreas.map((service, index) => {
-          const imageAlignClass =
-            index % 3 === 0 ? 'justify-start' : index % 3 === 1 ? 'justify-center' : 'justify-end';
+          const isReversed = index % 2 === 1;
+          const imageStyle = service.flipImage ? { transform: 'scaleX(-1)' } : undefined;
 
           return (
           <div
             key={service.title}
             className="flex h-full flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
           >
-            {service.image && (
-              <div className={`flex ${imageAlignClass}`}>
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="h-40 w-auto max-w-full transform scale-75 object-contain"
-                />
+            <div
+              className={`flex flex-col items-center gap-4 md:gap-6 ${
+                isReversed ? 'md:flex-row-reverse' : 'md:flex-row'
+              }`}
+            >
+              {service.image && (
+                <div className="flex justify-center md:justify-start">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="h-40 w-auto max-w-full object-contain"
+                    style={imageStyle}
+                  />
+                </div>
+              )}
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-2xl font-semibold text-white">{service.title}</h2>
               </div>
-            )}
-            <h2 className="text-2xl font-semibold text-white">{service.title}</h2>
+            </div>
             <p className="text-sm text-slate-300">{service.blurb}</p>
             <ul className="space-y-2 text-sm text-slate-200">
               {service.outcomes.map((outcome) => (
