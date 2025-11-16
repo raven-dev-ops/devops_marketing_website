@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import SeoHead from '../components/SeoHead';
-import contactBanner from '../assets/contact_form_banner.png';
 
 export default function Contact() {
   const location = useLocation();
@@ -26,15 +25,7 @@ export default function Contact() {
       </header>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <div className="space-y-4">
-          <div className="flex items-center justify-center overflow-hidden rounded-2xl border border-raven-border/70 bg-raven-card/80">
-            <img
-              src={contactBanner}
-              alt="Raven Development Operations contact form banner"
-              className="h-32 w-auto max-w-full transform scale-75 object-contain md:h-40"
-            />
-          </div>
-
+        <div>
           <form
             name="contact"
             method="POST"
@@ -77,6 +68,28 @@ export default function Contact() {
                 />
               </label>
             </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="text-sm text-slate-200">
+                Phone number
+                <input
+                  name="phone"
+                  type="tel"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white focus:border-raven-accent focus:outline-none"
+                />
+              </label>
+              <label className="text-sm text-slate-200">
+                Preferred contact method
+                <select
+                  name="contact_method"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white focus:border-raven-accent focus:outline-none"
+                  defaultValue="email"
+                >
+                  <option value="email">Email</option>
+                  <option value="phone">Phone</option>
+                  <option value="video-call">Video call</option>
+                </select>
+              </label>
+            </div>
             <label className="text-sm text-slate-200">
               Project summary
               <textarea
@@ -89,17 +102,42 @@ export default function Contact() {
             <div className="grid gap-4 md:grid-cols-2">
               <label className="text-sm text-slate-200">
                 Timeline
-                <input
+                <select
                   name="timeline"
                   className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white focus:border-raven-accent focus:outline-none"
-                />
+                  defaultValue="1-2-weeks"
+                >
+                  <option value="1-2-weeks">1–2 weeks</option>
+                  <option value="1-month">1 month</option>
+                  <option value="3-months">3 months</option>
+                  <option value="6-months">6 months</option>
+                  <option value="1-year-plus">1 year+</option>
+                </select>
               </label>
               <label className="text-sm text-slate-200">
                 Budget range
-                <input
+                <select
                   name="budget"
                   className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white focus:border-raven-accent focus:outline-none"
-                />
+                  defaultValue="1k-25k"
+                >
+                  <option value="1k-25k">$1k–$25k+</option>
+                  <option value="25k-50k">$25k–$50k+</option>
+                  <option value="50k-100k">$50k–$100k</option>
+                  <option value="250k-500k">$250k–$500k</option>
+                  <option value="1m-25m">$1M–$25M+</option>
+                </select>
+              </label>
+            </div>
+            <div className="flex items-start gap-2 rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-3 text-xs text-slate-200">
+              <input
+                id="emergency"
+                name="emergency_72hr"
+                type="checkbox"
+                className="mt-1 h-4 w-4 rounded border-raven-border/70 bg-black text-raven-accent focus:ring-raven-accent"
+              />
+              <label htmlFor="emergency" className="cursor-pointer">
+                This request is time-sensitive. I would like to explore an emergency engagement with a targeted 72-hour delivery window.
               </label>
             </div>
             <button type="submit" className="w-full rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-6 py-3 text-sm font-semibold text-black shadow-soft-glow">
