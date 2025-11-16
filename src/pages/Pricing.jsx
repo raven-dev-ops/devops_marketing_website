@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SeoHead from '../components/SeoHead';
 import tier1Image from '../assets/tier1.png';
 import tier2Image from '../assets/tier2.png';
@@ -7,7 +8,7 @@ import tier3Image from '../assets/tier3.png';
 const tiers = [
   {
     name: 'CI/CD Kickstart',
-    price: 'Starts at $3,800',
+    price: 'Starts at $2,400',
     description: 'Fixed-scope pipeline setup for one service (Next.js site or Django API).',
     bullets: ['Automated tests + lint', 'Security checks and secrets management', 'Zero-downtime deploy flow'],
     image: tier1Image,
@@ -96,13 +97,19 @@ export default function Pricing() {
         ))}
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex flex-wrap justify-center gap-4">
         <a
           href="https://calendly.com/ravdevops/discovery-meeting"
           className="inline-flex justify-center rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-6 py-3 text-base font-semibold text-black shadow-soft-glow"
         >
           Book a discovery call
         </a>
+        <Link
+          to="/portfolio"
+          className="inline-flex justify-center rounded-full border border-raven-border/70 bg-raven-card px-6 py-3 text-base font-semibold text-slate-100 hover:border-raven-accent/70"
+        >
+          View portfolio
+        </Link>
       </div>
 
       <section className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-6">

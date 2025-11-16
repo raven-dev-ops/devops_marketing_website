@@ -11,7 +11,12 @@ export const portfolioItems = [
       'Discord webhook automation with rate-limit aware queues',
     ],
     github: 'https://github.com/ravdevops/helldivers2_clan_website',
-    screenshots: ['/portfolio/galactic-phantom-1.png', '/portfolio/galactic-phantom-2.png'],
+    screenshots: [
+      '/portfolio/galactic-phantom-1.png',
+      '/portfolio/galactic-phantom-2.png',
+      '/portfolio/galactic-phantom-3.png',
+      '/portfolio/galactic-phantom-4.png',
+    ],
   },
   {
     title: 'Art Bay Backend (Django)',
@@ -25,7 +30,12 @@ export const portfolioItems = [
       'Pre-commit hooks and CI to keep migrations, tests, and linting green',
     ],
     github: 'https://github.com/ravdevops/e-commerce-backend',
-    screenshots: ['/portfolio/art-bay-backend-1.png', '/portfolio/art-bay-backend-2.png'],
+    screenshots: [
+      '/portfolio/art-bay-backend-1.png',
+      '/portfolio/art-bay-backend-2.png',
+      '/portfolio/art-bay-backend-3.png',
+      '/portfolio/art-bay-backend-4.png',
+    ],
   },
   {
     title: 'Art Bay Frontend (Next.js Storefront)',
@@ -39,7 +49,12 @@ export const portfolioItems = [
       'Secure payment flow with resilience around API and webhook retries',
     ],
     github: 'https://github.com/ravdevops/e-commerce-frontend',
-    screenshots: ['/portfolio/art-bay-frontend-1.png', '/portfolio/art-bay-frontend-2.png'],
+    screenshots: [
+      '/portfolio/art-bay-frontend-1.png',
+      '/portfolio/art-bay-frontend-2.png',
+      '/portfolio/art-bay-frontend-3.png',
+      '/portfolio/art-bay-frontend-4.png',
+    ],
   },
   {
     title: 'Helldivers 2 Discord Bot',
@@ -53,6 +68,11 @@ export const portfolioItems = [
       'Config and secrets managed per guild with environment isolation',
     ],
     github: 'https://github.com/ravdevops/helldivers2_discord_ocr_lfg_clan_bot',
-    screenshots: ['/portfolio/helldivers-bot-1.png', '/portfolio/helldivers-bot-2.png'],
+    screenshots: [
+      '/portfolio/helldivers-bot-1.png',
+      '/portfolio/helldivers-bot-2.png',
+      '/portfolio/helldivers-bot-3.png',
+      '/portfolio/helldivers-bot-4.png',
+    ],
   },
 ];

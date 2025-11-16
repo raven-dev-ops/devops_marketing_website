@@ -34,4 +34,15 @@ export const serviceAreas = [
     format: 'Pairing sessions or enablement workshop',
     image: '/services/dev-environment-tooling.png',
   },
+  {
+    title: 'Custom Software Development',
+    blurb: 'Tailored web apps, APIs, and internal tools that replace spreadsheets and brittle scripts.',
+    outcomes: [
+      'Modern web applications and APIs aligned to your workflows',
+      'Automation and integrations that remove manual steps and handoffs',
+      'Quality engineering with tests, monitoring, and clear deployment paths',
+    ],
+    format: 'Fixed-scope build or ongoing product support',
+    image: '/services/custom-software-development.png',
+  },
 ];
