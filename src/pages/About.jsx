@@ -70,7 +70,7 @@ export default function About() {
       </header>
 
       <section className="grid gap-2 md:grid-cols-2 md:items-stretch">
-        <div className="flex h-full justify-center md:justify-start">
+        <div className="flex h-full justify-center md:justify-end">
           <div className="h-full overflow-hidden rounded-3xl border border-raven-border/70 bg-raven-card/80 p-2 shadow-soft-glow flex items-center justify-center">
             <img
               src={damonPortrait}

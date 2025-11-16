@@ -1,5 +1,6 @@
 import React from 'react';
 import SeoHead from '../components/SeoHead';
+import contactBanner from '../assets/contact_form_banner.png';
 
 export default function Contact() {
   return (
@@ -14,6 +15,14 @@ export default function Contact() {
         <h1 className="text-4xl font-bold text-white">Let&apos;s plan your next DevOps win</h1>
         <p className="text-lg text-slate-300">CTOs, founders, and solo devs welcome. Typical projects range from CI/CD builds to fractional DevOps support.</p>
       </header>
+
+      <div className="overflow-hidden rounded-2xl border border-raven-border/70 bg-raven-card/80">
+        <img
+          src={contactBanner}
+          alt="Raven Development Operations contact form banner"
+          className="h-48 w-full object-cover md:h-56"
+        />
+      </div>
 
       <div className="grid gap-8 md:grid-cols-2">
         <form

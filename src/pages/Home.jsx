@@ -70,11 +70,15 @@ function TrustedByCarousel() {
 
   return (
     <div className="mt-4 flex flex-col items-center gap-3">
-      <div className="flex w-full max-w-xl items-center justify-center gap-4">
-        <div className="flex items-center justify-center rounded-2xl border border-raven-border/60 bg-raven-surface/60 px-6 py-4 shadow-soft-glow">
-          <img src={current.src} alt={current.name} className="h-10 w-auto object-contain sm:h-12" />
+      <div className="flex w-full max-w-xl flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-raven-border/70 bg-raven-surface/70 shadow-soft-glow sm:h-20 sm:w-20">
+          <img
+            src={current.src}
+            alt={current.name}
+            className="h-12 w-12 rounded-full object-contain sm:h-14 sm:w-14"
+          />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-center sm:text-left">
           <p className="text-sm font-semibold text-white">{current.name}</p>
           <p className="text-xs text-slate-300">{current.review}</p>
         </div>
