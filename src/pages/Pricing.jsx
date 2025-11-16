@@ -4,19 +4,19 @@ import SeoHead from '../components/SeoHead';
 const tiers = [
   {
     name: 'CI/CD Kickstart',
-    price: 'Starts at $X,XXX',
+    price: 'Starts at $7,600',
     description: 'Fixed-scope pipeline setup for one service (Next.js site or Django API).',
     bullets: ['Automated tests + lint', 'Security checks and secrets management', 'Zero-downtime deploy flow'],
   },
   {
     name: 'DevOps Modernization Sprint',
-    price: 'Starts at $X,XXX',
+    price: 'Starts at $15,200',
     description: 'Assessment + 2–3 week implementation across pipelines, infra, and observability.',
     bullets: ['Roadmap + quick wins', 'IaC + cloud hardening', 'Dashboards + alert tuning'],
   },
   {
     name: 'Fractional DevOps Partner',
-    price: 'Starts at $X,XXX / month',
+    price: 'Starts at $2,700 / month',
     description: 'Ongoing support, incident response, and roadmap execution for growing teams.',
     bullets: ['Weekly delivery cadence', 'Incident response coverage', 'Backlog of automation improvements'],
   },
