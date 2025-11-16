@@ -15,7 +15,7 @@ const navItems = [
 export default function Header({ theme, toggleTheme }) {
   return (
     <header className="sticky top-0 z-30 backdrop-blur border-b border-raven-border/70 bg-raven-navy/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 lg:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-center gap-4 px-4 py-3 lg:px-6">
         <nav className="flex items-center gap-6 text-sm font-medium text-slate-200">
           {navItems.map((item) => (
             <NavLink
