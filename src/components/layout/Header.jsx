@@ -17,16 +17,12 @@ export default function Header({ theme, toggleTheme }) {
   return (
     <header className="sticky top-0 z-30 backdrop-blur border-b border-raven-border/70 bg-raven-navy/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 lg:px-6">
-        <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-white">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src={ravenHomeLogo}
             alt="Raven Development Operations logo"
-            className="h-10 w-10 rounded-2xl border border-raven-border/70 object-contain shadow-soft-glow"
+            className="h-10 w-10 object-contain"
           />
-          <div>
-            <p className="leading-tight">Raven Development Operations</p>
-            <p className="text-xs text-slate-400">DevOps Consulting & Automation</p>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-200 md:flex">

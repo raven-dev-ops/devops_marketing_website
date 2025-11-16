@@ -21,8 +21,71 @@ const benefits = [
 
 const trust = ['Solo developers', 'Indie studios', 'Small product teams'];
 
+const trustedLogos = [
+  { name: 'Art Bay', src: '/logos/art-bay.png' },
+  { name: 'Galactic Phantom Division', src: '/logos/galactic-phantom-division.png' },
+  { name: 'Helldivers 2 Discord Bot', src: '/logos/helldivers-bot.png' },
+];
+
 const tech = ['Docker', 'Kubernetes', 'GitHub Actions', 'AWS', 'Azure', 'GCP', 'Django', 'Next.js', 'MongoDB', 'Stripe'];
 const languages = ['Python', 'JavaScript', 'TypeScript'];
+
+function TrustedByCarousel() {
+  const [index, setIndex] = React.useState(0);
+
+  if (!trustedLogos || trustedLogos.length === 0) return null;
+
+  const total = trustedLogos.length;
+  const current = trustedLogos[index];
+
+  const goPrev = () => setIndex((prev) => (prev - 1 + total) % total);
+  const goNext = () => setIndex((prev) => (prev + 1) % total);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((prev) => (prev + 1) % total);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [total]);
+
+  return (
+    <div className="mt-4 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+      <div className="flex flex-1 items-center justify-start gap-4">
+        <div className="flex items-center justify-center rounded-2xl border border-raven-border/60 bg-raven-surface/60 px-6 py-4 shadow-soft-glow">
+          <img src={current.src} alt={current.name} className="h-10 w-auto object-contain sm:h-12" />
+        </div>
+        <p className="text-sm text-slate-300">
+          Recent work with{' '}
+          <span className="font-semibold text-white">{current.name}</span>
+        </p>
+      </div>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={goPrev}
+          className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 hover:border-raven-accent/70"
+        >
+          {'<'}
+        </button>
+        <div className="flex items-center gap-1">
+          {trustedLogos.map((logo, i) => (
+            <span
+              key={logo.name}
+              className={`h-1.5 w-1.5 rounded-full ${i === index ? 'bg-raven-accent' : 'bg-slate-500'}`}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={goNext}
+          className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 hover:border-raven-accent/70"
+        >
+          {'>'}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -107,6 +170,7 @@ export default function Home() {
 
       <section className="rounded-2xl border border-raven-border/60 bg-raven-card/60 p-6">
         <h2 className="text-2xl font-bold text-white">Trusted by</h2>
+        <TrustedByCarousel />
         <div className="mt-4 flex flex-wrap gap-3 text-slate-300">
           {trust.map((item) => (
             <span key={item} className="rounded-full border border-raven-border/60 bg-raven-surface/60 px-4 py-2 text-sm">
@@ -117,9 +181,6 @@ export default function Home() {
       </section>
 
       <section className="space-y-4">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-bold text-white">Tech stack</h2>
-        </div>
         <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
           <div className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-raven-cyan">
@@ -157,4 +218,3 @@ export default function Home() {
     </div>
   );
 }
-

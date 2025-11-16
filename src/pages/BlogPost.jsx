@@ -37,10 +37,16 @@ export default function BlogPost() {
           ))}
         </div>
       </div>
+      {post.image && (
+        <div className="overflow-hidden rounded-3xl border border-raven-border/70 bg-raven-card/80">
+          <img src={post.image} alt={post.title} className="h-64 w-full object-cover sm:h-80" />
+        </div>
+      )}
       <p className="text-lg leading-relaxed text-slate-200">{post.content}</p>
       <Link to="/blog" className="inline-flex items-center text-sm font-semibold text-raven-cyan hover:text-white">
-        ← Back to blog
+        Back to blog
       </Link>
     </article>
   );
 }
+

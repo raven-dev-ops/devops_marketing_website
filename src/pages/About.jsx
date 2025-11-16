@@ -49,7 +49,7 @@ export default function About() {
             <img
               src={damonPortrait}
               alt="Portrait of Damon Heath, Raven Development Operations"
-              className="h-full w-full max-w-md rounded-2xl object-cover md:max-w-lg"
+              className="h-full w-full max-w-lg rounded-2xl object-cover md:max-w-xl"
             />
           </div>
         </div>
@@ -58,20 +58,30 @@ export default function About() {
             <h2 className="text-2xl font-semibold text-white">What I bring</h2>
             <ul className="mt-4 space-y-2 text-sm text-slate-300">
               <li>
-                Veteran-owned small business putting America first with DevOps support focused on real-world outcomes for U.S.
-                teams.
+                Veteran-owned, America-first small business focused on building secure, reliable systems for U.S. teams that
+                need their technology to work under pressure.
               </li>
-              <li>Cloud deployments across Heroku, Netlify, and container platforms.</li>
-              <li>Containerization with Docker and pragmatic GitHub Actions automation.</li>
-              <li>Full-stack experience across Next.js, Django, and Discord bots with observability and security baked in.</li>
+              <li>
+                Practical cloud deployments across Heroku, Netlify, and container platforms with clear runbooks instead of
+                fragile one-off scripts.
+              </li>
+              <li>
+                Containerization with Docker and pragmatic GitHub Actions automation that keeps builds, tests, and deploys
+                predictable.
+              </li>
+              <li>
+                Full-stack experience across Next.js, Django, and Discord bots, with observability, logging, and security baked
+                in from day one.
+              </li>
             </ul>
           </div>
           <div className="rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
             <h2 className="text-2xl font-semibold text-white">How I work</h2>
             <p className="mt-3 text-sm text-slate-300">
-              Every engagement starts with context: what uptime, cost, and velocity goals matter to you and the people you serve.
-              As a veteran-owned business putting America first, I build transparent plans, instrument systems for visibility, and
-              leave teams with documentation they can trust long after the engagement ends.
+              Every engagement starts with context: what uptime, cost, compliance, and velocity goals matter most to you and the
+              people you serve. From there, I design small, testable changes instead of big-bang migrations.
+              As a veteran-owned business putting America first, I build transparent plans, instrument systems for visibility,
+              and leave teams with documentation, dashboards, and runbooks they can trust long after the engagement ends.
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm text-raven-cyan">
               <a href="https://github.com/raven-dev-ops" target="_blank" rel="noreferrer" className="hover:text-white">
