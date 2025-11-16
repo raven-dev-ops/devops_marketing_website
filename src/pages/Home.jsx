@@ -102,13 +102,13 @@ function TrustedByCarousel() {
   const goNext = () => setIndex((prev) => (prev + 1) % total);
 
   return (
-    <div className="mt-4 flex scale-[1.5] flex-col items-center gap-3 origin-top">
+    <div className="mt-4 mb-6 flex scale-[1.5] flex-col items-center gap-4 origin-top">
       <div className="flex w-full max-w-xl flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-4">
         <div className="flex h-24 w-24 items-center justify-center rounded-full border border-raven-border/70 bg-raven-surface/70 shadow-soft-glow sm:h-32 sm:w-32">
           <img
             src={current.src}
             alt={current.name}
-            className="h-16 w-16 rounded-full object-cover sm:h-20 sm:w-20"
+            className="h-24 w-24 rounded-full object-cover sm:h-32 sm:w-32"
           />
         </div>
         <div className="flex flex-col text-center sm:text-left">
@@ -232,7 +232,7 @@ export default function Home() {
       <section className="rounded-2xl border border-raven-border/60 bg-raven-card/60 p-6">
         <h2 className="text-2xl font-bold text-white">Trusted by</h2>
         <TrustedByCarousel />
-        <div className="mt-4 flex flex-wrap justify-center gap-3 text-slate-300">
+        <div className="mt-8 flex flex-wrap justify-center gap-3 text-slate-300">
           {trust.map((item) => (
             <span
               key={item}

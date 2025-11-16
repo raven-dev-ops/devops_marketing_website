@@ -107,7 +107,9 @@ export default function Pricing() {
                     Recommended
                   </p>
                 )}
-                <p className="text-xs uppercase tracking-[0.2em] text-raven-cyan">Engagement</p>
+                {!tier.featured && (
+                  <p className="text-xs uppercase tracking-[0.2em] text-raven-cyan">Engagement</p>
+                )}
                 <h2 className="text-2xl font-semibold text-white">{tier.name}</h2>
                 <p className="text-sm text-slate-300">{tier.description}</p>
               </div>
