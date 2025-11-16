@@ -1,3 +1,8 @@
+import discordBotSs1 from '../assets/discord_bot_ss_1.png';
+import discordBotSs2 from '../assets/discord_bot_ss_2.png';
+import discordBotSs3 from '../assets/discord_bot_ss_3.png';
+import discordBotSs4 from '../assets/discord_bot_ss_4.png';
+
 export const portfolioItems = [
   {
     title: 'Galactic Phantom Division Website',
@@ -69,10 +74,10 @@ export const portfolioItems = [
     ],
     github: 'https://github.com/ravdevops/helldivers2_discord_ocr_lfg_clan_bot',
     screenshots: [
-      '/portfolio/helldivers-bot-1.png',
-      '/portfolio/helldivers-bot-2.png',
-      '/portfolio/helldivers-bot-3.png',
-      '/portfolio/helldivers-bot-4.png',
+      discordBotSs1,
+      discordBotSs2,
+      discordBotSs3,
+      discordBotSs4,
     ],
   },
 ];
