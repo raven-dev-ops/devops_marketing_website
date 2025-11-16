@@ -26,7 +26,6 @@ const benefits = [
 ];
 
 const trust = [
-  'Founder-led software companies',
   'Small SaaS and e-commerce teams',
   'Internal platform & DevOps groups',
   'Government and public sector pilots',
@@ -41,34 +40,40 @@ const trustTagClasses = [
 
 const trustedLogos = [
   {
-    name: 'Stirling',
-    src: trusted1Stirling,
-    review: 'Stabilized deployments and clarified delivery ownership across the team.',
-  },
-  {
-    name: 'GPT Studios',
-    src: trusted2GptStudios,
-    review: 'Modernized CI/CD and observability while keeping day-to-day work moving.',
-  },
-  {
-    name: 'Colonial KC',
-    src: trusted3ColonialKc,
-    review: 'Implemented practical automation that reduced outages and late-night firefights.',
-  },
-  {
-    name: 'Twiinz',
+    name: 'Twiinz Beard, Balm, & Essentials',
     src: trusted4Twiinz,
-    review: 'Helped ship new features faster with safer release practices.',
+    review:
+      'Set up a Squarespace storefront with products, documentation, and step-by-step onboarding, including video walkthroughs for the team.',
   },
   {
-    name: 'Criders',
+    name: 'Stirling Innovations, LLC',
+    src: trusted1Stirling,
+    review:
+      'Integrated Google Workspace and BigQuery, delivered individual training, and refreshed the marketing site and membership pipeline.',
+  },
+  {
+    name: "Crider's Institute of Welding Technology",
     src: trusted5Criders,
-    review: 'Improved infrastructure reliability without overcomplicating the stack.',
+    review:
+      'Cloned and migrated their site away from an expensive host, giving the institute full control and significantly lower ongoing costs.',
   },
   {
-    name: 'Rowe',
+    name: 'Rowe & Oak Coffee Co.',
     src: trusted6Rowe,
-    review: 'Partnered on DevOps process so the team could focus on product.',
+    review:
+      'Delivered a complete brand discovery and logo package, with assets prepared for web, print, and social media.',
+  },
+  {
+    name: 'GPT Studio',
+    src: trusted2GptStudios,
+    review:
+      'Built a MongoDB-backed Discord bot that automated admin workflows for a gaming community of more than 90,000 concurrent players.',
+  },
+  {
+    name: 'Galactic Phantom Taskforce Server',
+    src: trusted3ColonialKc,
+    review:
+      'Created a clan site with veteran playbooks, elite training resources, database-backed leaderboards, merch-store integration, Twitch developer API hooks, and application-routing webhooks.',
   },
 ];
 
