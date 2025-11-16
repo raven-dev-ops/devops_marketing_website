@@ -7,6 +7,22 @@ const milestones = [
   { year: '2019', text: 'Led containerization pushes for Python and Django services with CI gating.' },
   { year: '2022', text: 'Built Discord automation systems with monitoring, rate limits, and cloud hooks.' },
   { year: '2024', text: 'Started Raven Development Operations to help teams move faster with confidence.' },
+  {
+    year: 'Apr 2025',
+    text: 'Created the ravdevops_demo_website repo and began iterating on this marketing site, CI/CD, and deployment pipeline.',
+  },
+  {
+    year: 'Apr 2025',
+    text: 'Launched helldivers2_clan_website to support a Helldivers 2 clan community with a lightweight, maintainable web presence.',
+  },
+  {
+    year: 'Apr–May 2025',
+    text: 'Started the e-commerce-frontend and e-commerce-backend repos as a full-stack reference, pairing modern frontend patterns with an API-driven backend.',
+  },
+  {
+    year: 'Nov 2025',
+    text: 'Added helldivers2_discord_ocr_lfg_clan_bot, combining Discord automation with OCR to streamline clan LFG and operations.',
+  },
 ];
 
 export default function About() {
