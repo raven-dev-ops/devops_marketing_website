@@ -62,13 +62,17 @@ export default function Services() {
       </header>
 
       <section className="grid gap-6 md:grid-cols-2">
-        {serviceAreas.map((service) => (
+        {serviceAreas.map((service, index) => {
+          const imageAlignClass =
+            index % 3 === 0 ? 'justify-start' : index % 3 === 1 ? 'justify-center' : 'justify-end';
+
+          return (
           <div
             key={service.title}
             className="flex h-full flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
           >
             {service.image && (
-              <div className="flex items-center justify-center overflow-hidden rounded-xl border border-raven-border/60 bg-raven-card/80">
+              <div className={`flex ${imageAlignClass}`}>
                 <img
                   src={service.image}
                   alt={service.title}
@@ -92,7 +96,8 @@ export default function Services() {
               </span>
             </div>
           </div>
-        ))}
+        );
+        })}
       </section>
 
       <section className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-8">
