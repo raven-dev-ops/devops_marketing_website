@@ -108,7 +108,7 @@ export default function Contact() {
           <div className="space-y-4 rounded-xl border border-raven-border/60 bg-raven-surface/60 p-4">
             <iframe
               title="Calendly discovery video call"
-              src="https://calendly.com/ravendevops/discovery-meeting"
+              src="https://calendly.com/charityolivas/discovery-call"
               className="h-[520px] w-full rounded-lg border-0"
             />
           </div>
