@@ -10,9 +10,6 @@ export default function Footer() {
           <p className="text-sm text-slate-400">
             Based in Kansas City, MO · Working remotely with clients in US/EU time zones.
           </p>
-          <p className="text-sm text-slate-400">
-            DevOps consulting to help teams ship faster, safer, and reliable.
-          </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-slate-300">
           <Link to="/privacy" className="hover:text-white">
