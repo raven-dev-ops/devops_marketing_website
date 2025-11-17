@@ -112,9 +112,9 @@ export default function About() {
         </p>
       </header>
 
-      <section className="grid min-h-[300px] gap-6 md:grid-cols-2 md:items-center">
+      <section className="grid min-h-[300px] gap-4 md:grid-cols-2 md:items-center">
         <div
-          className={`flex h-full justify-center md:justify-center ${
+          className={`flex h-full items-center justify-center ${
             isEven ? 'md:order-1' : 'md:order-2'
           }`}
         >
@@ -127,11 +127,11 @@ export default function About() {
           </div>
         </div>
         <div
-          className={`flex h-full flex-col justify-center ${
+          className={`flex h-full items-center ${
             isEven ? 'md:order-2' : 'md:order-1'
           }`}
         >
-          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
+          <div className="flex w-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-5 sm:p-6">
             <h2 className="text-2xl font-semibold text-white">{activeStaff.name}</h2>
             <p className="mt-1 text-sm font-semibold uppercase tracking-[0.2em] text-raven-cyan">
               {activeStaff.title}

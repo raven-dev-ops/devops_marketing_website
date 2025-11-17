@@ -46,7 +46,6 @@ export default function Services() {
   const hasVideo = Boolean(previewStep.videoSrc);
 
   React.useEffect(() => {
-    // Reset playback state whenever the step changes
     setIsPlaying(false);
     if (videoRef.current) {
       try {
@@ -183,23 +182,9 @@ export default function Services() {
                   </div>
                   {hasVideo && (
                     <div className="flex items-center gap-4">
-                      <button
-                        type="button"
-                        onClick={handlePrevStep}
-                        className="hidden rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-black/80 sm:inline-flex"
-                      >
-                        ‹
-                      </button>
-                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-raven-accent text-lg font-bold text-black shadow-lg shadow-raven-accent/40">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-raven-accent/90 text-lg font-bold text-black shadow-lg shadow-raven-accent/60">
                         ▶
                       </span>
-                      <button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="hidden rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-black/80 sm:inline-flex"
-                      >
-                        ›
-                      </button>
                     </div>
                   )}
                   <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200">
@@ -255,3 +240,4 @@ export default function Services() {
     </div>
   );
 }
+

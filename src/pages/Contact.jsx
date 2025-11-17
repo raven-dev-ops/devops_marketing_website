@@ -6,10 +6,20 @@ export default function Contact() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const interest = searchParams.get('interest');
+  const formRef = React.useRef(null);
+  const emergencyRef = React.useRef(null);
+  const [showConfirm, setShowConfirm] = React.useState(false);
 
   const projectDefault = interest
     ? `I'm interested in the "${interest}" engagement and would like to discuss whether it fits my needs.`
     : '';
+
+  const handleSubmit = (event) => {
+    if (emergencyRef.current && emergencyRef.current.checked) {
+      event.preventDefault();
+      setShowConfirm(true);
+    }
+  };
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-12 px-4 py-12 lg:px-6">
@@ -30,9 +40,13 @@ export default function Contact() {
             name="contact"
             method="POST"
             data-netlify="true"
+            ref={formRef}
+            onSubmit={handleSubmit}
             className="flex h-full flex-col space-y-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
           >
             <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="to_email" value="sales@ravdevops.com" />
+            <input type="hidden" name="cc_email_if_emergency" value="business@ravdevops.com" />
             <div className="grid gap-4 md:grid-cols-2">
               <label className="text-sm text-slate-200">
                 Name
@@ -134,6 +148,7 @@ export default function Contact() {
                 id="emergency"
                 name="emergency_72hr"
                 type="checkbox"
+                ref={emergencyRef}
                 className="mt-1 h-4 w-4 rounded border-raven-border/70 bg-black text-raven-accent focus:ring-raven-accent"
               />
               <label htmlFor="emergency" className="cursor-pointer">
@@ -156,6 +171,42 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {showConfirm && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 px-4">
+          <div className="w-full max-w-md rounded-2xl border border-raven-border/70 bg-raven-card/95 p-6 shadow-soft-glow">
+            <p className="text-sm text-slate-100">
+              Would you like to be contacted ASAP even if outside of normal business hours?
+            </p>
+            <div className="mt-4 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowConfirm(false);
+                  if (emergencyRef.current) {
+                    emergencyRef.current.checked = false;
+                  }
+                }}
+                className="rounded-full border border-raven-border/70 bg-raven-surface/80 px-4 py-2 text-xs font-semibold text-slate-100 hover:border-raven-accent/70"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowConfirm(false);
+                  if (formRef.current) {
+                    formRef.current.submit();
+                  }
+                }}
+                className="rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-4 py-2 text-xs font-semibold text-black shadow-soft-glow"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

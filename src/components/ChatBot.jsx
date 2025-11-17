@@ -269,15 +269,7 @@ const ChatBot = ({ defaultOpen = false }) => {
 
         {bubbleVisible && (
           <motion.button
-            className={`flex items-center justify-center rounded-full p-3 text-white shadow-lg transition ${
-              status === 'muted'
-                ? 'bg-sky-500 hover:bg-sky-500 animate-pulse'
-                : status === 'active'
-                ? 'bg-emerald-500 hover:bg-emerald-500'
-                : status === 'standby'
-                ? 'bg-yellow-500 hover:bg-yellow-500 animate-pulse'
-                : 'bg-red-600 hover:bg-red-700'
-            }`}
+            className="flex items-center justify-center rounded-full p-3 text-white shadow-lg transition bg-transparent"
             onClick={() => {
               const nextOpen = !open;
               setOpen(nextOpen);
@@ -293,13 +285,13 @@ const ChatBot = ({ defaultOpen = false }) => {
             animate={wobble ? { rotate: [0, -6, 6, -6, 0] } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative flex h-11 w-11 items-center justify-center">
+            <div className="relative flex h-14 w-14 items-center justify-center">
               <div className="absolute inset-0 rounded-full border border-raven-blue/70 opacity-90" />
-              <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-slate-900">
+              <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-slate-900">
                 <img
                   src={ravenAssistantIcon}
                   alt="Raven AI Assistant"
-                  className="h-10 w-10 object-cover"
+                  className="h-12 w-12 object-cover"
                 />
               </div>
             </div>
