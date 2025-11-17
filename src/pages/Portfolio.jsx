@@ -2,7 +2,7 @@ import React from 'react';
 import { portfolioItems } from '../data/portfolio';
 import SeoHead from '../components/SeoHead';
 
-function PortfolioCarousel({ images, title, onArrowHoverChange }) {
+function PortfolioCarousel({ images, title, isActive, onImageClick }) {
   const [index, setIndex] = React.useState(0);
 
   if (!images || images.length === 0) return null;
@@ -12,20 +12,21 @@ function PortfolioCarousel({ images, title, onArrowHoverChange }) {
   const goPrev = () => setIndex((prev) => (prev - 1 + total) % total);
   const goNext = () => setIndex((prev) => (prev + 1) % total);
 
-  const handleArrowEnter = () => {
-    if (onArrowHoverChange) onArrowHoverChange(true);
-  };
-
-  const handleArrowLeave = () => {
-    if (onArrowHoverChange) onArrowHoverChange(false);
-  };
-
   return (
-    <div className="relative mb-4 overflow-hidden rounded-2xl border border-raven-border/70 bg-raven-card/80">
+    <div
+      className={[
+        'relative mb-4 overflow-hidden rounded-2xl border bg-raven-card/80 transition transform',
+        isActive ? 'scale-105 border-raven-accent/80 shadow-soft-glow' : 'border-raven-border/70',
+      ].join(' ')}
+    >
       <img
         src={images[index]}
         alt={`${title} screenshot ${index + 1}`}
-        className="h-56 w-full object-cover sm:h-64"
+        className="h-56 w-full cursor-pointer object-cover sm:h-64"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (onImageClick) onImageClick(index);
+        }}
       />
       {total > 1 && (
         <>
@@ -35,8 +36,6 @@ function PortfolioCarousel({ images, title, onArrowHoverChange }) {
               e.stopPropagation();
               goPrev();
             }}
-            onMouseEnter={handleArrowEnter}
-            onMouseLeave={handleArrowLeave}
             className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 px-2 py-1 text-xs text-white transition-transform hover:scale-110 hover:bg-black/70"
           >
             {'<'}
@@ -47,8 +46,6 @@ function PortfolioCarousel({ images, title, onArrowHoverChange }) {
               e.stopPropagation();
               goNext();
             }}
-            onMouseEnter={handleArrowEnter}
-            onMouseLeave={handleArrowLeave}
             className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 px-2 py-1 text-xs text-white transition-transform hover:scale-110 hover:bg-black/70"
           >
             {'>'}
@@ -71,7 +68,7 @@ function PortfolioCarousel({ images, title, onArrowHoverChange }) {
 
 export default function Portfolio() {
   const [hoveredSlug, setHoveredSlug] = React.useState(null);
-  const [arrowHoverSlug, setArrowHoverSlug] = React.useState(null);
+  const [lightbox, setLightbox] = React.useState(null);
 
   const handleCardClick = (github) => {
     if (!github) return;
@@ -82,6 +79,43 @@ export default function Portfolio() {
     if (proceed) {
       window.open(github, '_blank', 'noopener,noreferrer');
     }
+  };
+
+  const openLightbox = (item, startIndex) => {
+    if (!item || !item.screenshots || item.screenshots.length === 0) return;
+    const safeIndex =
+      Number.isInteger(startIndex) && startIndex >= 0 && startIndex < item.screenshots.length
+        ? startIndex
+        : 0;
+    setLightbox({
+      title: item.title,
+      images: item.screenshots,
+      index: safeIndex,
+    });
+  };
+
+  const closeLightbox = () => setLightbox(null);
+
+  const goLightboxPrev = () => {
+    setLightbox((current) => {
+      if (!current || !current.images || current.images.length === 0) return current;
+      const total = current.images.length;
+      return {
+        ...current,
+        index: (current.index - 1 + total) % total,
+      };
+    });
+  };
+
+  const goLightboxNext = () => {
+    setLightbox((current) => {
+      if (!current || !current.images || current.images.length === 0) return current;
+      const total = current.images.length;
+      return {
+        ...current,
+        index: (current.index + 1) % total,
+      };
+    });
   };
 
   return (
@@ -101,7 +135,7 @@ export default function Portfolio() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {portfolioItems.map((item) => {
-          const isActive = hoveredSlug === item.slug && arrowHoverSlug !== item.slug;
+          const isActive = hoveredSlug === item.slug;
 
           return (
             <article
@@ -119,20 +153,14 @@ export default function Portfolio() {
               onMouseEnter={() => setHoveredSlug(item.slug)}
               onMouseLeave={() => {
                 setHoveredSlug(null);
-                setArrowHoverSlug(null);
               }}
-              className={`flex h-full cursor-pointer flex-col gap-4 rounded-2xl border p-6 transition transform ${
-                isActive
-                  ? 'scale-105 border-raven-accent/80 bg-raven-card hover:shadow-soft-glow'
-                  : 'border-raven-border/70 bg-raven-card/70'
-              }`}
+              className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition"
             >
               <PortfolioCarousel
                 images={item.screenshots}
                 title={item.title}
-                onArrowHoverChange={(isHovering) =>
-                  setArrowHoverSlug(isHovering ? item.slug : null)
-                }
+                isActive={isActive}
+                onImageClick={(startIndex) => openLightbox(item, startIndex)}
               />
               <h2 className="text-2xl font-semibold text-white">{item.title}</h2>
               <p className="text-sm text-slate-300">{item.description}</p>
@@ -161,6 +189,55 @@ export default function Portfolio() {
           );
         })}
       </div>
+
+      {lightbox && lightbox.images && lightbox.images.length > 0 && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-black/80 p-4"
+          onClick={closeLightbox}
+        >
+          <div
+            className="relative w-full max-w-4xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={closeLightbox}
+              aria-label="Close image"
+              className="absolute right-3 top-3 z-10 rounded-full bg-black/60 px-2 py-1 text-xs font-semibold text-white hover:bg-black/80"
+            >
+              ✕
+            </button>
+            <div className="relative overflow-hidden rounded-2xl border border-raven-border/70 bg-black/80">
+              <img
+                src={lightbox.images[lightbox.index]}
+                alt={`${lightbox.title} screenshot ${lightbox.index + 1}`}
+                className="max-h-[80vh] w-full object-contain"
+              />
+              {lightbox.images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={goLightboxPrev}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white hover:bg-black/80"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goLightboxNext}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white hover:bg-black/80"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+            <div className="mt-3 text-center text-xs text-slate-200">
+              {lightbox.title} · {lightbox.index + 1} / {lightbox.images.length}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -132,7 +132,7 @@ const ChatBot = ({ defaultOpen = false }) => {
           >
             <div className="flex items-center justify-between bg-raven-blue px-4 py-3 text-white">
               <div className="flex items-center gap-2">
-                <div className="h-7 w-7 overflow-hidden rounded-full bg-black/30">
+                <div className="h-8 w-8 overflow-hidden rounded-full bg-black/30">
                   <img
                     src={ravenAssistantIcon}
                     alt="Raven AI Assistant"
@@ -167,7 +167,7 @@ const ChatBot = ({ defaultOpen = false }) => {
                     >
                       <div className="flex max-w-[85%] items-start gap-2">
                         {isBot && (
-                          <div className="mt-0.5 h-6 w-6 overflow-hidden rounded-full bg-black/40">
+                          <div className="mt-0.5 h-7 w-7 overflow-hidden rounded-full bg-black/40">
                             <img
                               src={ravenAssistantIcon}
                               alt="Raven AI Assistant"
@@ -195,9 +195,30 @@ const ChatBot = ({ defaultOpen = false }) => {
               </div>
 
               {isResponding && (
-                <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-raven-blue" />
-                  <span>Responding...</span>
+                <div className="mt-1 flex justify-start">
+                  <div className="flex max-w-[70%] items-start gap-2">
+                    <div className="mt-0.5 h-6 w-6 overflow-hidden rounded-full bg-black/40">
+                      <img
+                        src={ravenAssistantIcon}
+                        alt="Raven AI Assistant"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1 rounded-lg bg-raven-blue/10 px-3 py-2 text-xs dark:bg-raven-blue/20">
+                      <span
+                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-raven-blue"
+                        style={{ animationDelay: '0s' }}
+                      />
+                      <span
+                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-raven-blue"
+                        style={{ animationDelay: '0.15s' }}
+                      />
+                      <span
+                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-raven-blue"
+                        style={{ animationDelay: '0.3s' }}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -272,13 +293,13 @@ const ChatBot = ({ defaultOpen = false }) => {
             animate={wobble ? { rotate: [0, -6, 6, -6, 0] } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative flex h-12 w-12 items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-2 border-raven-blue/70 opacity-90" />
+            <div className="relative flex h-11 w-11 items-center justify-center">
+              <div className="absolute inset-0 rounded-full border border-raven-blue/70 opacity-90" />
               <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-slate-900">
                 <img
                   src={ravenAssistantIcon}
                   alt="Raven AI Assistant"
-                  className="h-9 w-9 object-cover"
+                  className="h-10 w-10 object-cover"
                 />
               </div>
             </div>

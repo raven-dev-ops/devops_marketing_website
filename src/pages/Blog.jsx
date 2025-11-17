@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogPosts';
 import SeoHead from '../components/SeoHead';
-import ravenHomeLogo from '../assets/raven_home_logo.png';
+import service1Banner from '../assets/service1_banner.png';
 
 const tags = ['All', 'CI/CD', 'Cloud', 'SRE', 'Tooling'];
 
@@ -60,12 +60,29 @@ export default function Blog() {
               )}
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase tracking-[0.2em] text-raven-cyan">{post.date}</span>
-                <div className="flex flex-wrap gap-2 text-xs text-slate-300">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-raven-border/60 bg-raven-surface/60 px-2 py-1">
-                      {tag}
-                    </span>
-                  ))}
+                <div className="flex flex-wrap gap-2 text-xs">
+                  {post.tags.map((tag) => {
+                    let tagClasses =
+                      'rounded-full border px-2 py-1';
+
+                    if (tag === 'CI/CD') {
+                      tagClasses += ' border-emerald-400/70 bg-emerald-500/10 text-emerald-300';
+                    } else if (tag === 'Cloud') {
+                      tagClasses += ' border-sky-400/70 bg-sky-500/10 text-sky-300';
+                    } else if (tag === 'SRE') {
+                      tagClasses += ' border-amber-400/70 bg-amber-500/10 text-amber-200';
+                    } else if (tag === 'Tooling') {
+                      tagClasses += ' border-violet-400/70 bg-violet-500/10 text-violet-300';
+                    } else {
+                      tagClasses += ' border-raven-border/60 bg-raven-surface/60 text-slate-200';
+                    }
+
+                    return (
+                      <span key={tag} className={tagClasses}>
+                        {tag}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
               <h2 className="text-2xl font-semibold text-white group-hover:text-raven-accent">{post.title}</h2>
@@ -77,22 +94,22 @@ export default function Blog() {
 
       <section className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 overflow-hidden rounded-full border border-raven-border/70 bg-black/40">
-                <img
-                  src={ravenHomeLogo}
-                  alt="Raven Development Operations logo"
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-white">Join my newsletter</h3>
+          <div className="flex items-start gap-4">
+            <div className="hidden h-16 w-16 overflow-hidden rounded-lg bg-black/40 sm:block">
+              <img
+                src={service1Banner}
+                alt="Raven Development Operations"
+                className="h-full w-full object-cover"
+              />
             </div>
-            <p className="mt-2 text-sm text-slate-300">
-              Get updates on CI/CD, cloud automation, and DevOps maturity guides.
-            </p>
+            <div>
+              <h3 className="text-xl font-semibold text-white">Join my newsletter</h3>
+              <p className="mt-2 text-sm text-slate-300">
+                Get updates on CI/CD, cloud automation, and DevOps maturity guides.
+              </p>
+            </div>
           </div>
-          <div className="group flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <input
               type="email"
               placeholder="Email address (coming soon)"
@@ -106,9 +123,6 @@ export default function Blog() {
             >
               Get updates
             </button>
-            <span className="w-full text-xs text-slate-500 opacity-0 transition-opacity group-hover:opacity-100">
-              Coming soon!
-            </span>
           </div>
         </div>
       </section>
