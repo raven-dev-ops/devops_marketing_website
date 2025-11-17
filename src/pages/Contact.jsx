@@ -182,14 +182,17 @@ export default function Contact() {
                 This request is time-sensitive. I would like to explore an emergency engagement with a targeted 72-hour delivery window.
               </label>
             </div>
-            <button type="submit" className="w-full rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-6 py-3 text-sm font-semibold text-black shadow-soft-glow">
+            <button
+              type="submit"
+              className="w-full rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-6 py-3 text-sm font-semibold text-black shadow-soft-glow transition transform hover:scale-105 hover:shadow-lg hover:from-emerald-400 hover:to-cyan-300"
+            >
               Send message
             </button>
           </form>
         </div>
 
         <div className="h-full">
-          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
+          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition transform hover:-translate-y-0.5 hover:border-raven-accent/70 hover:shadow-soft-glow">
             <iframe
               title="Calendly discovery video call"
               src="https://calendly.com/charityolivas/discovery-call"
