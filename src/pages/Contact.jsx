@@ -24,13 +24,13 @@ export default function Contact() {
         <p className="text-lg text-slate-300">CTOs, founders, and solo devs welcome. Typical projects range from CI/CD builds to fractional DevOps support.</p>
       </header>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <div>
+      <div className="grid gap-8 md:grid-cols-2 md:items-stretch">
+        <div className="h-full">
           <form
             name="contact"
             method="POST"
             data-netlify="true"
-            className="space-y-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
+            className="flex h-full flex-col space-y-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
           >
             <input type="hidden" name="form-name" value="contact" />
             <div className="grid gap-4 md:grid-cols-2">
@@ -146,12 +146,12 @@ export default function Contact() {
           </form>
         </div>
 
-        <div className="space-y-6 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
-          <div className="space-y-4 rounded-xl border border-raven-border/60 bg-raven-surface/60 p-4">
+        <div className="h-full">
+          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
             <iframe
               title="Calendly discovery video call"
               src="https://calendly.com/charityolivas/discovery-call"
-              className="h-[520px] w-full rounded-lg border-0"
+              className="h-full w-full rounded-lg border-0"
             />
           </div>
         </div>

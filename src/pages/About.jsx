@@ -13,7 +13,6 @@ const staffProfiles = [
     bullets: [
       'Veteran-owned, America-first engineering partner focused on building secure, reliable systems for U.S. teams operating in high-stakes environments.',
       'Cloud architectures on Heroku, Netlify, and container platforms with documented runbooks instead of fragile one-off scripts.',
-      'Containerization with Docker and pragmatic GitHub Actions pipelines that keep builds, tests, and deploys predictable and repeatable.',
       'Full-stack delivery across Next.js, Django, and Discord automation, with observability, logging, and security designed in from day one.',
     ],
   },
@@ -210,21 +209,6 @@ export default function About() {
           })}
         </div>
       </section>
-
-      <div className="flex flex-wrap justify-center gap-4">
-        <Link
-          to="/contact"
-          className="rounded-full bg-gradient-to-r from-raven-accent to-raven-cyan px-6 py-3 text-base font-semibold text-black shadow-soft-glow"
-        >
-          Book a discovery call
-        </Link>
-        <Link
-          to="/portfolio"
-          className="rounded-full border border-raven-border/70 bg-raven-card px-6 py-3 text-base font-semibold text-slate-100 hover:border-raven-accent/70"
-        >
-          View portfolio
-        </Link>
-      </div>
     </div>
   );
 }
