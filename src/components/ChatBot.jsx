@@ -35,6 +35,8 @@ const ChatBot = ({ defaultOpen = false }) => {
   const [catchCount, setCatchCount] = useState(0);
   const [iconX, setIconX] = useState(0);
   const [isRunningAway, setIsRunningAway] = useState(false);
+  const [isJumping, setIsJumping] = useState(false);
+  const [facingLeft, setFacingLeft] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const listEndRef = useRef(null);
   const sessionIdRef = useRef(null);
@@ -42,6 +44,8 @@ const ChatBot = ({ defaultOpen = false }) => {
   const runTimeoutRef = useRef(null);
   const nevermoreRunTimeoutRef = useRef(null);
   const nevermoreCountRef = useRef(0);
+  const runDirectionRef = useRef(-1);
+  const jumpTimeoutRef = useRef(null);
   const iconRef = useRef(null);
 
   // Timed behavior:
@@ -157,6 +161,11 @@ const ChatBot = ({ defaultOpen = false }) => {
 
   const stopRunningAway = () => {
     setIsRunningAway(false);
+    setIsJumping(false);
+    if (jumpTimeoutRef.current) {
+      clearTimeout(jumpTimeoutRef.current);
+      jumpTimeoutRef.current = null;
+    }
     if (runIntervalRef.current) {
       clearInterval(runIntervalRef.current);
       runIntervalRef.current = null;
@@ -170,6 +179,7 @@ const ChatBot = ({ defaultOpen = false }) => {
   const startRunningAway = () => {
     if (isRunningAway || !bubbleVisible || open) return;
     setIsRunningAway(true);
+    runDirectionRef.current = -1;
     setLastInteraction(Date.now());
 
     // Show a quick CAWW! while running
@@ -180,7 +190,6 @@ const ChatBot = ({ defaultOpen = false }) => {
 
     if (runIntervalRef.current) return;
 
-    let direction = -1; // start by moving left
     runIntervalRef.current = setInterval(() => {
       setIconX((prev) => {
         if (typeof window === 'undefined') return prev;
@@ -189,6 +198,7 @@ const ChatBot = ({ defaultOpen = false }) => {
         const minX = 16;
         const maxX = Math.max(minX, viewportWidth - iconWidth);
         const step = 40;
+        let direction = runDirectionRef.current;
         let next = prev + direction * step;
         if (next <= minX) {
           next = minX;
@@ -197,6 +207,8 @@ const ChatBot = ({ defaultOpen = false }) => {
           next = maxX;
           direction = -1;
         }
+        runDirectionRef.current = direction;
+        setFacingLeft(direction < 0);
         return next;
       });
     }, 160);
@@ -205,8 +217,19 @@ const ChatBot = ({ defaultOpen = false }) => {
       clearTimeout(runTimeoutRef.current);
     }
     runTimeoutRef.current = setTimeout(() => {
+      resetIconPosition();
       stopRunningAway();
-    }, 4000);
+      // Auto "catch" after the chase ends
+      const now = Date.now();
+      if (!open) {
+        const index = Math.min(catchCount, CATCH_MESSAGES.length - 1);
+        setOpen(true);
+        appendMessage('bot', CATCH_MESSAGES[index]);
+        setCatchCount((prev) => prev + 1);
+        setStatus('active');
+        setLastInteraction(now);
+      }
+    }, 10000);
   };
 
   // Run away when the mouse cursor gets close to the icon
@@ -222,6 +245,13 @@ const ChatBot = ({ defaultOpen = false }) => {
       const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance < 120) {
         startRunningAway();
+        if (jumpTimeoutRef.current) {
+          clearTimeout(jumpTimeoutRef.current);
+        }
+        setIsJumping(true);
+        jumpTimeoutRef.current = setTimeout(() => {
+          setIsJumping(false);
+        }, 400);
       }
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -348,15 +378,15 @@ const ChatBot = ({ defaultOpen = false }) => {
     setClickCount(nextClickCount);
     setLastInteraction(now);
 
-    const nextOpen = !open;
-    setOpen(nextOpen);
-    if (nextOpen) {
+    if (!open) {
       const index = Math.min(catchCount, CATCH_MESSAGES.length - 1);
+      setOpen(true);
       appendMessage('bot', CATCH_MESSAGES[index]);
       setCatchCount((prev) => prev + 1);
       setStatus('active');
       setLastInteraction(now);
     } else {
+      setOpen(false);
       setStatus('muted');
     }
   };
@@ -364,18 +394,22 @@ const ChatBot = ({ defaultOpen = false }) => {
   const iconAnimate = wobble
     ? {
         x: iconX,
-        y: isRunningAway ? 0 : [0, -4, 0],
+        y: isJumping ? [0, -32, 0] : isRunningAway ? 0 : [0, -4, 0],
         rotate: [0, -8, 8, -8, 0],
+        scaleX: facingLeft ? -1 : 1,
       }
     : {
         x: iconX,
-        y: isRunningAway ? 0 : [0, -4, 0],
+        y: isJumping ? [0, -32, 0] : isRunningAway ? 0 : [0, -4, 0],
         rotate: 0,
+        scaleX: facingLeft ? -1 : 1,
       };
 
   const iconTransition = {
     x: { type: 'spring', stiffness: 260, damping: 20 },
-    y: isRunningAway
+    y: isJumping
+      ? { duration: 0.4 }
+      : isRunningAway
       ? { duration: 0.2 }
       : { duration: 1.2, repeat: Infinity, repeatType: 'reverse' },
     rotate: { duration: wobble ? 0.6 : 0.2 },
@@ -542,28 +576,32 @@ const ChatBot = ({ defaultOpen = false }) => {
         )}
       </AnimatePresence>
 
-      <div className="flex flex-col items-end gap-2">
-        <AnimatePresence>
-          {bubbleVisible && !open && blurbVisible && status !== 'muted' && status !== 'standby' && (
-            <motion.div
-              key="raven-caww"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.25 }}
-              className="mb-1 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white shadow-lg"
-            >
-              CAWW!
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {bubbleVisible && !open && (
+        <motion.div
+          ref={iconRef}
+          className={`fixed bottom-4 left-0 flex flex-col items-center gap-2 ${
+            isRunningAway ? 'pointer-events-none' : ''
+          }`}
+          animate={iconAnimate}
+          transition={iconTransition}
+        >
+          <AnimatePresence>
+            {blurbVisible && status !== 'muted' && status !== 'standby' && (
+              <motion.div
+                key="raven-caww"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.25 }}
+                className="mb-1 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white shadow-lg"
+              >
+                CAWW!
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        <AnimatePresence>
-          {bubbleVisible &&
-            !open &&
-            nevermoreVisible &&
-            status !== 'muted' &&
-            status !== 'standby' && (
+          <AnimatePresence>
+            {nevermoreVisible && status !== 'muted' && status !== 'standby' && (
               <motion.div
                 key="raven-nevermore"
                 initial={{ opacity: 0, y: 8 }}
@@ -575,28 +613,23 @@ const ChatBot = ({ defaultOpen = false }) => {
                 NEVERMORE!!!
               </motion.div>
             )}
-        </AnimatePresence>
+          </AnimatePresence>
 
-        {bubbleVisible && !open && (
-          <motion.button
-            ref={iconRef}
-            className={`group fixed bottom-4 left-0 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70 ${
-              isRunningAway ? 'pointer-events-none' : ''
-            }`}
+          <button
+            type="button"
             onClick={handleIconClick}
             aria-expanded={open}
             aria-label="Open chat bot"
-            animate={iconAnimate}
-            transition={iconTransition}
+            className="group flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
           >
             <img
               src={ravenAssistantIcon}
               alt="Raven AI Assistant"
               className="h-14 w-14 rounded-full object-cover transition-transform group-hover:scale-110"
             />
-          </motion.button>
-        )}
-      </div>
+          </button>
+        </motion.div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SearchContext } from '../../hooks/SearchContext';
 
 const navItems = [
@@ -25,13 +26,33 @@ const alertMessages = [
 export default function Header({ theme, toggleTheme }) {
   const { query, setQuery } = React.useContext(SearchContext);
   const [alertIndex, setAlertIndex] = React.useState(0);
+  const [showAlert, setShowAlert] = React.useState(false);
 
   React.useEffect(() => {
     if (alertMessages.length === 0) return undefined;
-    const interval = setInterval(() => {
-      setAlertIndex((prev) => (prev + 1) % alertMessages.length);
-    }, 30000);
-    return () => clearInterval(interval);
+    let timeoutId;
+    const visibleDuration = 10000; // how long the alert stays visible
+    const hiddenDuration = 60000; // delay between alerts
+
+    const schedule = (visible) => {
+      timeoutId = setTimeout(() => {
+        if (visible) {
+          setShowAlert(false);
+          schedule(false);
+        } else {
+          setAlertIndex((prev) => (prev + 1) % alertMessages.length);
+          setShowAlert(true);
+          schedule(true);
+        }
+      }, visible ? visibleDuration : hiddenDuration);
+    };
+
+    setShowAlert(false);
+    schedule(false);
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
@@ -82,15 +103,31 @@ export default function Header({ theme, toggleTheme }) {
           </button>
         </div>
       </div>
-      <div
-        className="border-t border-raven-border/70 bg-black/60 py-1 text-xs text-slate-100 dark:bg-black/70"
-        aria-live="polite"
-      >
-        <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 lg:px-6">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          <span>{alertMessages[alertIndex]}</span>
-        </div>
-      </div>
+      <AnimatePresence>
+        {showAlert && (
+          <motion.div
+            key="header-alert"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.4 }}
+            className="relative border-t border-raven-border/70 bg-black/70 py-1 text-xs text-slate-100 dark:bg-black/80"
+            aria-live="polite"
+          >
+            <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 lg:px-6 overflow-hidden">
+              <span className="inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+              <div className="relative flex-1 overflow-hidden">
+                <div
+                  className="whitespace-nowrap"
+                  style={{ animation: 'header-marquee 20s linear infinite' }}
+                >
+                  {alertMessages[alertIndex]}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
