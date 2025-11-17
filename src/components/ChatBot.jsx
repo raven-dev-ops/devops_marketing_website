@@ -33,7 +33,13 @@ const ChatBot = ({ defaultOpen = false }) => {
   const [status, setStatus] = useState('idle'); // idle | active | muted | standby
   const [lastInteraction, setLastInteraction] = useState(() => Date.now());
   const [catchCount, setCatchCount] = useState(0);
-  const [iconX, setIconX] = useState(0);
+  const [iconX, setIconX] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    const viewportWidth = window.innerWidth || 0;
+    const iconWidth = 72; // approx 56px icon + margin
+    const startX = Math.max(16, viewportWidth - iconWidth);
+    return startX;
+  });
   const [isRunningAway, setIsRunningAway] = useState(false);
   const [isJumping, setIsJumping] = useState(false);
   const [facingLeft, setFacingLeft] = useState(false);
@@ -68,18 +74,17 @@ const ChatBot = ({ defaultOpen = false }) => {
     };
   }, [defaultOpen]);
 
-  // Initialize icon starting X so it begins near the bottom-right corner
+  // Keep icon starting X near the bottom-right corner and update on resize
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    const updateInitialX = () => {
+    const handleResize = () => {
       const viewportWidth = window.innerWidth || 0;
       const iconWidth = 72; // approx 56px icon + margin
       const startX = Math.max(16, viewportWidth - iconWidth);
       setIconX(startX);
     };
-    updateInitialX();
-    window.addEventListener('resize', updateInitialX);
-    return () => window.removeEventListener('resize', updateInitialX);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Seed greeting when the chat first opens and is empty
@@ -606,7 +611,9 @@ const ChatBot = ({ defaultOpen = false }) => {
           className={`fixed bottom-4 left-0 flex flex-col items-center gap-2 ${
             isRunningAway ? 'pointer-events-none' : ''
           }`}
-          animate={iconAnimate}
+          initial={{ opacity: 0 }}
+          animate={{ ...iconAnimate, opacity: 1 }}
+          exit={{ ...iconAnimate, opacity: 0 }}
           transition={iconTransition}
         >
           <AnimatePresence>
