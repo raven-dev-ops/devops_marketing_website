@@ -152,10 +152,22 @@ const ChatBot = ({ defaultOpen = false }) => {
             <div className="space-y-4 p-4">
               <div className="h-80 space-y-2 overflow-y-auto rounded-md border border-gray-100 bg-gray-50 p-2 pr-1 text-slate-900 dark:border-raven-border/70 dark:bg-raven-surface/80 dark:text-slate-100">
                 {messages.map((m) => {
-                  const timeLabel = m.timestamp
-                    ? m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    : '';
+                  let timeLabel = '';
+                  if (m.timestamp instanceof Date) {
+                    const datePart = m.timestamp.toLocaleDateString([], {
+                      month: 'short',
+                      day: 'numeric',
+                    });
+                    const timePart = m.timestamp.toLocaleTimeString([], {
+                      hour: 'numeric',
+                      minute: '2-digit',
+                    });
+                    timeLabel = `${datePart} · ${timePart}`;
+                  }
+
                   const isBot = m.role === 'bot';
+                  const isUser = m.role === 'user';
+
                   return (
                     <div
                       key={m.id}
@@ -163,12 +175,17 @@ const ChatBot = ({ defaultOpen = false }) => {
                     >
                       <div className="flex max-w-[85%] items-start gap-2">
                         {isBot && (
-                          <div className="mt-0.5 h-7 w-7 overflow-hidden rounded-full bg-black/40">
+                          <div className="mt-0.5 flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-black/40">
                             <img
                               src={ravenAssistantIcon}
                               alt="Raven AI Assistant"
-                              className="h-full w-full object-cover"
+                              className="h-full w-full object-contain"
                             />
+                          </div>
+                        )}
+                        {isUser && (
+                          <div className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-raven-accent/80 bg-raven-accent/10 text-[10px] font-semibold uppercase tracking-wide text-raven-accent">
+                            You
                           </div>
                         )}
                         <div
@@ -193,11 +210,11 @@ const ChatBot = ({ defaultOpen = false }) => {
               {isResponding && (
                 <div className="mt-1 flex justify-start">
                   <div className="flex max-w-[70%] items-start gap-2">
-                    <div className="mt-0.5 h-6 w-6 overflow-hidden rounded-full bg-black/40">
+                    <div className="mt-0.5 flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-black/40">
                       <img
                         src={ravenAssistantIcon}
                         alt="Raven AI Assistant"
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-contain"
                       />
                     </div>
                     <div className="flex items-center gap-1 rounded-lg bg-raven-blue/10 px-3 py-2 text-xs dark:bg-raven-blue/20">

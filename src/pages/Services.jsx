@@ -178,7 +178,7 @@ export default function Services() {
                       alt="Raven Development Operations"
                       className="h-32 w-32 object-contain opacity-75 sm:h-40 sm:w-40"
                     />
-                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200 text-center">
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200 text-center transition transform hover:scale-105 hover:text-raven-accent hover:shadow-soft-glow">
                       {hasVideo ? `Click to play Step ${previewStep.number} video` : 'Preview coming soon'}
                     </p>
                   </div>
@@ -188,14 +188,14 @@ export default function Services() {
                     <button
                       type="button"
                       onClick={handlePrevStep}
-                      className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
+                      className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full border border-transparent bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md transition transform hover:scale-110 hover:border-raven-accent/80 hover:bg-black/80 hover:shadow-soft-glow sm:flex"
                     >
                       {'<'}
                     </button>
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
+                      className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-full border border-transparent bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md transition transform hover:scale-110 hover:border-raven-accent/80 hover:bg-black/80 hover:shadow-soft-glow sm:flex"
                     >
                       {'>'}
                     </button>

@@ -36,7 +36,7 @@ function PortfolioCarousel({ images, title, isActive, onImageClick }) {
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 px-2 py-1 text-xs text-white transition-transform hover:scale-110 hover:bg-black/70"
+            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-transparent bg-black/50 px-2 py-1 text-xs text-white shadow-md transition transform hover:scale-110 hover:border-raven-accent/80 hover:bg-black/70 hover:shadow-soft-glow"
           >
             {'<'}
           </button>
@@ -46,7 +46,7 @@ function PortfolioCarousel({ images, title, isActive, onImageClick }) {
               e.stopPropagation();
               goNext();
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 px-2 py-1 text-xs text-white transition-transform hover:scale-110 hover:bg-black/70"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-transparent bg-black/50 px-2 py-1 text-xs text-white shadow-md transition transform hover:scale-110 hover:border-raven-accent/80 hover:bg-black/70 hover:shadow-soft-glow"
           >
             {'>'}
           </button>
@@ -69,6 +69,7 @@ function PortfolioCarousel({ images, title, isActive, onImageClick }) {
 export default function Portfolio() {
   const [hoveredSlug, setHoveredSlug] = React.useState(null);
   const [lightbox, setLightbox] = React.useState(null);
+  const [query, setQuery] = React.useState('');
 
   const handleCardClick = (github) => {
     if (!github) return;
@@ -118,6 +119,24 @@ export default function Portfolio() {
     });
   };
 
+  const normalizedQuery = query.trim().toLowerCase();
+  const visibleItems = React.useMemo(() => {
+    if (!normalizedQuery) return portfolioItems;
+    return portfolioItems.filter((item) => {
+      const fields = [
+        item.title,
+        item.description,
+        ...(item.tech || []),
+        ...(item.outcomes || []),
+      ];
+      return fields.some(
+        (value) =>
+          typeof value === 'string' &&
+          value.toLowerCase().includes(normalizedQuery),
+      );
+    });
+  }, [normalizedQuery]);
+
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 lg:px-6">
       <SeoHead
@@ -132,9 +151,18 @@ export default function Portfolio() {
           Engineering work focused on automation, infrastructure, and reliability - not just the UI.
         </p>
       </header>
+      <div className="flex justify-center">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search portfolio by tag, tech, or keyword..."
+          className="w-full max-w-md rounded-full border border-raven-border/70 bg-raven-surface/70 px-4 py-2 text-sm text-white placeholder:text-slate-400 focus:border-raven-accent focus:outline-none"
+        />
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {portfolioItems.map((item) => {
+        {visibleItems.map((item) => {
           const isActive = hoveredSlug === item.slug;
 
           return (
@@ -154,7 +182,12 @@ export default function Portfolio() {
               onMouseLeave={() => {
                 setHoveredSlug(null);
               }}
-              className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition"
+              className={[
+                'flex h-full cursor-pointer flex-col gap-4 rounded-2xl border p-6 transition transform',
+                isActive
+                  ? 'scale-105 border-raven-accent/80 bg-raven-card shadow-soft-glow'
+                  : 'border-raven-border/70 bg-raven-card/70',
+              ].join(' ')}
             >
               <PortfolioCarousel
                 images={item.screenshots}
@@ -168,7 +201,7 @@ export default function Portfolio() {
                 {item.tech.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-raven-border/60 bg-raven-surface/60 px-3 py-1"
+                    className="rounded-full border border-raven-accent/60 bg-raven-accent/10 px-3 py-1 font-medium text-raven-accent"
                   >
                     {tech}
                   </span>

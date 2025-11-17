@@ -238,7 +238,7 @@ export default function Home() {
           <button
             type="button"
             onClick={goPrevTrusted}
-            className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 hover:border-raven-accent/70"
+            className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 transition transform hover:-translate-y-0.5 hover:scale-110 hover:border-raven-accent/80 hover:bg-raven-card/90 hover:shadow-soft-glow"
           >
             {'<'}
           </button>
@@ -253,7 +253,7 @@ export default function Home() {
           <button
             type="button"
             onClick={goNextTrusted}
-            className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 hover:border-raven-accent/70"
+            className="rounded-full border border-raven-border/70 bg-raven-card px-3 py-1 text-xs text-slate-100 transition transform hover:-translate-y-0.5 hover:scale-110 hover:border-raven-accent/80 hover:bg-raven-card/90 hover:shadow-soft-glow"
           >
             {'>'}
           </button>
