@@ -128,7 +128,7 @@ const ChatBot = ({ defaultOpen = false }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.18 }}
-            className="mb-3 w-80 max-w-[90vw] overflow-hidden rounded-xl border border-gray-200 bg-white text-slate-900 shadow-2xl dark:border-raven-border/70 dark:bg-raven-card/95 dark:text-slate-100"
+            className="mb-3 w-96 max-w-[95vw] overflow-hidden rounded-xl border border-gray-200 bg-white text-slate-900 shadow-2xl dark:border-raven-border/70 dark:bg-raven-card/95 dark:text-slate-100"
           >
             <div className="flex items-center justify-between bg-raven-blue px-4 py-3 text-white">
               <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ const ChatBot = ({ defaultOpen = false }) => {
             </div>
 
             <div className="space-y-4 p-4">
-              <div className="h-64 space-y-2 overflow-y-auto rounded-md border border-gray-100 bg-gray-50 p-2 pr-1 dark:border-raven-border/70 dark:bg-raven-surface/80">
+              <div className="h-80 space-y-2 overflow-y-auto rounded-md border border-gray-100 bg-gray-50 p-2 pr-1 text-slate-900 dark:border-raven-border/70 dark:bg-raven-surface/80 dark:text-slate-100">
                 {messages.map((m) => {
                   const timeLabel = m.timestamp
                     ? m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })

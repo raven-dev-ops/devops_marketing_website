@@ -171,15 +171,17 @@ export default function Services() {
                 }}
               >
                 <div className="absolute inset-0 bg-black/60" />
-                <div className="relative flex flex-col items-center gap-4">
-                  <img
-                    src={ravenHomeLogo}
-                    alt="Raven Development Operations"
-                    className="h-32 w-32 object-contain opacity-90 sm:h-40 sm:w-40"
-                  />
-                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200">
-                    {hasVideo ? 'Click to play step video' : 'Preview coming soon'}
-                  </p>
+                <div className="relative flex h-full w-full items-center justify-center px-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <img
+                      src={ravenHomeLogo}
+                      alt="Raven Development Operations"
+                      className="h-32 w-32 object-contain opacity-75 sm:h-40 sm:w-40"
+                    />
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200 text-center">
+                      {hasVideo ? `Click to play Step ${previewStep.number} video` : 'Preview coming soon'}
+                    </p>
+                  </div>
                 </div>
                 {hasVideo && (
                   <>
@@ -230,4 +232,3 @@ export default function Services() {
     </div>
   );
 }
-
