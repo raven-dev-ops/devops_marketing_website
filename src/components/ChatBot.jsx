@@ -47,6 +47,7 @@ const ChatBot = ({ defaultOpen = false }) => {
   const runDirectionRef = useRef(-1);
   const jumpTimeoutRef = useRef(null);
   const afkReadyRef = useRef(false);
+  const hasChasedRef = useRef(false);
   const iconRef = useRef(null);
 
   // Timed behavior:
@@ -88,7 +89,7 @@ const ChatBot = ({ defaultOpen = false }) => {
         {
           id: 'greet',
           role: 'bot',
-          text: 'CAWWW! How can I help you today?',
+          text: 'CAWW! How can I help you?',
           timestamp,
         },
       ]);
@@ -185,6 +186,7 @@ const ChatBot = ({ defaultOpen = false }) => {
   const startRunningAway = () => {
     if (isRunningAway || !bubbleVisible || open || !afkReadyRef.current) return;
     setIsRunningAway(true);
+    hasChasedRef.current = true;
     runDirectionRef.current = -1;
     setLastInteraction(Date.now());
 
@@ -386,12 +388,14 @@ const ChatBot = ({ defaultOpen = false }) => {
     setLastInteraction(now);
 
     if (!open) {
-      const index = Math.min(catchCount, CATCH_MESSAGES.length - 1);
       setOpen(true);
-      appendMessage('bot', CATCH_MESSAGES[index]);
-      setCatchCount((prev) => prev + 1);
       setStatus('active');
       setLastInteraction(now);
+      if (hasChasedRef.current) {
+        const index = Math.min(catchCount, CATCH_MESSAGES.length - 1);
+        appendMessage('bot', CATCH_MESSAGES[index]);
+        setCatchCount((prev) => prev + 1);
+      }
     } else {
       setOpen(false);
       setStatus('muted');

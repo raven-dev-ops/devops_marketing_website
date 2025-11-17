@@ -31,7 +31,7 @@ export default function Header({ theme, toggleTheme }) {
   React.useEffect(() => {
     if (alertMessages.length === 0) return undefined;
     let timeoutId;
-    const visibleDuration = 21000; // keep visible long enough for marquee to cross
+    const visibleDuration = 24000; // ~2s fade-in + 20s scroll + 2s fade-out
     const hiddenDuration = 60000; // delay between alerts
 
     const schedule = (visible) => {
@@ -110,14 +110,14 @@ export default function Header({ theme, toggleTheme }) {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.4 }}
-            className="relative border-t border-raven-border/70 bg-black/70 py-1.5 text-xs text-slate-100 dark:bg-black/80"
+            transition={{ duration: 2 }}
+            className="relative border-t border-raven-border/70 bg-black/70 py-2 text-sm text-slate-100 dark:bg-black/80"
             aria-live="polite"
           >
-            <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 lg:px-6 overflow-hidden">
+            <div className="flex w-full items-center px-4 lg:px-6 overflow-hidden">
               <div className="relative flex-1 overflow-hidden">
                 <div
-                  className="inline-flex whitespace-nowrap rounded-md bg-emerald-500/25 px-3 py-1 text-emerald-50"
+                  className="inline-flex whitespace-nowrap rounded-md bg-emerald-500/25 px-4 py-1.5 text-sm text-emerald-50"
                   style={{ animation: 'header-marquee 20s linear 1' }}
                 >
                   {alertMessages[alertIndex]}
