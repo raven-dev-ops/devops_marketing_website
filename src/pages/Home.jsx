@@ -116,11 +116,11 @@ function TrustedByCarousel({ index }) {
           transition={{ duration: 0.4 }}
           className="flex w-full max-w-2xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-7"
         >
-          <div className="flex h-28 w-28 items-center justify-center rounded-md bg-slate-900/80 dark:bg-black/40 sm:h-32 sm:w-32">
+          <div className="flex items-center justify-center rounded-md bg-slate-900/80 p-2 dark:bg-black/40">
             <img
               src={current.src}
               alt={current.name}
-              className="max-h-full max-w-full object-contain"
+              className="h-20 w-auto object-contain sm:h-24"
             />
           </div>
           <div className="flex flex-col gap-2 text-center sm:text-left">

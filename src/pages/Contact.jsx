@@ -135,7 +135,7 @@ export default function Contact() {
                 <input
                   name="name"
                   required
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                 />
               </label>
               <label className="text-sm text-slate-200">
@@ -143,7 +143,7 @@ export default function Contact() {
                 <input
                   name="email"
                   type="email"
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                 />
               </label>
             </div>
@@ -153,14 +153,14 @@ export default function Contact() {
                 <input
                   name="company"
                   required
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                 />
               </label>
               <label className="text-sm text-slate-200">
                 Role
                 <input
                   name="role"
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                 />
               </label>
             </div>
@@ -170,14 +170,14 @@ export default function Contact() {
                 <input
                   name="phone"
                   type="tel"
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                 />
               </label>
               <label className="text-sm text-slate-200">
                 Preferred contact method
                 <select
                   name="contact_method"
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                   defaultValue="email"
                 >
                   <option value="email">Email</option>
@@ -192,7 +192,7 @@ export default function Contact() {
                 name="project"
                 rows="4"
                 defaultValue={projectDefault}
-                className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
               />
             </label>
             <div className="grid gap-4 md:grid-cols-2">
@@ -201,7 +201,7 @@ export default function Contact() {
                 <select
                   name="timeline"
                   required
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                   defaultValue="1-2-weeks"
                 >
                   <option value="1-2-weeks">1–2 weeks</option>
@@ -216,7 +216,7 @@ export default function Contact() {
                 <select
                   name="budget"
                   required
-                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 focus:border-raven-accent focus:outline-none"
+                  className="mt-2 w-full rounded-xl border border-raven-border/70 bg-raven-surface/70 px-3 py-2 text-sm text-white transition-colors hover:border-raven-accent/60 hover:bg-raven-surface/80 hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none"
                   defaultValue="1k-25k"
                 >
                   <option value="1k-25k">$1k–$25k+</option>

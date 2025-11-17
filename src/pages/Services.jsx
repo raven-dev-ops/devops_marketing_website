@@ -3,6 +3,7 @@ import { serviceAreas } from '../data/services';
 import SeoHead from '../components/SeoHead';
 import ravenHomeLogo from '../assets/raven_home_logo.png';
 import siteBackgroundDark from '../assets/site_background_dark.gif';
+import siteBackgroundLight from '../assets/site_background_light.png';
 
 const steps = [
   {
@@ -54,6 +55,10 @@ export default function Services() {
 
   const previewStep = steps.find((step) => step.number === activeStep) || steps[0];
   const hasVideo = Boolean(previewStep.videoSrc);
+  const isDarkMode =
+    typeof document !== 'undefined' &&
+    document.documentElement.classList.contains('dark');
+  const overlayBackground = isDarkMode ? siteBackgroundDark : siteBackgroundLight;
 
   React.useEffect(() => {
     setIsPlaying(false);
@@ -175,7 +180,7 @@ export default function Services() {
                 onClick={handlePlayClick}
                 className="absolute inset-0 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
                 style={{
-                  backgroundImage: `url(${siteBackgroundDark})`,
+                  backgroundImage: `url(${overlayBackground})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}

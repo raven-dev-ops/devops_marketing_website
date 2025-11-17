@@ -28,7 +28,7 @@ export default function Header({ theme, toggleTheme }) {
                 className="relative group cursor-default border-b-2 border-transparent pb-1 text-slate-300 transition-colors hover:text-white"
               >
                 <span>{item.label}</span>
-                <span className="pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-raven-card/90 px-3 py-1 text-[10px] font-semibold text-slate-100 opacity-0 shadow-soft-glow transition-opacity group-hover:opacity-100">
+                <span className="pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold text-slate-900 opacity-0 shadow-soft-glow transition-opacity group-hover:opacity-100 dark:bg-raven-card/90 dark:text-slate-100">
                   Coming soon!
                 </span>
               </div>
@@ -54,7 +54,7 @@ export default function Header({ theme, toggleTheme }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search posts & case studies..."
-            className="hidden w-40 rounded-full border border-raven-border/70 bg-raven-card/70 px-3 py-1.5 text-xs text-slate-100 placeholder:text-slate-400 shadow-inner shadow-black/20 transition-colors hover:border-raven-accent/80 hover:bg-raven-card focus:border-raven-accent focus:outline-none sm:block sm:w-56"
+            className="hidden w-40 rounded-full border border-raven-border/70 bg-raven-card/70 px-3 py-1.5 text-xs text-slate-100 placeholder:text-slate-400 shadow-inner shadow-black/20 transition-colors hover:border-raven-accent/80 hover:bg-raven-card hover:outline hover:outline-1 hover:outline-raven-accent/60 focus:border-raven-accent focus:outline-none sm:block sm:w-56"
           />
           <button
             onClick={toggleTheme}

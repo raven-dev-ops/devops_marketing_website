@@ -8,7 +8,7 @@ body {
   @apply font-sans antialiased;
   scroll-behavior: smooth;
   /* Light theme: use the dedicated light background texture without a dark underlay */
-  background-color: #f9fafb;
+  background-color: #e5e7eb;
   background-image: url('./assets/site_background_light.png');
   background-size: cover;
   background-position: center;
