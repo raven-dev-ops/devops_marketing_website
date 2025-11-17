@@ -9,6 +9,8 @@ export default function Contact() {
   const formRef = React.useRef(null);
   const emergencyRef = React.useRef(null);
   const [showConfirm, setShowConfirm] = React.useState(false);
+  const API_BASE =
+    process.env.REACT_APP_OPENAUXILIUM_URL || 'http://localhost:5050';
 
   const projectDefault = interest
     ? `I'm interested in the "${interest}" engagement and would like to discuss whether it fits my needs.`
@@ -37,6 +39,43 @@ export default function Contact() {
           form.reportValidity();
         }
         return;
+      }
+
+      // Fire-and-forget: link contact details to chat_user_id on the assistant server
+      try {
+        const name = form.elements.name?.value.trim();
+        const chatUserId = (() => {
+          if (typeof document === 'undefined') return null;
+          const nameKey = 'chat_user_id';
+          const existing = document.cookie
+            .split(';')
+            .map((c) => c.trim())
+            .find((c) => c.startsWith(`${nameKey}=`));
+          if (existing) return existing.split('=')[1];
+          const id = `guest_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+          const expires = new Date();
+          expires.setFullYear(expires.getFullYear() + 1);
+          document.cookie = `${nameKey}=${id}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+          return id;
+        })();
+
+        if (chatUserId) {
+          fetch(`${API_BASE}/contact-link`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chatUserId,
+              name,
+              email,
+              phone,
+            }),
+            keepalive: true,
+          }).catch(() => {
+            // Ignore errors; this is best-effort enrichment for chat
+          });
+        }
+      } catch {
+        // Swallow any unexpected errors; form submission should still proceed
       }
     }
 

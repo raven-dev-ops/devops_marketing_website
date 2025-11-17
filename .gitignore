@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+OpenAuxilium/node_modules
 /.pnp
 .pnp.js
 
@@ -10,6 +11,10 @@
 
 # production
 /build
+OpenAuxilium/build
+
+# local models for OpenAuxilium (large files, environment-specific)
+OpenAuxilium/models/
 
 # misc
 .env

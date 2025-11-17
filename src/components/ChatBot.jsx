@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import ravenAssistantIcon from '../assets/service1_banner.png';
 
+const API_BASE =
+  process.env.REACT_APP_OPENAUXILIUM_URL || 'http://localhost:5050';
+
 const ChatBot = ({ defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen);
   const [bubbleVisible, setBubbleVisible] = useState(defaultOpen);
@@ -16,6 +19,7 @@ const ChatBot = ({ defaultOpen = false }) => {
   const [status, setStatus] = useState('idle'); // idle | active | muted | standby
   const [lastInteraction, setLastInteraction] = useState(() => Date.now());
   const listEndRef = useRef(null);
+  const sessionIdRef = useRef(null);
 
   // Timed behavior:
   // - bubble appears after 30s
@@ -106,14 +110,75 @@ const ChatBot = ({ defaultOpen = false }) => {
     setStatus('active');
     setLastInteraction(Date.now());
 
-    setTimeout(() => {
-      appendMessage(
-        'bot',
-        "Thanks for sharing. If you'd like to go deeper, feel free to describe your stack, timelines, or constraints.",
-      );
-      setIsResponding(false);
-      setLastInteraction(Date.now());
-    }, 3000);
+    // Send message to OpenAuxilium-style backend
+    const chatUserId = ensureChatUserId();
+
+    fetch(`${API_BASE}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sessionId: sessionIdRef.current,
+        chatUserId,
+        message: text,
+      }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error(`Chat error: ${res.status}`);
+        }
+        const json = await res.json();
+        if (json.sessionId && !sessionIdRef.current) {
+          sessionIdRef.current = json.sessionId;
+        }
+        if (json.reply) {
+          appendMessage('bot', json.reply);
+        }
+      })
+      .catch(() => {
+        appendMessage(
+          'bot',
+          "I'm having trouble reaching my assistant server right now, but I can still share general information from the site.",
+        );
+      })
+      .finally(() => {
+        setIsResponding(false);
+        setLastInteraction(Date.now());
+      });
+  };
+
+  // When chat is explicitly closed by the user, clear the current backend session
+  const endChatSession = () => {
+    const id = sessionIdRef.current;
+    sessionIdRef.current = null;
+    setMessages([]);
+    setStatus('idle');
+    if (!id) return;
+
+    fetch(`${API_BASE}/sessions/${id}/end`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    }).catch(() => {
+      // swallow errors; session will expire on the server
+    });
+  };
+
+  const ensureChatUserId = () => {
+    if (typeof document === 'undefined') return null;
+    const name = 'chat_user_id';
+    const existing = document.cookie
+      .split(';')
+      .map((c) => c.trim())
+      .find((c) => c.startsWith(`${name}=`));
+    if (existing) {
+      return existing.split('=')[1];
+    }
+    const id = `guest_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+    const expires = new Date();
+    expires.setFullYear(expires.getFullYear() + 1);
+    document.cookie = `${name}=${id}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+    return id;
   };
 
   return (
@@ -140,6 +205,7 @@ const ChatBot = ({ defaultOpen = false }) => {
                 onClick={() => {
                   setOpen(false);
                   setStatus('muted');
+                  endChatSession();
                 }}
                 className="p-1 hover:opacity-90"
               >
