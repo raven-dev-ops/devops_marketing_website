@@ -188,7 +188,7 @@ const ChatBot = ({ defaultOpen = false }) => {
                             <div className="flex flex-col rounded-lg bg-raven-blue/10 px-3 py-2 text-xs text-slate-800 dark:bg-raven-blue/20 dark:text-slate-100">
                               <span>{m.text}</span>
                               {timeLabel && (
-                                <span className="mt-1 self-end text-[10px] opacity-70">
+                                <span className="mt-1 self-start text-[10px] opacity-70">
                                   {timeLabel}
                                 </span>
                               )}
@@ -198,16 +198,16 @@ const ChatBot = ({ defaultOpen = false }) => {
 
                         {isUser && (
                           <>
+                            <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full border border-raven-accent/80 bg-raven-accent/10 text-[10px] font-semibold uppercase tracking-wide text-raven-accent">
+                              You
+                            </div>
                             <div className="flex flex-col rounded-lg bg-raven-blue px-3 py-2 text-xs text-white">
                               <span>{m.text}</span>
                               {timeLabel && (
-                                <span className="mt-1 self-end text-[10px] opacity-70">
+                                <span className="mt-1 self-start text-[10px] opacity-70">
                                   {timeLabel}
                                 </span>
                               )}
-                            </div>
-                            <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full border border-raven-accent/80 bg-raven-accent/10 text-[10px] font-semibold uppercase tracking-wide text-raven-accent">
-                              You
                             </div>
                           </>
                         )}

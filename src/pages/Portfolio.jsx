@@ -111,7 +111,7 @@ export default function Portfolio() {
                   handleCardClick(item.github);
                 }
               }}
-              className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition"
+              className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition transform hover:scale-105 hover:border-raven-accent/80 hover:bg-raven-card hover:shadow-soft-glow"
             >
               {item.screenshots && item.screenshots.length > 0 && (
                 <div className="mb-3">
@@ -132,16 +132,6 @@ export default function Portfolio() {
                       Click to view gallery
                     </button>
                   </div>
-                  {item.screenshots.length > 1 && (
-                    <div className="mt-2 flex justify-center gap-1">
-                      {item.screenshots.map((image, i) => (
-                        <span
-                          key={image || i}
-                          className={`h-1.5 w-1.5 rounded-full ${i === 0 ? 'bg-raven-accent' : 'bg-white/40'}`}
-                        />
-                      ))}
-                    </div>
-                  )}
                 </div>
               )}
               <h2 className="text-2xl font-semibold text-white">{item.title}</h2>
@@ -202,14 +192,14 @@ export default function Portfolio() {
                     onClick={goLightboxPrev}
                     className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white hover:bg-black/80"
                   >
-                    ‹
+                    ‹ Prev
                   </button>
                   <button
                     type="button"
                     onClick={goLightboxNext}
                     className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white hover:bg-black/80"
                   >
-                    ›
+                    Next ›
                   </button>
                 </>
               )}
@@ -223,3 +213,4 @@ export default function Portfolio() {
     </div>
   );
 }
+
