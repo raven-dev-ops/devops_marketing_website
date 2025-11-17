@@ -121,15 +121,13 @@ function TrustedByCarousel({ index }) {
           transition={{ duration: 0.4 }}
           className="flex w-full max-w-2xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-7"
         >
-          <div
-            className={`flex items-center justify-center p-2 ${
-              hasCircleFrame ? 'rounded-full border border-raven-border/70' : 'rounded-md'
-            } ${isColonial ? 'bg-slate-900/80' : 'bg-transparent'} dark:bg-black/40`}
-          >
+          <div className="flex items-center justify-center">
             <img
               src={current.src}
               alt={current.name}
-              className={`${logoSizeClass} w-auto object-contain`}
+              className={`${logoSizeClass} w-auto object-contain ${
+                hasCircleFrame ? 'rounded-full border border-raven-border/70' : ''
+              }`}
             />
           </div>
           <div className="flex flex-col gap-2 text-center sm:text-left">
