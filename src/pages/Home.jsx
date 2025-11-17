@@ -1,4 +1,5 @@
 import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import SeoHead from '../components/SeoHead';
@@ -101,17 +102,26 @@ function TrustedByCarousel({ index }) {
 
   return (
     <div className="mt-6 mb-6 flex flex-col items-center gap-4">
-      <div className="flex w-full max-w-xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6">
-        <img
-          src={current.src}
-          alt={current.name}
-          className="h-24 w-24 rounded-md object-contain sm:h-28 sm:w-28"
-        />
-        <div className="flex flex-col text-center sm:text-left gap-1.5">
-          <p className="text-base font-semibold text-white">{current.name}</p>
-          <p className="text-sm text-slate-300">{current.review}</p>
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current.name}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.4 }}
+          className="flex w-full max-w-xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6"
+        >
+          <img
+            src={current.src}
+            alt={current.name}
+            className="h-24 w-24 rounded-md object-contain sm:h-28 sm:w-28"
+          />
+          <div className="flex flex-col text-center sm:text-left gap-1.5">
+            <p className="text-base font-semibold text-white">{current.name}</p>
+            <p className="text-sm text-slate-300">{current.review}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

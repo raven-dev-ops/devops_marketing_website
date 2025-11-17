@@ -112,7 +112,7 @@ export default function About() {
         </p>
       </header>
 
-      <section className="grid gap-6 md:grid-cols-2 md:items-center">
+      <section className="grid min-h-[300px] gap-6 md:grid-cols-2 md:items-center">
         <div
           className={`flex h-full justify-center md:justify-center ${
             isEven ? 'md:order-1' : 'md:order-2'
@@ -131,7 +131,7 @@ export default function About() {
             isEven ? 'md:order-2' : 'md:order-1'
           }`}
         >
-          <div className="rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
+          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6">
             <h2 className="text-2xl font-semibold text-white">{activeStaff.name}</h2>
             <p className="mt-1 text-sm font-semibold uppercase tracking-[0.2em] text-raven-cyan">
               {activeStaff.title}
@@ -177,7 +177,10 @@ export default function About() {
           {milestones.map((mile) => {
             const isOpen = openTimelineYear === mile.year;
             return (
-              <div key={mile.year} className="rounded-xl border border-raven-border/60 bg-raven-surface/50 p-4">
+              <div
+                key={mile.year}
+                className="rounded-xl border border-raven-border/60 bg-raven-surface/50 p-4 transition-transform transition-colors duration-150 hover:-translate-y-0.5 hover:border-raven-accent/80 hover:bg-raven-surface/80 hover:shadow-soft-glow"
+              >
                 <button
                   type="button"
                   onClick={() => setOpenTimelineYear(isOpen ? null : mile.year)}

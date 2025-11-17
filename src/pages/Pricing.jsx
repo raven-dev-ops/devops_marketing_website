@@ -141,7 +141,10 @@ export default function Pricing() {
           {faqs.map((faq, index) => {
             const isOpen = openFaqIndex === index;
             return (
-              <div key={faq.q} className="rounded-xl border border-raven-border/60 bg-raven-surface/50">
+              <div
+                key={faq.q}
+                className="rounded-xl border border-raven-border/60 bg-raven-surface/50 transition-transform transition-colors duration-150 hover:-translate-y-0.5 hover:border-raven-accent/80 hover:bg-raven-surface/80 hover:shadow-soft-glow"
+              >
                 <button
                   type="button"
                   onClick={() => setOpenFaqIndex(isOpen ? null : index)}
