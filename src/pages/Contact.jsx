@@ -31,7 +31,7 @@ export default function Contact() {
       <header className="space-y-3 text-center">
         <p className="text-sm uppercase tracking-[0.3em] text-raven-cyan">Contact</p>
         <h1 className="text-4xl font-bold text-white">Let&apos;s plan your next DevOps win</h1>
-        <p className="text-lg text-slate-300">CTOs, founders, and solo devs welcome. Typical projects range from CI/CD builds to fractional DevOps support.</p>
+        <p className="text-lg text-slate-300">Typical projects range from CI/CD builds to fractional DevOps support.</p>
       </header>
 
       <div className="grid gap-8 md:grid-cols-2 md:items-stretch">

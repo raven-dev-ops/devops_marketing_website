@@ -164,7 +164,7 @@ export default function Services() {
               <button
                 type="button"
                 onClick={handlePlayClick}
-                className="absolute inset-0 flex items-center justify-center"
+                className="absolute inset-0 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
                 style={{
                   backgroundImage: `url(${siteBackgroundDark})`,
                   backgroundSize: 'cover',
@@ -173,20 +173,18 @@ export default function Services() {
               >
                 <div className="absolute inset-0 bg-black/60" />
                 <div className="relative flex flex-col items-center gap-4">
-                  <div className="h-20 w-20 overflow-hidden rounded-full border border-raven-border/70 bg-black/60">
+                  <div className="relative flex items-center justify-center">
                     <img
                       src={ravenHomeLogo}
                       alt="Raven Development Operations"
-                      className="h-full w-full object-contain"
+                      className="h-28 w-28 object-contain opacity-80 sm:h-32 sm:w-32"
                     />
-                  </div>
-                  {hasVideo && (
-                    <div className="flex items-center gap-4">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-raven-accent/90 text-lg font-bold text-black shadow-lg shadow-raven-accent/60">
+                    {hasVideo && (
+                      <span className="absolute flex h-18 w-18 items-center justify-center rounded-full bg-raven-accent/90 text-2xl font-bold text-black shadow-lg shadow-raven-accent/70">
                         ▶
                       </span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                   <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200">
                     {hasVideo ? 'Click to play step video' : 'Preview coming soon'}
                   </p>
@@ -196,16 +194,16 @@ export default function Services() {
                     <button
                       type="button"
                       onClick={handlePrevStep}
-                      className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
+                      className="absolute left-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
                     >
-                      ‹
+                      {'<'}
                     </button>
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
+                      className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 px-4 py-3 text-base font-semibold text-white shadow-md hover:bg-black/80 sm:flex"
                     >
-                      ›
+                      {'>'}
                     </button>
                   </>
                 )}

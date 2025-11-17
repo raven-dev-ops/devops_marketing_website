@@ -28,19 +28,38 @@ export default function Blog() {
       </header>
 
       <div className="flex flex-wrap justify-center gap-3">
-        {tags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => setActiveTag(tag)}
-            className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              activeTag === tag
-                ? 'border-raven-accent bg-raven-accent/20 text-raven-accent'
-                : 'border-raven-border/60 bg-raven-card/70 text-slate-200 hover:border-raven-accent/60'
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
+        {tags.map((tag) => {
+          let baseInactive = 'border-raven-border/60 bg-raven-card/70 text-slate-200 hover:border-raven-accent/60';
+          let activeClasses = 'border-raven-accent bg-raven-accent/20 text-raven-accent';
+
+          if (tag === 'CI/CD') {
+            baseInactive = 'border-emerald-400/40 bg-emerald-500/5 text-emerald-200 hover:border-emerald-400/80';
+            activeClasses = 'border-emerald-400 bg-emerald-500/20 text-emerald-200';
+          } else if (tag === 'Cloud') {
+            baseInactive = 'border-sky-400/40 bg-sky-500/5 text-sky-200 hover:border-sky-400/80';
+            activeClasses = 'border-sky-400 bg-sky-500/20 text-sky-200';
+          } else if (tag === 'SRE') {
+            baseInactive = 'border-amber-400/40 bg-amber-500/5 text-amber-200 hover:border-amber-400/80';
+            activeClasses = 'border-amber-400 bg-amber-500/20 text-amber-200';
+          } else if (tag === 'Tooling') {
+            baseInactive = 'border-violet-400/40 bg-violet-500/5 text-violet-200 hover:border-violet-400/80';
+            activeClasses = 'border-violet-400 bg-violet-500/20 text-violet-200';
+          }
+
+          const isActive = activeTag === tag;
+
+          return (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                isActive ? activeClasses : baseInactive
+              }`}
+            >
+              {tag}
+            </button>
+          );
+        })}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
