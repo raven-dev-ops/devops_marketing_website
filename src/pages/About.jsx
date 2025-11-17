@@ -144,8 +144,8 @@ export default function About() {
         <div
           className={`flex h-full items-center justify-center ${
             isEven ? 'md:order-1' : 'md:order-2'
-          } transition-opacity duration-500 ease-out ${
-            profileVisible ? 'opacity-100' : 'opacity-0'
+          } transition-all duration-500 ease-out ${
+            profileVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
           <div className="flex h-56 w-56 items-center justify-center overflow-hidden rounded-full border border-raven-border/70 bg-raven-card/80 p-2 shadow-soft-glow sm:h-64 sm:w-64">
@@ -159,8 +159,8 @@ export default function About() {
         <div
           className={`flex h-full items-center ${
             isEven ? 'md:order-2' : 'md:order-1'
-          } transition-opacity duration-500 ease-out ${
-            profileVisible ? 'opacity-100' : 'opacity-0'
+          } transition-all duration-500 ease-out ${
+            profileVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
           <div className="flex w-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-5 sm:p-6">
@@ -248,4 +248,3 @@ export default function About() {
     </div>
   );
 }
-

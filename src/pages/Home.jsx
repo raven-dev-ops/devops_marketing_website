@@ -134,7 +134,8 @@ function TrustedByCarousel({ index }) {
 export default function Home() {
   const [trustedIndex, setTrustedIndex] = React.useState(0);
   const [activePill, setActivePill] = React.useState(null);
-  const pillTimeoutRef = React.useRef(null);
+  const openPillTimeoutRef = React.useRef(null);
+  const closePillTimeoutRef = React.useRef(null);
   const totalTrusted = trustedLogos.length;
 
   React.useEffect(() => {
@@ -149,27 +150,32 @@ export default function Home() {
 
   React.useEffect(() => {
     return () => {
-      if (pillTimeoutRef.current) {
-        clearTimeout(pillTimeoutRef.current);
-      }
+      if (openPillTimeoutRef.current) clearTimeout(openPillTimeoutRef.current);
+      if (closePillTimeoutRef.current) clearTimeout(closePillTimeoutRef.current);
     };
   }, []);
 
   const handlePillEnter = (label) => {
-    setActivePill(label);
-    if (pillTimeoutRef.current) {
-      clearTimeout(pillTimeoutRef.current);
-    }
-    pillTimeoutRef.current = setTimeout(() => {
-      setActivePill(null);
-      pillTimeoutRef.current = null;
-    }, 10000);
+    if (openPillTimeoutRef.current) clearTimeout(openPillTimeoutRef.current);
+    if (closePillTimeoutRef.current) clearTimeout(closePillTimeoutRef.current);
+
+    openPillTimeoutRef.current = setTimeout(() => {
+      setActivePill(label);
+      closePillTimeoutRef.current = setTimeout(() => {
+        setActivePill((current) => (current === label ? null : current));
+        closePillTimeoutRef.current = null;
+      }, 10000);
+    }, 3000);
   };
 
   const handlePillLeave = (label) => {
-    if (pillTimeoutRef.current) {
-      clearTimeout(pillTimeoutRef.current);
-      pillTimeoutRef.current = null;
+    if (openPillTimeoutRef.current) {
+      clearTimeout(openPillTimeoutRef.current);
+      openPillTimeoutRef.current = null;
+    }
+    if (closePillTimeoutRef.current) {
+      clearTimeout(closePillTimeoutRef.current);
+      closePillTimeoutRef.current = null;
     }
     setActivePill((current) => (current === label ? null : current));
   };
@@ -305,8 +311,8 @@ export default function Home() {
                   onMouseLeave={() => handlePillLeave(item)}
                   className={`rounded-full border px-4 py-2 text-sm font-medium transition transform ${
                     activePill === item
-                      ? 'scale-105 border-raven-cyan bg-raven-cyan/20 text-raven-cyan shadow-soft-glow'
-                      : 'border-raven-cyan/60 bg-raven-cyan/10 text-raven-cyan hover:border-raven-cyan/80 hover:bg-raven-cyan/15'
+                      ? 'scale-105 border-violet-400 bg-violet-500/20 text-violet-200 shadow-soft-glow'
+                      : 'border-violet-400/60 bg-violet-500/10 text-violet-200 hover:border-violet-400/80 hover:bg-violet-500/15'
                   }`}
                 >
                   <span>{item}</span>
