@@ -98,7 +98,7 @@ export default function Portfolio() {
                 handleCardClick(item.github);
               }
             }}
-            className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition hover:border-raven-accent/80 hover:bg-raven-card hover:shadow-soft-glow"
+            className="flex h-full cursor-pointer flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition transform hover:scale-105 hover:border-raven-accent/80 hover:bg-raven-card hover:shadow-soft-glow"
           >
             <PortfolioCarousel images={item.screenshots} title={item.title} />
             <h2 className="text-2xl font-semibold text-white">{item.title}</h2>

@@ -62,50 +62,41 @@ export default function Services() {
       </header>
 
       <section className="grid gap-6 md:grid-cols-2">
-        {serviceAreas.map((service, index) => {
-          const isReversed = index % 2 === 1;
+        {serviceAreas.map((service) => {
           const imageStyle = service.flipImage ? { transform: 'scaleX(-1)' } : undefined;
 
           return (
-          <div
-            key={service.title}
-            className="flex h-full flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
-          >
             <div
-              className={`flex flex-col items-center gap-4 md:gap-6 ${
-                isReversed ? 'md:flex-row-reverse' : 'md:flex-row'
-              }`}
+              key={service.title}
+              className="flex h-full flex-col gap-4 rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6"
             >
-              {service.image && (
-                <div className="flex justify-center md:justify-start">
+              <div className="flex flex-col items-center gap-3 text-center">
+                {service.image && (
                   <img
                     src={service.image}
                     alt={service.title}
                     className="h-40 w-auto max-w-full object-contain"
                     style={imageStyle}
                   />
-                </div>
-              )}
-              <div className="flex-1 text-center md:text-left">
+                )}
                 <h2 className="text-2xl font-semibold text-white">{service.title}</h2>
               </div>
+              <p className="text-sm text-slate-300">{service.blurb}</p>
+              <ul className="space-y-2 text-sm text-slate-200">
+                {service.outcomes.map((outcome) => (
+                  <li key={outcome} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-raven-accent" />
+                    <span>{outcome}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex justify-center">
+                <span className="inline-flex rounded-full border border-raven-border/60 bg-raven-surface/60 px-3 py-1 text-xs font-semibold text-raven-cyan">
+                  {service.format}
+                </span>
+              </div>
             </div>
-            <p className="text-sm text-slate-300">{service.blurb}</p>
-            <ul className="space-y-2 text-sm text-slate-200">
-              {service.outcomes.map((outcome) => (
-                <li key={outcome} className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-raven-accent" />
-                  <span>{outcome}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto">
-              <span className="inline-flex rounded-full border border-raven-border/60 bg-raven-surface/60 px-3 py-1 text-xs font-semibold text-raven-cyan">
-                {service.format}
-              </span>
-            </div>
-          </div>
-        );
+          );
         })}
       </section>
 
@@ -117,7 +108,7 @@ export default function Services() {
               key={step.number}
               type="button"
               onClick={() => setActiveStep(step.number)}
-              className="flex flex-col items-center rounded-xl border border-raven-border/60 bg-raven-surface/50 p-4 text-center text-left transition hover:border-raven-accent hover:shadow-soft-glow focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
+              className="flex flex-col items-center rounded-xl border border-raven-border/60 bg-raven-surface/50 p-4 text-center text-left transition transform hover:-translate-y-0.5 hover:scale-105 hover:border-raven-accent hover:shadow-soft-glow focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-raven-cyan">Step {step.number}</p>
               <p className="mt-2 text-sm font-semibold text-white">{step.title}</p>

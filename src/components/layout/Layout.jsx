@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import ChatBot from '../ChatBot';
 
 export default function Layout({ children }) {
   const [theme, setTheme] = useState('dark');
@@ -21,6 +22,7 @@ export default function Layout({ children }) {
       <Header theme={theme} toggleTheme={toggleTheme} />
       <main className={mainClasses}>{children}</main>
       <Footer />
+      <ChatBot />
     </div>
   );
 }
