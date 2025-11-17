@@ -31,7 +31,7 @@ export default function Header({ theme, toggleTheme }) {
   React.useEffect(() => {
     if (alertMessages.length === 0) return undefined;
     let timeoutId;
-    const visibleDuration = 24000; // ~2s fade-in + 20s scroll + 2s fade-out
+    const visibleDuration = 10000; // total time alert is visible
     const hiddenDuration = 60000; // delay between alerts
 
     const schedule = (visible) => {
@@ -107,21 +107,15 @@ export default function Header({ theme, toggleTheme }) {
         {showAlert && (
           <motion.div
             key="header-alert"
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 2 }}
-            className="absolute inset-x-0 top-full border-t border-raven-border/70 bg-black/70 py-2 text-sm text-slate-100 dark:bg-black/80"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.4 }}
+            className="pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center py-2 text-sm text-slate-100"
             aria-live="polite"
           >
-            <div className="flex w-full items-center px-4 lg:px-6 overflow-hidden">
-              <div className="relative flex-1 overflow-hidden">
-                <div
-                  className="inline-flex rounded-md bg-emerald-500/25 px-4 py-1.5 text-sm text-emerald-50"
-                >
-                  {alertMessages[alertIndex]}
-                </div>
-              </div>
+            <div className="inline-flex rounded-full bg-emerald-500/20 px-4 py-1.5 text-sm font-medium text-emerald-50 shadow">
+              {alertMessages[alertIndex]}
             </div>
           </motion.div>
         )}
