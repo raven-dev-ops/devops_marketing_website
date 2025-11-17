@@ -30,3 +30,29 @@ a {
   background: rgba(34, 197, 94, 0.2);
   color: #ecfeff;
 }
+
+/* Fixed-aspect video wrapper (16:9) */
+.video-frame {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-frame-inner {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-frame-inner video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}

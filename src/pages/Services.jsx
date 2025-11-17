@@ -103,14 +103,15 @@ export default function Services() {
       <section className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-8">
         <h2 className="text-2xl font-bold text-white">How engagements work</h2>
 
-        <div className="mt-4 overflow-hidden rounded-2xl border border-black/60 bg-black">
-          <video
-            src={previewStep.videoSrc}
-            controls
-            className="h-56 w-full bg-black object-contain sm:h-64"
-          >
-            Your browser does not support the video tag.
-          </video>
+        <div className="video-frame mt-4">
+          <div className="video-frame-inner border border-black/60">
+            <video
+              src={previewStep.videoSrc}
+              controls
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-5">
@@ -141,14 +142,15 @@ export default function Services() {
             </button>
             <h3 className="pr-8 text-xl font-semibold text-white">Step {selectedStep.number}: {selectedStep.title}</h3>
             <p className="mt-2 text-sm text-slate-300">{selectedStep.description}</p>
-            <div className="mt-4 overflow-hidden rounded-xl border border-black/60 bg-black">
-              <video
-                src={selectedStep.videoSrc}
-                controls
-                className="h-64 w-full bg-black object-contain sm:h-80"
-              >
-                Your browser does not support the video tag.
-              </video>
+            <div className="mt-4 video-frame">
+              <div className="video-frame-inner border border-black/60">
+                <video
+                  src={selectedStep.videoSrc}
+                  controls
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
           </div>
         </div>
