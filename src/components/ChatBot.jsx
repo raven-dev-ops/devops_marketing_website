@@ -22,7 +22,7 @@ const API_BASE =
   (typeof window !== 'undefined' &&
     window.__APP_CONFIG__ &&
     (window.__APP_CONFIG__.ASSISTANT_API_URL || window.__APP_CONFIG__.OPENAUXILIUM_URL)) ||
-  'http://localhost:4000';
+  'https://chat-assistant-backend-878866694c3b.herokuapp.com';
 
 const ChatBot = ({ defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen);

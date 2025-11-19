@@ -43,8 +43,7 @@ describe('ChatBot', () => {
     });
 
     const [url, options] = global.fetch.mock.calls[0];
-    // With no assistant URL env set, ChatBot falls back to http://localhost:4000
-    expect(url).toBe('http://localhost:4000/api/chat');
+    expect(url).toBe('https://chat-assistant-backend-878866694c3b.herokuapp.com/api/chat');
     expect(options.method).toBe('POST');
     expect(options.headers).toEqual({ 'Content-Type': 'application/json' });
 
