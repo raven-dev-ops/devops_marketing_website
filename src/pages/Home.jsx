@@ -130,7 +130,7 @@ function TrustedByCarousel({ index }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex w-full max-w-2xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-7"
+          className="flex w-full max-w-2xl flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-7 min-h-[140px] sm:min-h-[160px]"
           >
             <div className="flex items-center justify-center">
               <img
