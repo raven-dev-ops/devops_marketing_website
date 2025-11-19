@@ -19,7 +19,9 @@ const CATCH_MESSAGES = [
 ];
 
 const API_BASE =
-  process.env.REACT_APP_OPENAUXILIUM_URL || 'http://localhost:5050';
+  process.env.REACT_APP_ASSISTANT_API_URL ||
+  process.env.REACT_APP_OPENAUXILIUM_URL ||
+  'http://localhost:4000';
 
 const ChatBot = ({ defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen);
@@ -297,18 +299,20 @@ const ChatBot = ({ defaultOpen = false }) => {
     setStatus('active');
     setLastInteraction(Date.now());
 
-    // Send message to OpenAuxilium-style backend
+    // Send message to assistant backend
     const chatUserId = ensureChatUserId();
 
-    fetch(`${API_BASE}/chat`, {
+    fetch(`${API_BASE}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        sessionId: sessionIdRef.current,
-        chatUserId,
         message: text,
+        context: {
+          chatUserId,
+          source: 'raven-demo-website',
+        },
       }),
     })
       .then(async (res) => {
@@ -316,9 +320,6 @@ const ChatBot = ({ defaultOpen = false }) => {
           throw new Error(`Chat error: ${res.status}`);
         }
         const json = await res.json();
-        if (json.sessionId && !sessionIdRef.current) {
-          sessionIdRef.current = json.sessionId;
-        }
         if (json.reply) {
           appendMessage('bot', json.reply);
         }
@@ -338,18 +339,9 @@ const ChatBot = ({ defaultOpen = false }) => {
   // When chat is explicitly closed by the user, clear the current backend session
   const endChatSession = () => {
     stopRunningAway();
-    const id = sessionIdRef.current;
     sessionIdRef.current = null;
     setMessages([]);
     setStatus('idle');
-    if (!id) return;
-
-    fetch(`${API_BASE}/sessions/${id}/end`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    }).catch(() => {
-      // swallow errors; session will expire on the server
-    });
   };
 
   const resetIconPosition = () => {

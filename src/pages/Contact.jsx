@@ -11,7 +11,9 @@ export default function Contact() {
   const emergencyRef = React.useRef(null);
   const [showConfirm, setShowConfirm] = React.useState(false);
   const API_BASE =
-    process.env.REACT_APP_OPENAUXILIUM_URL || 'http://localhost:5050';
+    process.env.REACT_APP_ASSISTANT_API_URL ||
+    process.env.REACT_APP_OPENAUXILIUM_URL ||
+    'http://localhost:4000';
   const { theme } = React.useContext(ThemeContext);
   const isDarkMode = theme === 'dark';
   const calendlyBase = 'https://calendly.com/charityolivas/discovery-call';
