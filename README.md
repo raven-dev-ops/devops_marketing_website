@@ -45,22 +45,23 @@ npm run build
 The optimized bundle is written to `build/` (Netlify uses this).
 
 ## Assistant Backend Wiring
-- Default production backend: `https://chat-assistant-backend-e4gl56kwma-uc.a.run.app`
+- Default production backend (no client token needed): `https://chat-assistant-backend-gw-3j4dip0k.uc.gateway.dev`
+- Direct Cloud Run URL (requires ID token): `https://chat-assistant-backend-276715928612.us-central1.run.app`
 - The chatbot (`src/components/ChatBot.jsx`) and contact enrichment share the same base URL.
 - Configure via env vars:
-  - `VITE_ASSISTANT_API_URL` — override the backend base URL (recommended)
-  - `VITE_OPENAUXILIUM_URL` — optional fallback for the legacy Node backend
+  - `VITE_ASSISTANT_API_URL` - override the backend base URL (recommended)
+  - `VITE_OPENAUXILIUM_URL` - optional fallback for the legacy Node backend
 
 Resolution order in the client:
 ```
 VITE_ASSISTANT_API_URL
-  ▹ VITE_OPENAUXILIUM_URL
-  ▹ https://chat-assistant-backend-e4gl56kwma-uc.a.run.app (default)
+  -> VITE_OPENAUXILIUM_URL
+  -> https://chat-assistant-backend-gw-3j4dip0k.uc.gateway.dev (default)
 ```
 
 Example `.env` (or `.env.local`):
 ```ini
-VITE_ASSISTANT_API_URL=https://chat-assistant-backend-e4gl56kwma-uc.a.run.app
+VITE_ASSISTANT_API_URL=https://chat-assistant-backend-gw-3j4dip0k.uc.gateway.dev
 # Optional local/legacy backend
 VITE_OPENAUXILIUM_URL=
 ```

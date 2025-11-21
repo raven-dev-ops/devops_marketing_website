@@ -21,12 +21,12 @@ Frontend routes live under `src/pages/` (Home, Services, Portfolio, Blog, Pricin
 - **Frontend config order:**
   1. `VITE_ASSISTANT_API_URL` (recommended)
   2. `VITE_OPENAUXILIUM_URL` (legacy fallback)
-  3. Default: `https://chat-assistant-backend-e4gl56kwma-uc.a.run.app`
+  3. Default: `https://chat-assistant-backend-gw-3j4dip0k.uc.gateway.dev` (gateway injects auth)
 - **Backend (Cloud Run):**
-  - `POST /api/chat` — chat endpoint (no admin token needed)
-  - `POST /api/{collection}` — CRUD for collections (requires admin token)
-  - `GET /admin/summary` and `GET /admin/ping-db` — guarded by admin token
-  - `GET /health` and `/metadata/version` — health/version
+  - `POST /api/chat` - chat endpoint (no admin token needed)
+  - `POST /api/{collection}` - CRUD for collections (requires admin token)
+  - `GET /admin/summary` and `GET /admin/ping-db` - guarded by admin token
+  - `GET /health` and `/metadata/version` - health/version
 - Set `VITE_ASSISTANT_API_URL` in your environment for local dev or Netlify builds.
 
 ## Running Locally (frontend only)
