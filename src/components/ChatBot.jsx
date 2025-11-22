@@ -47,6 +47,14 @@ const trimReply = (text) => {
   const maxLen = 260;
   return clipped.length > maxLen ? `${clipped.slice(0, maxLen).trim()}...` : clipped;
 };
+const telemetryDebug = () => {
+  try {
+    if (typeof window === 'undefined') return false;
+    return Boolean(window.__RAVEN_TELEMETRY_DEBUG__) || process.env.NODE_ENV === 'development';
+  } catch {
+    return false;
+  }
+};
 
 const ChatBot = ({ defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen);
@@ -415,13 +423,15 @@ const ChatBot = ({ defaultOpen = false }) => {
               </div>
 
               <div className="flex items-center gap-2 pt-1">
-                <button
-                  type="button"
-                  onClick={exportTelemetry}
-                  className="text-[10px] text-slate-500 underline decoration-dotted underline-offset-4 hover:text-slate-700"
-                >
-                  Export telemetry
-                </button>
+                {telemetryDebug() && (
+                  <button
+                    type="button"
+                    onClick={exportTelemetry}
+                    className="text-[10px] text-slate-500 underline decoration-dotted underline-offset-4 hover:text-slate-700"
+                  >
+                    Export telemetry
+                  </button>
+                )}
                 <input
                   type="text"
                   value={userInput}
