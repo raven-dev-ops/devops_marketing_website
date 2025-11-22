@@ -56,7 +56,7 @@ const firstSentence = (text) => {
 };
 
 const quickPlan = () =>
-  'Outline: quick call to lock scope, propose stack, then build and test. Want the Calendly link?';
+  'Outline: quick call to lock scope, propose stack, then build and test. Want the Calendly link (https://calendly.com/ravdevops/discovery-meeting)?';
 
 const buildProjectAck = (raw, echo) => {
   const timeframeMention = hasTimeframe(raw) ? ' this week' : '';
@@ -67,13 +67,13 @@ const buildProjectAck = (raw, echo) => {
 const promptForDetails =
   'Tell me your focus—services, pricing, or your project—and I will suggest the next step. One line on users + timeline helps.';
 const pricingFollowups = [
-  'I can outline a starter vs. pro tier. How many users and calls per day?',
-  'Rough ranges depend on usage and integrations. How many users and what external APIs?',
+  'Happy to map out starter vs. pro tiers. How many users and calls per day?',
+  'I can share ranges if I know users and key integrations. What are you connecting to?',
   'Give me users per month and key integrations so I can outline pricing.',
 ];
 const volumeFollowups = [
-  'Sounds like higher usage. Want ranges or the Calendly link?',
-  'High volume noted. Should I share ranges or drop the Calendly link?',
+  'Sounds like higher usage—want rough ranges or the Calendly link (https://calendly.com/ravdevops/discovery-meeting) to chat?',
+  'High volume noted. Should I share ranges or drop the Calendly link (https://calendly.com/ravdevops/discovery-meeting)?',
 ];
 const domainFollowups = [
   'If this touches PII/PCI, I will tailor auth and storage. What data fields do you store?',
