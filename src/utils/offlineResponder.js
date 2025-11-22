@@ -22,6 +22,8 @@ const isHowAreYou = (words) =>
   words.includes('howdy?');
 const isQuoteIntent = (words) =>
   ['quote', 'pricing', 'estimate', 'cost', 'budget'].some((w) => words.includes(w));
+const isPricingIntent = (words) =>
+  ['pricing', 'price', 'cost', 'estimate', 'quote', 'rates'].some((w) => words.includes(w));
 const projectKeywords = ['project', 'product', 'build', 'plan', 'launch', 'saas', 'app'];
 const isProjectIntent = (words) => words.some((w) => projectKeywords.includes(w));
 const isOutlineIntent = (words) =>
@@ -109,9 +111,9 @@ export const getOfflineReply = (message) => {
     record('outline');
     return quickPlan();
   }
-  if (isQuoteIntent(words)) {
+  if (isQuoteIntent(words) || isPricingIntent(words)) {
     record('quote');
-    return `I can scope a quote for ${echo || 'this idea'}. Who are the users and what's the timeline?`;
+    return `I can outline pricing for ${echo || 'this idea'}. Who will use it and how heavy is the usage?`;
   }
   if (isTimelineIntent(words)) {
     record('timeline');
@@ -119,7 +121,7 @@ export const getOfflineReply = (message) => {
   }
   if (isDomainIntent(words)) {
     record('domain');
-    return 'If this involves sensitive data (HIPAA/PII/PCI), I will tailor infra. What data do you store and who uses it?';
+    return 'If this involves sensitive data (HIPAA/PII/PCI), I will tailor infra. What data do you store and who authenticates?';
   }
   if (isScheduleIntent(words)) {
     record('schedule');
