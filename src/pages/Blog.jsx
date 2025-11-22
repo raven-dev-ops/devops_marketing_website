@@ -110,7 +110,7 @@ export default function Blog() {
               <img
                 src={service1Banner}
                 alt="Raven Development Operations"
-                className="h-20 w-20 object-cover"
+                className="h-20 w-24 object-contain p-1"
               />
             </div>
             <div className="text-center md:text-left">
