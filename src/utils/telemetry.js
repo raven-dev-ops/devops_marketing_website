@@ -1,3 +1,12 @@
+const shouldDebug = () => {
+  try {
+    if (typeof window === 'undefined') return false;
+    return Boolean(window.__RAVEN_TELEMETRY_DEBUG__) || process.env.NODE_ENV === 'development';
+  } catch {
+    return false;
+  }
+};
+
 export const logTelemetry = (event, data = {}) => {
   try {
     if (typeof window === 'undefined') return;
@@ -7,7 +16,7 @@ export const logTelemetry = (event, data = {}) => {
     } else {
       window.__RAVEN_TELEMETRY__ = [entry];
     }
-    if (window.console?.debug) {
+    if (shouldDebug() && window.console?.debug) {
       window.console.debug('[raven-telemetry]', entry);
     }
   } catch {
