@@ -11,17 +11,28 @@ const normalize = (text) =>
     .filter(Boolean);
 
 const isGreeting = (words) =>
-  ['hi', 'hey', 'hello', 'yo', 'sup', "whats", "what's", 'whatsup', 'howdy'].some((g) =>
+  ['hi', 'hey', 'hello', 'yo', 'sup', 'whats', "what's", 'whatsup', 'howdy', 'hiya'].some((g) =>
     words.includes(g)
   );
 const isHowAreYou = (words) =>
-  words.join(' ').includes('how are you') || words.includes('hru') || words.includes('howdy');
+  words.join(' ').includes('how are you') ||
+  words.includes('hru') ||
+  words.includes('howdy') ||
+  words.includes('howdy?');
 const isQuoteIntent = (words) =>
   ['quote', 'pricing', 'estimate', 'cost', 'budget'].some((w) => words.includes(w));
 const projectKeywords = ['project', 'product', 'build', 'plan', 'launch', 'saas', 'app'];
 const isProjectIntent = (words) => words.some((w) => projectKeywords.includes(w));
 const isOutlineIntent = (words) =>
   ['outline', 'plan', 'steps', 'roadmap'].some((w) => words.includes(w));
+const isTimelineIntent = (words) =>
+  ['timeline', 'deadline', 'when', 'soon', 'fast', 'rush'].some((w) => words.includes(w));
+const isDomainIntent = (words) =>
+  ['health', 'healthcare', 'medical', 'finance', 'fintech', 'insurance', 'gov', 'government'].some(
+    (w) => words.includes(w)
+  );
+const isScheduleIntent = (words) =>
+  ['schedule', 'meet', 'meeting', 'call', 'calendly', 'book'].some((w) => words.includes(w));
 const hasTimeframe = (text) => /\b(day|week|month|deadline|today|tomorrow|next)\b/i.test(text);
 
 const truncate = (text, max = 140) => {
@@ -37,15 +48,16 @@ const firstSentence = (text) => {
 };
 
 const quickPlan = () =>
-  'Quick outline: call to lock scope, propose stack, then build & test. Want the Calendly link?';
+  'Outline: quick call to lock scope, propose stack, then build and test. Want the Calendly link?';
 
-const buildProjectAck = (raw) => {
+const buildProjectAck = (raw, echo) => {
   const timeframeMention = hasTimeframe(raw) ? ' this week' : '';
-  return `Got it—happy to help on that project${timeframeMention}. ${quickPlan()}`;
+  const focus = echo ? `${echo}` : 'your project';
+  return `Got it on ${focus}${timeframeMention}. ${quickPlan()}`;
 };
 
 const promptForDetails =
-  'What should we focus on—services, pricing, or your project? I will keep it short.';
+  'Tell me your focus—services, pricing, or your project—and I will suggest the next step.';
 const nextStep = () =>
   Math.random() < 0.5
     ? 'Want a quick outline or a Calendly link to talk live?'
@@ -70,6 +82,7 @@ const scoreEntry = (words, entry) => {
 export const getOfflineReply = (message) => {
   const words = normalize(message);
   if (!words.length) return null;
+  const echo = words.slice(0, 6).join(' ');
 
   if (isHowAreYou(words)) {
     return 'Doing well and here to help. Want to talk services, pricing, or your project?';
@@ -81,10 +94,19 @@ export const getOfflineReply = (message) => {
     return quickPlan();
   }
   if (isQuoteIntent(words)) {
-    return 'I can help scope a quote. Share the idea, target users, and timeline. Want the Calendly link?';
+    return `I can scope a quote for ${echo || 'this idea'}. Who are the users and what's the timeline?`;
+  }
+  if (isTimelineIntent(words)) {
+    return 'Noted on timeline. What is the deadline and the must-have for launch?';
+  }
+  if (isDomainIntent(words)) {
+    return 'If this touches sensitive data (HIPAA/PII), I will tailor infra. What is the core user flow and data you store?';
+  }
+  if (isScheduleIntent(words)) {
+    return 'I can set up a call. Want the Calendly link, or should I share a quick outline first?';
   }
   if (isProjectIntent(words)) {
-    return buildProjectAck(message);
+    return buildProjectAck(message, echo);
   }
 
   let best = null;
