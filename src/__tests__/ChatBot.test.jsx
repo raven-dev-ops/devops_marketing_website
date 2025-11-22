@@ -191,7 +191,7 @@ describe('ChatBot', () => {
     expect(await screen.findByText(fallbackText)).toBeInTheDocument();
   });
 
-  test('restores a stored sessionId and transcript on remount', async () => {
+  test('starts fresh even if a stored session exists', async () => {
     const savedState = {
       messages: [
         {
@@ -209,14 +209,16 @@ describe('ChatBot', () => {
 
     global.fetch.mockResolvedValue({
       ok: true,
-      json: async () => ({ reply: 'Follow up from live API', mode: 'live' }),
+      json: async () => ({ reply: 'Fresh reply', mode: 'live' }),
     });
 
     await actAsync(() => render(<ChatBot defaultOpen />));
 
-    const input = screen.getByPlaceholderText(/type your message/i);
+    // The old transcript should not be restored.
+    expect(screen.queryByText(/earlier reply from raven/i)).not.toBeInTheDocument();
 
-    await actAsync(() => userEvent.type(input, 'Can you pick up the thread?'));
+    const input = screen.getByPlaceholderText(/type your message/i);
+    await actAsync(() => userEvent.type(input, 'New conversation'));
     await actAsync(() => userEvent.click(screen.getByRole('button', { name: /send/i })));
 
     await waitFor(() => {
@@ -226,7 +228,7 @@ describe('ChatBot', () => {
     const [, options] = global.fetch.mock.calls[0];
     const body = JSON.parse(options.body);
 
-    expect(body).toHaveProperty('sessionId', 'session-stored');
-    expect(screen.getByText(/earlier reply from raven/i)).toBeInTheDocument();
+    // No session restoration; starts fresh.
+    expect(body).not.toHaveProperty('sessionId', 'session-stored');
   });
 });
