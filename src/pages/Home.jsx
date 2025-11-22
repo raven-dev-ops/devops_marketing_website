@@ -236,7 +236,7 @@ export default function Home() {
 
       <section className="grid gap-10 rounded-3xl border border-raven-border/60 bg-white/90 p-8 shadow-soft-glow dark:bg-gradient-to-br dark:from-raven-card/80 dark:to-raven-surface/60 md:grid-cols-2 md:items-center">
         <div className="space-y-6">
-          <p className="inline-flex rounded-full border border-raven-border/70 bg-white/80 text-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-raven-cyan dark:bg-raven-card dark:text-slate-100">
+          <p className="inline-flex max-w-full flex-wrap justify-center rounded-full border border-raven-border/70 bg-white/80 px-3 py-1 text-center text-[11px] font-semibold uppercase leading-relaxed tracking-[0.2em] text-raven-cyan dark:bg-raven-card dark:text-slate-100 sm:text-xs sm:justify-start">
             Raven Development Operations
           </p>
           <div className="flex items-center gap-4">
@@ -245,11 +245,11 @@ export default function Home() {
               alt="Raven Development Operations logo"
               className="hidden h-48 w-48 sm:block"
             />
-            <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl">
+            <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               Fractional DevOps with clear timelines
             </h1>
           </div>
-          <p className="text-lg text-slate-300">
+          <p className="text-base text-slate-300 sm:text-lg">
             I help teams move from ad-hoc releases to disciplined delivery: CI/CD pipelines, cloud automation, observability,
             and SRE practices tailored to your stack.
           </p>

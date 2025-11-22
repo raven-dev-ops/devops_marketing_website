@@ -7,6 +7,25 @@ import { SearchContext } from '../hooks/SearchContext';
 
 export default function Blog() {
   const { query } = useContext(SearchContext);
+  const tagStyleMap = {
+    'CI/CD': 'border-emerald-400/70 bg-emerald-500/15 text-emerald-200',
+    Cloud: 'border-sky-400/70 bg-sky-500/15 text-sky-200',
+    SRE: 'border-amber-400/70 bg-amber-500/15 text-amber-100',
+    Tooling: 'border-indigo-300/80 bg-indigo-500/15 text-indigo-100',
+    Frontend: 'border-pink-400/70 bg-pink-500/15 text-pink-100',
+    DX: 'border-cyan-300/80 bg-cyan-500/15 text-cyan-100',
+    Backend: 'border-orange-300/80 bg-orange-500/15 text-orange-100',
+    Reliability: 'border-lime-300/80 bg-lime-500/15 text-lime-100',
+    Auth: 'border-rose-300/80 bg-rose-500/15 text-rose-100',
+    Bots: 'border-amber-300/70 bg-amber-500/15 text-amber-50',
+    OCR: 'border-fuchsia-300/80 bg-fuchsia-500/15 text-fuchsia-100',
+    UI: 'border-sky-300/70 bg-sky-500/15 text-sky-100',
+    Marketing: 'border-green-300/70 bg-green-500/15 text-green-100',
+    APIs: 'border-teal-300/80 bg-teal-500/15 text-teal-100',
+    Telemetry: 'border-purple-300/80 bg-purple-500/15 text-purple-100',
+    Data: 'border-blue-300/70 bg-blue-500/15 text-blue-100',
+    'Local SEO': 'border-yellow-300/80 bg-yellow-500/15 text-yellow-100',
+  };
 
   const filtered = useMemo(() => {
     const posts = blogPosts;
@@ -69,20 +88,9 @@ export default function Blog() {
                 </span>
                 <div className="flex flex-wrap gap-2 text-xs">
                   {post.tags.map((tag) => {
-                    let tagClasses =
-                      'rounded-full border px-2 py-1';
-
-                    if (tag === 'CI/CD') {
-                      tagClasses += ' border-emerald-400/70 bg-emerald-500/10 text-emerald-300';
-                    } else if (tag === 'Cloud') {
-                      tagClasses += ' border-sky-400/70 bg-sky-500/10 text-sky-300';
-                    } else if (tag === 'SRE') {
-                      tagClasses += ' border-amber-400/70 bg-amber-500/10 text-amber-200';
-                    } else if (tag === 'Tooling') {
-                      tagClasses += ' border-violet-400/70 bg-violet-500/10 text-violet-300';
-                    } else {
-                      tagClasses += ' border-raven-border/60 bg-raven-surface/60 text-slate-200';
-                    }
+                    const tagClasses = `rounded-full border px-2 py-1 shadow-inner shadow-black/10 ${
+                      tagStyleMap[tag] || 'border-raven-border/60 bg-raven-surface/60 text-slate-200'
+                    }`;
 
                     return (
                       <span key={tag} className={tagClasses}>
@@ -107,12 +115,12 @@ export default function Blog() {
 
       <section className="rounded-2xl border border-raven-border/70 bg-raven-card/60 p-6">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 md:flex-row md:items-center md:justify-center md:gap-8">
-          <div className="flex items-start gap-4">
-            <div className="hidden sm:block">
+          <div className="flex items-center gap-3 md:items-start">
+            <div className="flex-shrink-0 rounded-xl border border-raven-border/60 bg-raven-surface/50 p-2 shadow-inner shadow-black/30">
               <img
                 src={service1Banner}
                 alt="Raven Development Operations"
-                className="h-20 w-24 object-contain p-1"
+                className="h-14 w-16 object-contain sm:h-20 sm:w-24"
               />
             </div>
             <div className="text-center md:text-left">

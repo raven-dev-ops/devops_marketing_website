@@ -117,11 +117,11 @@ export default function Contact() {
 
       <div className="grid gap-8 md:grid-cols-2 md:items-stretch">
         <div className="h-full">
-          <div className="flex h-full flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition transform hover:-translate-y-0.5 hover:border-raven-accent/70 hover:shadow-soft-glow">
+          <div className="flex h-full min-h-[520px] flex-col rounded-2xl border border-raven-border/70 bg-raven-card/70 p-6 transition transform hover:-translate-y-0.5 hover:border-raven-accent/70 hover:shadow-soft-glow md:min-h-[680px]">
             <iframe
               title="Calendly discovery video call"
               src={calendlySrc}
-              className="h-full w-full rounded-lg border-0"
+              className="h-full min-h-[480px] w-full flex-1 rounded-lg border-0 md:min-h-[620px]"
             />
           </div>
         </div>
