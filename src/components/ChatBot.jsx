@@ -240,6 +240,9 @@ const quickReplies = [
     setOpen(false);
     setIsResponding(false);
     setUserInput('');
+    // Briefly hide bubble to avoid visual jump
+    setBubbleVisible(false);
+    setTimeout(() => setBubbleVisible(true), 120);
   };
 
   const handleQuickReply = (qr) => {
