@@ -66,7 +66,7 @@ const ChatBot = ({ defaultOpen = false }) => {
   const [mode, setMode] = useState('offline');
   const [showTelemetry, setShowTelemetry] = useState(false);
   const listEndRef = useRef(null);
-  const quickReplies = [
+const quickReplies = [
     {
       id: 'calendly-link',
       label: 'Calendly link',
@@ -88,6 +88,11 @@ const ChatBot = ({ defaultOpen = false }) => {
       label: 'Pricing page',
       text: 'Where is your pricing page?',
       inlineReply: 'You can review detailed packages here: https://ravdevops.com/pricing',
+    },
+    {
+      id: 'pricing-outline',
+      label: 'Pricing outline',
+      text: 'Can you outline pricing?',
     },
   ];
 

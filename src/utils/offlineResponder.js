@@ -44,6 +44,10 @@ const isScheduleIntent = (words) =>
   ['schedule', 'meet', 'meeting', 'call', 'calendly', 'book'].some((w) => words.includes(w));
 const hasTimeframe = (text) => /\b(day|week|month|deadline|today|tomorrow|next)\b/i.test(text);
 const hasVolume = (text) => /\b\d+k?\b/i.test(text) || /\b(users?|seats?|daily|monthly)\b/i.test(text);
+const hasFinanceTerms = (words) =>
+  ['finance', 'fintech', 'bank', 'pci', 'card', 'payments'].some((w) => words.includes(w));
+const hasInsuranceTerms = (words) =>
+  ['insurance', 'policy', 'claims', 'carrier', 'adjuster'].some((w) => words.includes(w));
 const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const truncate = (text, max = 140) => {
@@ -81,6 +85,10 @@ const volumeFollowup = (message) => {
   const hint = hasTimeframe(message) ? ' and a near-term timeline' : '';
   return `Sounds like higher usage${hint}. Want me to share ranges or drop a Calendly link?`;
 };
+const domainFollowups = [
+  'If this touches PII/PCI, I will tailor auth and storage. What data fields do you store?',
+  'For regulated data, we can isolate storage and tighten auth. Which users need access?',
+];
 const MIN_MATCH_SCORE = 2;
 const greetingReplies = [
   'All good here. Want to talk services, pricing, or your project?',
@@ -137,13 +145,17 @@ export const getOfflineReply = (message) => {
   if (hasVolume(message) && isPricingIntent(words) is False):
     record('quote_volume');
     return `${pricingFollowups[Math.floor(Math.random() * pricingFollowups.length)]}`;
+  if (hasVolume(message) and isCostIntent(words)) {
+    record('quote_volume');
+    return volumeFollowup(message);
+  }
   if (isTimelineIntent(words)) {
     record('timeline');
     return 'Noted on timeline. What is the deadline and the must-have for launch?';
   }
   if (isDomainIntent(words)) {
     record('domain');
-    return 'If this involves sensitive data (HIPAA/PII/PCI), I will tailor infra. What data do you store and who authenticates?';
+    return randomChoice(domainFollowups);
   }
   if (isScheduleIntent(words)) {
     record('schedule');
