@@ -16,6 +16,13 @@ const isQuoteIntent = (words) =>
   ['quote', 'pricing', 'estimate', 'cost', 'budget'].some((w) => words.includes(w));
 const projectKeywords = ['project', 'product', 'build', 'plan', 'launch', 'saas', 'app'];
 const isProjectIntent = (words) => words.some((w) => projectKeywords.includes(w));
+const hasTimeframe = (text) => /\b(day|week|month|deadline|today|tomorrow|next)\b/i.test(text);
+
+const buildProjectAck = (raw) => {
+  const summary = raw.trim();
+  const timeframeMention = hasTimeframe(raw) ? ' this week' : '';
+  return `Got it—you need help on that project${timeframeMention}. We can handle design, build, and ops. Want a free discovery call this week? I can drop the Calendly link.`;
+};
 
 const truncate = (text, max = 140) => {
   if (!text) return '';
@@ -64,7 +71,7 @@ export const getOfflineReply = (message) => {
     return 'I can help scope a quote. Share the idea, target users, and timeline, and I will suggest next steps.';
   }
   if (isProjectIntent(words)) {
-    return projectFollowUp;
+    return buildProjectAck(message);
   }
 
   let best = null;
