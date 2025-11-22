@@ -41,14 +41,14 @@ export const getOfflineReply = (message) => {
   }
 
   const promptForDetails =
-    "Happy to help. Tell me what you're curious about—services, pricing, or how to connect—and I'll share the right details.";
+    "Happy to help. What should we dive into—services, pricing, or a project you're planning? Tell me and I'll tailor the answer.";
 
   if (!best || bestScore === 0) {
     return promptForDetails;
   }
 
   if (best.answer) {
-    return `${best.answer}\n\n${promptForDetails}`;
+    return `${best.answer}\n\nWant to go deeper on services, pricing, or your project? Just say which and I'll focus there.`;
   }
 
   return promptForDetails;
