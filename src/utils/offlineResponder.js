@@ -35,6 +35,7 @@ const isDomainIntent = (words) =>
 const isScheduleIntent = (words) =>
   ['schedule', 'meet', 'meeting', 'call', 'calendly', 'book'].some((w) => words.includes(w));
 const hasTimeframe = (text) => /\b(day|week|month|deadline|today|tomorrow|next)\b/i.test(text);
+const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const truncate = (text, max = 140) => {
   if (!text) return '';
@@ -64,6 +65,16 @@ const nextStep = () =>
     ? 'Want a quick outline or a Calendly link to talk live?'
     : 'Should I send a short plan or drop the Calendly link to chat this week?';
 const MIN_MATCH_SCORE = 2;
+const greetingReplies = [
+  'All good here. Want to talk services, pricing, or your project?',
+  'Howdy! What are you working on—services, pricing, or your project?',
+  'Hi there. Should we dig into services, pricing, or your project?',
+];
+const followupReplies = [
+  'Want a quick outline or a Calendly link to talk live?',
+  'Should I share a short plan or send the Calendly link?',
+  'Prefer a written outline, or jump on Calendly to chat this week?',
+];
 
 const scoreEntry = (words, entry) => {
   const fields = [];
@@ -92,7 +103,7 @@ export const getOfflineReply = (message) => {
   }
   if (isGreeting(words)) {
     record('greeting');
-    return 'Howdy! What are you working on—services, pricing, or your project?';
+    return randomChoice(greetingReplies);
   }
   if (isOutlineIntent(words)) {
     record('outline');
@@ -108,7 +119,7 @@ export const getOfflineReply = (message) => {
   }
   if (isDomainIntent(words)) {
     record('domain');
-    return 'If this touches sensitive data (HIPAA/PII), I will tailor infra. What is the core user flow and data you store?';
+    return 'If this involves sensitive data (HIPAA/PII/PCI), I will tailor infra. What data do you store and who uses it?';
   }
   if (isScheduleIntent(words)) {
     record('schedule');
@@ -139,7 +150,7 @@ export const getOfflineReply = (message) => {
     const topic = best.title || best.question || 'this topic';
     const trimmed = truncate(firstSentence(best.answer));
     record('kb_match', { topic, score: bestScore });
-    return `For ${topic}: ${trimmed} ${nextStep()}`;
+    return `For ${topic}: ${trimmed} ${randomChoice(followupReplies)}`;
   }
 
   record('fallback');
