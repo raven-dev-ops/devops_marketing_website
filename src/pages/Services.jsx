@@ -12,7 +12,7 @@ const steps = [
     description: 'A short call to understand your goals, current stack, and delivery pain points.',
     goal: 'Align on what you’re trying to ship and where delivery hurts today.',
     nextAction: 'Decide whether a deeper assessment makes sense.',
-    videoSrc: '/videos/step1-discovery-call.mp4',
+    videoSrc: null,
   },
   {
     number: 2,
@@ -20,7 +20,7 @@ const steps = [
     description: 'Deep-dive into your repos, pipelines, and cloud accounts to map risks and opportunities.',
     goal: 'Build a clear picture of your current pipelines, infra, and risks.',
     nextAction: 'Summarize findings and proposed focus areas for a plan.',
-    videoSrc: '/videos/step2-assessment.mp4',
+    videoSrc: null,
   },
   {
     number: 3,
@@ -28,7 +28,7 @@ const steps = [
     description: 'A clear, written plan with milestones, timelines, and success criteria you can react to.',
     goal: 'Agree on scope, milestones, and what “success” looks like.',
     nextAction: 'Lock in a start date and finalize the engagement details.',
-    videoSrc: '/videos/step3-proposal.mp4',
+    videoSrc: null,
   },
   {
     number: 4,
@@ -36,7 +36,7 @@ const steps = [
     description: 'Hands-on delivery: CI/CD changes, infra updates, and reliability improvements tested in stages.',
     goal: 'Ship the agreed improvements safely, in small, testable increments.',
     nextAction: 'Demo changes, capture feedback, and iterate on anything that needs refinement.',
-    videoSrc: '/videos/step4-implementation.mp4',
+    videoSrc: null,
   },
   {
     number: 5,
@@ -44,7 +44,7 @@ const steps = [
     description: 'Documentation, runbooks, knowledge transfer, and optional ongoing fractional support.',
     goal: 'Make sure your team can own the new setup confidently.',
     nextAction: 'Confirm runbooks, answer open questions, and choose whether to continue with fractional support.',
-    videoSrc: '/videos/step5-handover.mp4',
+    videoSrc: null,
   },
 ];
 
@@ -194,7 +194,7 @@ export default function Services() {
                       className="h-32 w-32 object-contain opacity-75 sm:h-40 sm:w-40"
                     />
                     <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-200 text-center transition transform hover:scale-105 hover:text-raven-accent hover:shadow-soft-glow">
-                      {hasVideo ? `Click to play Step ${previewStep.number} video` : 'Preview coming soon'}
+                      {hasVideo ? `Click to play Step ${previewStep.number} video` : 'Coming soon'}
                     </p>
                     {!hasVideo && (
                       <span className="mt-1 rounded-full border border-raven-border/60 bg-black/50 px-3 py-1 text-[10px] font-semibold uppercase text-slate-200">
