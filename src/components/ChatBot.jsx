@@ -97,6 +97,8 @@ const ChatBot = ({ defaultOpen = false }) => {
   useEffect(() => {
     if (open) {
       setBubbleVisible(true);
+    } else {
+      setBubbleHover(false);
     }
   }, [open]);
 
@@ -478,7 +480,11 @@ const ChatBot = ({ defaultOpen = false }) => {
         {bubbleVisible && !open && (
           <motion.button
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              // Hide bubble immediately to avoid flash before panel animates
+              setBubbleVisible(false);
+              setOpen(true);
+            }}
             aria-expanded={open}
             aria-label="Open chat bot"
             className="group flex items-center justify-center rounded-lg p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-raven-accent/70"
