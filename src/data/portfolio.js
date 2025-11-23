@@ -23,7 +23,7 @@ export const portfolioItems = [
     description:
       'Galactic Phantom Division site with NextAuth auth, Mongo-backed profiles, and interactive hero states.',
     tech: ['Next.js', 'TypeScript', 'MongoDB', 'NextAuth', 'Styled Components', 'Vercel'],
-    tags: ['Cloud', 'Tooling'],
+    tags: ['Cloud', 'Tooling', 'Frontend', 'Auth', 'DX'],
     outcomes: [
       'Containerized build and deploy pipeline with CI-ready Dockerfiles for consistent releases.',
       'Secrets management and environment configuration kept in sync across preview and production deployments.',
@@ -39,7 +39,7 @@ export const portfolioItems = [
     description:
       'Modular Django backbone for storefronts with payments, orders, and CI-ready Docker images.',
     tech: ['Django', 'Docker', 'PostgreSQL', 'GitHub Actions'],
-    tags: ['Cloud', 'CI/CD'],
+    tags: ['Cloud', 'CI/CD', 'Backend', 'Reliability', 'APIs'],
     outcomes: [
       'Production-grade container images with health checks and an automated static asset pipeline.',
       'Environment templates and .env.example files that make onboarding new developers straightforward.',
@@ -55,7 +55,7 @@ export const portfolioItems = [
     description:
       'Headless storefront with Stripe, JWT auth, and DRF integration shipped to Netlify.',
     tech: ['Next.js', 'Stripe', 'Netlify', 'JWT', 'DRF'],
-    tags: ['CI/CD', 'Tooling'],
+    tags: ['CI/CD', 'Tooling', 'Frontend', 'DX'],
     outcomes: [
       'Clear separation of public versus secret environment variables for safe, reproducible builds.',
       'Optimized static asset pipeline and CDN-friendly deployment tuned for fast page loads.',
@@ -71,7 +71,7 @@ export const portfolioItems = [
     description:
       'Python bot with OCR pipelines, scheduled leaderboards, and multi-guild configuration.',
     tech: ['Python', 'Docker', 'MongoDB', 'OCR', 'Heroku'],
-    tags: ['SRE', 'Tooling'],
+    tags: ['SRE', 'Tooling', 'Bots', 'OCR', 'Reliability'],
     outcomes: [
       'Scheduled jobs for leaderboard generation and health checks so the bot remains reliable during peak usage.',
       'Background OCR processing with controlled concurrency to keep image queues flowing without overloading services.',
@@ -92,7 +92,7 @@ export const portfolioItems = [
     description:
       'Python engine for Raven AI that handles intents, telemetry, and rate-aware streaming to the frontend.',
     tech: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
-    tags: ['Tooling', 'SRE'],
+    tags: ['Tooling', 'SRE', 'APIs', 'Telemetry', 'Reliability'],
     outcomes: [
       'Streaming responses with trimmed payloads and safe fallbacks to keep the UI responsive.',
       'Feature-flagged telemetry pipeline with anonymized event logging for intent quality tuning.',
@@ -108,7 +108,7 @@ export const portfolioItems = [
     description:
       'React single-page marketing site with hero motion, product sections, and lead capture routes.',
     tech: ['React', 'Tailwind', 'Framer Motion', 'Vite'],
-    tags: ['Tooling', 'UI'],
+    tags: ['Tooling', 'UI', 'Frontend', 'Marketing'],
     outcomes: [
       'SEO and meta components wired per route with social previews.',
       'Componentized hero, services, and CTA blocks for rapid iteration without rewrites.',
@@ -124,7 +124,7 @@ export const portfolioItems = [
     description:
       'Python utility set for cleaning, transforming, and scheduling CSV workflows.',
     tech: ['Python', 'Pandas', 'CLI'],
-    tags: ['Tooling'],
+    tags: ['Tooling', 'Data'],
     outcomes: [
       'Reusable CLI commands for normalize, dedupe, and export jobs.',
       'Config-driven transforms so pipelines stay versioned and repeatable.',
@@ -140,7 +140,7 @@ export const portfolioItems = [
     description:
       'Multi-step questionnaire with animated reveals, Mongo-backed scoring, and server-rendered results.',
     tech: ['Next.js', 'MongoDB', 'Framer Motion', 'Tailwind'],
-    tags: ['Tooling'],
+    tags: ['Tooling', 'UI', 'DX'],
     outcomes: [
       'Route handlers that serve assessments from Mongo with schema validation.',
       'Animated stepper UI that keeps users oriented while collecting answers.',
@@ -156,7 +156,7 @@ export const portfolioItems = [
     description:
       'Next.js marketing site scaffolded for a training institute with responsive layouts.',
     tech: ['Next.js', 'Tailwind'],
-    tags: ['Tooling'],
+    tags: ['Tooling', 'Frontend', 'Local SEO'],
     outcomes: [
       'App Router baseline with typed metadata and layout slots ready for content.',
       'Responsive sections and hero ready for course highlights and CTAs.',
@@ -172,7 +172,7 @@ export const portfolioItems = [
     description:
       'Lightweight marketing site for a welding services business with clear service listings.',
     tech: ['Next.js', 'TypeScript', 'Tailwind'],
-    tags: ['Tooling'],
+    tags: ['Tooling', 'Frontend', 'Marketing', 'Local SEO'],
     outcomes: [
       'Hero and services grid tuned for quick edits without touching code-heavy areas.',
       'Contact CTA blocks wired for easy form or mailto integrations.',
